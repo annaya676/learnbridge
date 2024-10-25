@@ -251,20 +251,20 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'category_id' => 'required',
-            'image' => 'file|mimes:png,gpeg,jpg|max:2048',
+            // 'image' => 'file|mimes:png,gpeg,jpg|max:2048',
         ]);
         // Upload the file
-        $fileName='';
-        if($request->hasFile('image')){     
-            $file = $request->file('image');
-            $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/category'), $fileName);
-        }
+        // $fileName='';
+        // if($request->hasFile('image')){     
+        //     $file = $request->file('image');
+        //     $fileName = time() . '.' . $file->getClientOriginalExtension();
+        //     $file->move(public_path('uploads/category'), $fileName);
+        // }
             
         $category = new SubCategory();
         $category->name = $request->name;
         $category->category_id = $request->category_id;
-        $category->image =$fileName;
+        // $category->image =$fileName;
         $category->status =1;
         $category->save();
        
@@ -301,23 +301,23 @@ class CategoryController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'category_id' => 'required',
-            'image' => 'file|mimes:png,gpeg,jpg|max:2048',
+            // 'image' => 'file|mimes:png,gpeg,jpg|max:2048',
         ]);
        
         $category = SubCategory::find($id);
 
          // Upload the file
-         if($request->hasFile('image')){
-            $imagePath = public_path('uploads/category/' . $category->image);
-            if (file_exists($imagePath)) {
-                // Remove the old image
-                unlink($imagePath);
-            }
-            $file = $request->file('image');
-            $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/category'), $fileName);
-            $category->image =$fileName;
-        }
+        //  if($request->hasFile('image')){
+        //     $imagePath = public_path('uploads/category/' . $category->image);
+        //     if (file_exists($imagePath)) {
+        //         // Remove the old image
+        //         unlink($imagePath);
+        //     }
+        //     $file = $request->file('image');
+        //     $fileName = time() . '.' . $file->getClientOriginalExtension();
+        //     $file->move(public_path('uploads/category'), $fileName);
+        //     $category->image =$fileName;
+        // }
             
         $category->name = $request->name;
         $category->category_id = $request->category_id;

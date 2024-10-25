@@ -51,12 +51,12 @@
                                 @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             
-                            <div class="col-8">
+                            <!-- <div class="col-8">
                                 <label for="image" class="form-label mb-8 h6">Image </label>
                                 <input type="file" class="form-control py-11 @error('image') is-invalid @enderror" name="image" id="image">
                                 @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror 
                              
-                            </div>
+                            </div> -->
 
              
                            
