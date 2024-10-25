@@ -90,7 +90,7 @@ class CategoryController extends Controller
     // dd($request);
         $validatedData = $request->validate([
             'name' => 'required',
-            'image' => 'required|file|mimes:png,gpeg,jpg|max:2048',
+            'image' => 'file|mimes:png,gpeg,jpg|max:2048',
         ]);
 
         // Upload the file
@@ -146,7 +146,7 @@ class CategoryController extends Controller
          // Upload the file
          if($request->hasFile('image')){
             $imagePath = public_path('uploads/category/' . $category->image);
-            if (file_exists($imagePath)) {
+            if (file_exists($imagePath) && $category->image!='') {
                 // Remove the old image
                 unlink($imagePath);
             }
@@ -183,15 +183,9 @@ class CategoryController extends Controller
          $datas = SubCategory::orderBy('id', 'desc')->get();
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
-                            ->addColumn('image', function(SubCategory $data) {
-
-                                if($data->image!=''){
-                                    return '<img style="height:50px;" src="'.asset('uploads/category/'.$data->image).'">';
-
-                                }else{
-                                    return '';
-                                }
-                            }) 
+         ->addColumn('category_id', function(SubCategory $data) {
+            return ($data->category)?$data->category->name:'';
+        }) 
                             ->addColumn('status', function(SubCategory $data) {
                                 // $role = $data->role_id == 0 ? 'No Role' : $data->role->name;
                           
@@ -218,7 +212,7 @@ class CategoryController extends Controller
                             ->addColumn('action', function(SubCategory $data) {
                                 return '<a href="'.route('sub-categories.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>';
                               }) 
-                            ->rawColumns(['status','action','image'])         
+                            ->rawColumns(['status','action','category_id'])         
                             ->toJson(); //--- Returning Json Data To Client Side
     }
     /**

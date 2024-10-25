@@ -35,7 +35,7 @@
                         <div class="row gy-4">
                             <div class="col-8">
                                 <label for="category_id" class="form-label mb-8 h6">Category <span class="text-13 text-gray-400 fw-medium">(Required)</span> </label>
-                                <select class="form-control select2 form-select py-11 @error('category_id') is-invalid @enderror" required name="category_id" data-placeholder="Choose category">
+                                <select class="form-control form-select py-11 @error('category_id') is-invalid @enderror" required name="category_id" data-placeholder="Choose category">
                                     
                                     <option value="">{{ __('Select category') }}</option>
                                     @foreach($category as $cat)
