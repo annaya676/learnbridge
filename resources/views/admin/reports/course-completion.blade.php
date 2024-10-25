@@ -37,22 +37,22 @@
                 <thead>
                     <tr>
                     <th class="h6 text-gray-300"  >{{ __('User Name') }}</th>
-                    <th class="h6 text-gray-300"  >{{ __('User Id') }}</th>
+                    {{-- <th class="h6 text-gray-300"  >{{ __('User Id') }}</th> --}}
                     <th class="h6 text-gray-300"  >{{ __('Email ID') }}</th>	
                     <th class="h6 text-gray-300"  >{{ __('Course Title') }}</th>	
-                    <th class="h6 text-gray-300"  >{{ __('Course Code') }}</th>	
-                    <th class="h6 text-gray-300"  >{{ __('Course Start Date') }}</th>
-                    <th class="h6 text-gray-300"  >{{ __('IsAssessmentAvailable') }}</th>
-                    <th class="h6 text-gray-300"  >{{ __('Assessment Status') }}</th>
-                    <th class="h6 text-gray-300"  >{{ __('Assessment Date') }}</th>	
-                    <th class="h6 text-gray-300"  >{{ __('Course Completion Date') }}</th>	
-                    <th class="h6 text-gray-300"  >{{ __('Course Status') }}</th>	
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Course Code') }}</th>	 --}}
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Course Start Date') }}</th> --}}
+                    {{-- <th class="h6 text-gray-300"  >{{ __('IsAssessmentAvailable') }}</th> --}}
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Assessment Status') }}</th> --}}
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Assessment Date') }}</th>	 --}}
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Course Completion Date') }}</th>	 --}}
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Course Status') }}</th>	 --}}
                     <th class="h6 text-gray-300"  >{{ __('CourseDuration') }}</th>
                     <th class="h6 text-gray-300"  >{{ __('Date of Joining') }}</th>
                     <th class="h6 text-gray-300"  >{{ __('Designation') }}</th>	
-                    <th class="h6 text-gray-300"  >{{ __('Grade') }}</th>
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Grade') }}</th> --}}
                     <th class="h6 text-gray-300"  >{{ __('Department') }}</th> 
-                    <th class="h6 text-gray-300"  >{{ __('Sub LoB') }}</th>                        
+                    {{-- <th class="h6 text-gray-300"  >{{ __('Sub LoB') }}</th>                         --}}
                     </tr>
                 </thead>
                 
@@ -136,22 +136,22 @@ $(document).ready(function() {
             //    ajax: '{{ route('reports.course.completion.datatables') }}',
                columns: [
                     { data: 'user_name', name: 'user_name' },
-                    { data: 'id', name: 'id' },
+                    // { data: 'id', name: 'id' },
                     { data: 'email',name: 'email' },
                     { data: 'course_name', name: 'course_name' },
-                    { data: 'course_id', name: 'course_id' },
-                    { data: 'course_start_date', name: 'course_start_date' },
-                    { data: 'IsAssessmentAvailable', name: 'IsAssessmentAvailable' },
-                    { data: 'assignment_status', name: 'assignment_status' },
-                    { data: 'assignment_upload_date', name: 'assignment_upload_date' },
-                    { data: 'is_complete', name: 'is_complete' },
-                    { data: 'course_status', name: 'course_status' },
+                    // { data: 'course_id', name: 'course_id' },
+                    // { data: 'course_start_date', name: 'course_start_date' },
+                    // { data: 'IsAssessmentAvailable', name: 'IsAssessmentAvailable' },
+                    // { data: 'assignment_status', name: 'assignment_status' },
+                    // { data: 'assignment_upload_date', name: 'assignment_upload_date' },
+                    // { data: 'is_complete', name: 'is_complete' },
+                    // { data: 'course_status', name: 'course_status' },
                     { data: 'module_duration', name: 'module_duration' },
                     { data: 'doj', name: 'doj' },
                     { data: 'designation', name: 'designation' },
-                    { data: 'grade', name: 'grade' },
+                    // { data: 'grade', name: 'grade' },
                     { data: 'department', name: 'department' },
-                    { data: 'sub_lob', name: 'sub_lob' },
+                    // { data: 'sub_lob', name: 'sub_lob' },
                      ],
                 language : {
                     processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'

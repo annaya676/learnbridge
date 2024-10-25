@@ -39,12 +39,12 @@
                        <th class="h6 text-gray-300"  >{{ __('User Id') }}</th>
                         <th class="h6 text-gray-300"  >{{ __('User Name') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Email Id') }}</th>
-                        <th class="h6 text-gray-300" >{{ __('Sub LoB') }}</th>
+                        {{-- <th class="h6 text-gray-300" >{{ __('Sub LoB') }}</th> --}}
                         <th class="h6 text-gray-300" >{{ __('Date Of Joining') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Designation') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Department') }}</th>
-                        <th class="h6 text-gray-300" >{{ __('Grade') }}</th>
-                        <th class="h6 text-gray-300"  style="width: 111px;" >{{ __('Status') }}</th>
+                        {{-- <th class="h6 text-gray-300" >{{ __('Grade') }}</th> --}}
+                        {{-- <th class="h6 text-gray-300"  style="width: 111px;" >{{ __('Status') }}</th> --}}
 
                     </tr>
                 </thead>
@@ -132,12 +132,12 @@ $(document).ready(function() {
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
-                    { data: 'lob_id', name: 'lob_id' },
+                    // { data: 'lob_id', name: 'lob_id' },
                     { data: 'doj', name: 'doj' },
                     { data: 'designation',  name: 'designation'  },
                     { data: 'department',  name: 'department'  },
-                    { data: 'grade',  name: 'grade'  },
-                    { data: 'status', name: 'status',},
+                    // { data: 'grade',  name: 'grade'  },
+                    // { data: 'status', name: 'status',},
 
                      ],
                 language : {

@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\AssignmentController;
 use App\Http\Controllers\Admin\TaController;
 use App\Http\Controllers\Admin\ReportsController;
+use App\Http\Controllers\Admin\CategoryController;
+
 ////Admin
 Route::prefix('admin')->group( function(){
 
@@ -39,7 +41,7 @@ Route::middleware(['admin', 'role:1'])->prefix('admin')->group( function(){
     Route::get('/lob/{id}/edit', [LobController::class, 'edit'])->name('lob.edit'); 
     Route::put('/lob/{id}', [LobController::class, 'update'])->name('lob.update'); 
     Route::get('/lob/status/update/{id1}/{id2}', [LobController::class, 'updateStatus'])->name('lob.status.update');
-
+    
     Route::get('/sme', [SmeController::class, 'index'])->name('sme');
     Route::get("/sme/datatables", [SmeController::class, 'datatables'])->name('sme.datatables');
     Route::get('/sme/create', [SmeController::class, 'create'])->name('sme.create'); 
@@ -107,6 +109,28 @@ Route::middleware(['admin', 'role:1'])->prefix('admin')->group( function(){
     Route::post("/reports/course/catalogue/export", [ReportsController::class, 'courseCatalogueExport'])->name('reports.course.catalogue.export');
     Route::get("/reports/course/catalogue/datatables", [ReportsController::class, 'courseCatalogueDatatables'])->name('reports.course.catalogue.datatables');
     Route::get("/reports/course/catalogue", [ReportsController::class, 'courseCatalogue'])->name('reports.course.catalogue');
+
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+    Route::get("/categories/datatables", [CategoryController::class, 'datatables'])->name('categories.datatables');
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create'); 
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store'); 
+    Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit'); 
+    Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update'); 
+    Route::get('/categories/status/update/{id1}/{id2}', [CategoryController::class, 'updateStatus'])->name('categories.status.update');
+    
+    Route::get('/sub-categories', [CategoryController::class, 'subcategories'])->name('sub-categories');
+    Route::get("/sub-categories/datatables", [CategoryController::class, 'datatablesSubCategory'])->name('sub-categories.datatables');
+    Route::get('/sub-categories/create', [CategoryController::class, 'createSubCategory'])->name('sub-categories.create'); 
+    Route::post('/sub-categories', [CategoryController::class, 'storeSubCategory'])->name('sub-categories.store'); 
+    Route::get('/sub-categories/{id}/edit', [CategoryController::class, 'editSubCategory'])->name('sub-categories.edit'); 
+    Route::put('/sub-categories/{id}', [CategoryController::class, 'updateSubCategory'])->name('sub-categories.update'); 
+    Route::get('/sub-categories/status/update/{id1}/{id2}', [CategoryController::class, 'updateSubCategoryStatus'])->name('sub-categories.status.update');
+    Route::post('/sub-categories-ajax', [CategoryController::class, 'getSubCategories'])->name('getSubCategories');;
+
+    
+     
+
 
 });
 

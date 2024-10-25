@@ -88,6 +88,29 @@
 
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <label for="category_id" class="form-label mb-8 h6">Category <span class="text-13 text-gray-400 fw-medium">(Required)</span> </label>
+                                <select class="form-control  form-select py-11 @error('category_id') is-invalid @enderror" required id="category_id" name="category_id" data-placeholder="Choose category">
+                                    
+                                    <option value="">{{ __('Select category') }}</option>
+                                    @foreach($category as $cat)
+                                      <option  value="{{ $cat->id }}" {{  $cat->id==$course->category_id?'selected':'' }}>{{ $cat->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror  
+                            </div>
+
+                            <div class="col-12">
+                                <label for="subcategory_id" class="form-label mb-8 h6">Sub Category <span class="text-13 text-gray-400 fw-medium">(Required)</span> </label>
+                                <select class="form-control  form-select py-11 @error('subcategory_id') is-invalid @enderror" required  id="subcategory_id"  name="subcategory_id" data-placeholder="Choose sub category">
+                                    
+                                    <option value="">{{ __('Select Sub category') }}</option>
+                                    @foreach($subCategories as $subcat)
+                                            <option  value="{{ $subcat->id }}" {{  $subcat->id==$course->subcategory_id?'selected':'' }}>{{ $subcat->name }}</option>
+                                        @endforeach
+                                        </select>
+                                        @error('subcategory_id') <div class="invalid-feedback">{{ $message }}</div> @enderror  
+                                    </div>
                                                      
                             <div class="col-sm-12">
                                 <label for="fname" class="form-label mb-8 h6">Description <span class="text-13 text-gray-400 fw-medium">(Required)</span> </label>
@@ -157,5 +180,41 @@
 </div>
 
 
+@section('scripts')
 
+<script>
+    $(document).ready(function() {
+        $('#category_id').change(function() {
+            var categoryId = $(this).val();
+            if (categoryId) {
+                $.ajax({
+                    // ajax: '{{ route('course.datatables') }}',
+
+                    url: '{{ route('getSubCategories') }}', // Use the named route for the POST request
+                    type: 'POST',
+                    data: {
+                        category_id: categoryId, // Send the category ID
+                        _token: '{{ csrf_token() }}' // Include CSRF token for security
+                    },
+
+                    success: function(data) {
+                        $('#subcategory_id').empty();
+                        $('#subcategory_id').append('<option value="">Select sub category</option>');
+
+                        $.each(data, function(index, subCategory) {
+                            $('#subcategory_id').append('<option value="' + subCategory.id + '">' + subCategory.name + '</option>');
+                        });
+                    },
+                    error: function(xhr) {
+                        console.error(xhr.responseText); // Log any errors
+                    }
+                });
+            } else {
+                $('#subcategory_id').empty();
+            }
+        });
+    });
+</script>
+
+@endsection
 @endsection

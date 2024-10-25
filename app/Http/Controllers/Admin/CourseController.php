@@ -7,6 +7,8 @@ use App\Models\Admin;
 use App\Models\Lob;
 use App\Models\Course;
 use App\Models\QuizQuestion;
+use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\Module;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -25,10 +27,16 @@ class CourseController extends Controller
          //--- Integrating This Collection Into Datatables
 
          return Datatables::of($datas)
+         
+                    ->addColumn('category_id', function(Course $data) {
+                        return ($data->category)?$data->category->name:'';
+                    }) 
+                    ->addColumn('subcategory_id', function(Course $data) {
+                        return $data->subcategory?$data->subcategory->name:'';
+                    }) 
                 ->addColumn('image', function(Course $data) {
                     return '<img style="height:50px;" src="'.asset('uploads/thumb/'.$data->image).'">';
                 }) 
-
                 ->addColumn('status', function(Course $data) {
                     // $role = $data->role_id == 0 ? 'No Role' : $data->role->name;
                     $alertmsg="return confirm('Are you sure you want to update the status?')";
@@ -53,7 +61,7 @@ class CourseController extends Controller
                 ->addColumn('action', function(Course $data) {
                     return '<a href="'.route('course.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>';
                     }) 
-                ->rawColumns(['image','status','action'])         
+                ->rawColumns(['subcategory_id','category_id','image','status','action'])         
                 ->toJson(); //--- Returning Json Data To Client Side
     }
 
@@ -75,8 +83,9 @@ class CourseController extends Controller
     {
         $lobs = Lob::all();
         $smes = Admin::where('role_id',2)->orderBy('name', 'asc')->get();
+        $category = Category::orderBy('id', 'desc')->get();
 
-        return view('admin.course.create',compact('lobs','smes'));
+        return view('admin.course.create',compact('lobs','smes','category'));
 
     }
 
@@ -90,6 +99,8 @@ class CourseController extends Controller
             'course_name' => 'required',
             'description' => 'required',
             'author' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
             'sme_id' => 'required|array',
             'lob_id' => 'required|array',
             'image' => 'required|file|mimes:png,gpeg,jpg|max:2048',
@@ -100,8 +111,6 @@ class CourseController extends Controller
             'lob_id.required' => 'Please select your LOB.',
             'sme_id.required' => 'Please select your SME.',
         ]);
-
-        
 
         // Upload the file
         $file = $request->file('image');
@@ -118,13 +127,15 @@ class CourseController extends Controller
         
         $course = new Course();
 
+        $course->category_id = $request->category_id;
+        $course->subcategory_id = $request->subcategory_id;
         $course->author = $request->author;
         $course->uploader = Auth::guard("admin")->user()->id;
         $course->course_name = $request->course_name;
         $course->description = $request->description;
         $course->sme_id = implode(",",$request->sme_id);
         $course->lob_id = implode(",",$request->lob_id);
-        $course->course_id =rand(1000,9999);
+        $course->course_id = rand(1000,9999);
         $course->image =$fileName;
         $course->assignment =$assignmentName;
         $course->status =0;
@@ -145,11 +156,13 @@ class CourseController extends Controller
             $course = Course::findOrFail($id);
             $lobs = Lob::all();
             $smes = Admin::where('role_id',2)->orderBy('name', 'asc')->get();    
-          
+            $category = Category::orderBy('id', 'desc')->get();           
+            $subCategories = $course->category_id!=''? SubCategory::where('category_id', $course->category_id)->get() : array();
+
             $selected_sme_id = explode(",",$course->sme_id);
             $selected_lob_id = explode(",",$course->lob_id);
 
-            return view('admin.course.edit', compact('selected_sme_id','selected_lob_id','smes','lobs','course'));  
+            return view('admin.course.edit', compact('category','subCategories','selected_sme_id','selected_lob_id','smes','lobs','course'));  
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->route('course')->with('error', 'course not found');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -171,6 +184,8 @@ class CourseController extends Controller
             'course_name' => 'required',
             'description' => 'required',
             'author' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
             'sme_id' => 'required|array',
             'lob_id' => 'required|array',
             'image' => 'file|mimes:png,gpeg,jpg|max:2048',
@@ -208,8 +223,9 @@ class CourseController extends Controller
              $assignmentfile->move(public_path('uploads/assignment'), $assignmentName);
              $course->assignment =$assignmentName;
         }
-     
 
+        $course->category_id = $request->category_id;
+        $course->subcategory_id = $request->subcategory_id;
         $course->author = $request->author;
         $course->uploader = Auth::guard("admin")->user()->id;
         $course->course_name = $request->course_name;

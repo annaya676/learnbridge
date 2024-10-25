@@ -40,10 +40,10 @@
                         <th class="h6 text-gray-300" >{{ __('Course Name') }}</th>
                         {{-- <th class="h6 text-gray-300" >{{ __('Description') }}</th> --}}
                         <th class="h6 text-gray-300" >{{ __('Module Duration') }}</th>
-                        <th class="h6 text-gray-300" >{{ __('Status') }}</th>
+                        {{-- <th class="h6 text-gray-300" >{{ __('Status') }}</th> --}}
                         <th class="h6 text-gray-300" >{{ __('Is Assessment Available') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Total Modules') }}</th>
-                        <th class="h6 text-gray-300" >{{ __('Created Date') }}</th>
+                        {{-- <th class="h6 text-gray-300" >{{ __('Created Date') }}</th> --}}
                     </tr>
                 </thead>
                 
@@ -130,10 +130,10 @@ $(document).ready(function() {
                         { data: 'course_name', name: 'course_name' },
                         // { data: 'description', name: 'description' },
                         { data: 'module_duration', name: 'module_duration' },
-                        { data: 'status',  name: 'status'  },
+                        // { data: 'status',  name: 'status'  },
                         { data: 'is_assignment', name: 'is_assignment' },
                         { data: 'total_modules',  name: 'total_modules'  },
-                        { data: 'created_at', name: 'created_at' },
+                        // { data: 'created_at', name: 'created_at' },
                      ],
                 language : {
                     processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'

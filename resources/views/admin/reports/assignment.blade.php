@@ -41,7 +41,7 @@
                         <th class="h6 text-gray-300" >{{ __('LOB') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Assigned') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Date') }}</th>
-                        <th class="h6 text-gray-300"  style="width: 111px;" >{{ __('Status') }}</th>
+                        {{-- <th class="h6 text-gray-300"  style="width: 111px;" >{{ __('Status') }}</th> --}}
 
                     </tr>
                 </thead>
@@ -129,7 +129,7 @@ $(document).ready(function() {
                         { data: 'lob_id', name: 'lob_id' },
                         { data: 'assignment_assign', name: 'assignment_assign' },
                         { data: 'assignment_upload_date',  name: 'assignment_upload_date'  },
-                        { data: 'assignment_status',  name: 'assignment_status'  },
+                        // { data: 'assignment_status',  name: 'assignment_status'  },
                      ],
                 language : {
                     processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'

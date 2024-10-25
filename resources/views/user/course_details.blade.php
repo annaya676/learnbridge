@@ -97,7 +97,7 @@
                                 <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-{{  $module->video_unlocked?'circle':'lock-key' }}"></i></span>
                                 <div class="w-100">
                                     <a href="{{ $module->video_unlocked?route('user.course.module',['id1' => $details->course->id,'slug'=>'video', 'id2' => $module->id]):'' }}" class="{{ ($module->id == $module_id && $module_type == 'video')?'text-decoration-underline':'text-gray-300' }} fw-medium d-block hover-text-main-600 d-lg-block">
-                                        <i class="ph-fill ph-video"></i> Video
+                                        <i class="ph-fill ph-video"></i> {{ $module->module_name }}
                                     </a>
                                 </div>
                             </li>
@@ -109,7 +109,7 @@
                                 </span>
                                 <div class="w-100">
                                     <a href="{{ $module->document_unlocked?route('user.course.module',['id1' => $details->course->id, 'slug'=>'document',  'id2' => $module->id]):'#' }}" class="{{ ($module->id == $module_id && $module_type == 'document')?'text-decoration-underline':'text-gray-300' }} fw-medium d-block hover-text-main-600 d-lg-block">
-                                        <i class="ph-fill ph-file"></i> Document
+                                        <i class="ph-fill ph-file"></i> {{ $module->module_name }}
                                     </a>
                                 </div>
                             </li>
