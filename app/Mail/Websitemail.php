@@ -40,7 +40,7 @@ class Websitemail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.email',
+            view: 'emails.mailbody',
         );
     }
 

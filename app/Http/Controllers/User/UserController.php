@@ -149,7 +149,7 @@ class UserController extends Controller
         if ($myCourses->isEmpty()) {
             abort(404); // Show a 404 error if no data is found
         }
-        
+        // dd($myCourses);
         return view("user.courses",compact('myCourses'));
     }
     public function checkCourseComplete($course_id){
@@ -435,6 +435,7 @@ class UserController extends Controller
                 $coursedetails->quiz_score = $score;
                 $coursedetails->quiz_status = 1;
                 $coursedetails->update();
+                $this->checkCourseComplete($courseId);
             }else{
                 $coursedetails->quiz_score = $score;
                 $coursedetails->quiz_status = 2;

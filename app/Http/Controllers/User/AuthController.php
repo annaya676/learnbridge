@@ -32,6 +32,7 @@ class AuthController extends Controller
         $data=[
             "email" => $check["email"],
             "password" => $check["password"],
+            "status" => 1,
         ];
 
         if(Auth::guard("web")->attempt($data)){

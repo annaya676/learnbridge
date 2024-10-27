@@ -256,7 +256,7 @@
                             @php
                                 $doj = Auth::guard('web')->user()->doj;
                             @endphp
-                            <a class=" text-red" href="#">Please submit all assignments before Doj - {{  \Carbon\Carbon::create($doj)->subDays(5)->format('d-m-Y') }}</a> 
+                            <a class=" text-red" href="#">Please submit all assignments before - {{  \Carbon\Carbon::create($doj)->subDays(5)->format('d-m-Y') }}</a> 
                         </marquee>
                     </div>
                 </div>

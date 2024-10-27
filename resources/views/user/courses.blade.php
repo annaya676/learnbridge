@@ -24,9 +24,25 @@
                 $total_module =  count($myCourse->course->module);
                 $is_read_docs = ($myCourse->is_read_docs!='')?explode(",",$myCourse->is_read_docs):array();
                 $is_read_video = ($myCourse->is_read_video!='')?explode(",",$myCourse->is_read_video):array();
-                $totalWatch = array_merge($is_read_docs,$is_read_video);
+                $totalWatch = array_unique(array_merge($is_read_docs,$is_read_video));
                 $totalWatchCount=  count($totalWatch);
+                if ($myCourse->course->isquiz==1){
+                    $total_module=$total_module+1;
+                    if($myCourse->quiz_status==1){
+                        $totalWatchCount=$totalWatchCount+1;
+                    } 
+                }
+                if ($myCourse->course->assignment !=''){
+                    $total_module=$total_module+1;
+                    if($myCourse->assignment_status==1){
+                        $totalWatchCount=$totalWatchCount+1;
+                    }
+                } 
                 $progressbar=($totalWatchCount*100)/ $total_module;
+                
+                if($myCourse->is_complete==1){
+                    $progressbar=100;
+                }
             @endphp
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="card border border-gray-100">

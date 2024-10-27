@@ -14,6 +14,8 @@ use Hash;
 // use Maatwebsite\Excel\Facades\Excel;
 // use App\Imports\UsersImport;
 // use Illuminate\Support\Facades\Validator;
+use App\Mail\Websitemail;
+use Illuminate\Support\Facades\Mail;
 
 
 use Yajra\DataTables\DataTables;
@@ -106,7 +108,7 @@ class UserController extends Controller
             ]
         );
         
-        $pass=1234;
+        $pass=rand(10000,99999);
         $token=hash('sha256',time());
 
         $user = new User();
@@ -117,6 +119,9 @@ class UserController extends Controller
         
         $input['status'] = 1;
         $user->fill($input)->save();
+
+        $this->userActivatedEmail($user->id,$pass);
+
 
         return redirect()->back()->with('success','user create successfully');    
      
@@ -293,6 +298,30 @@ class UserController extends Controller
 
     
      return redirect()->back()->with('success',$count.' users    upload successfully');
+    }
+
+
+    public function userActivatedEmail($user_id,$password){
+        // Event: User Activated on LearnBridge , user create send this mail
+
+        $user = User::find($user_id);
+        $email_send_to=$user->email ;
+        $CC_email='joshisummi@gmail.com';
+        $subject  ='Welcome to University! Access credentials for LearnBridge.';
+        $link =route('login');
+
+        $message  ='<h2>Hi '.$user->name.'</h2>';
+        $message  .='<p>Thank you for choosing to be a part of University! We are happy to share that your access to the University pre-joining Learning Portal – LearnBridge is active.</p><br/>';
+        $message  .='<p>To access the portal, please use the following credentials:</p>';
+        $message  .='<p><b>Link:</b> <a href='.$link.'> Click Here </a></p>';
+        $message  .='<p><b>Username:</b> '.$user->email.'</p>';
+        $message  .='<p><b>Password:</b> '.$password.'</p>';
+        $message  .='<p>Please keep a check on your email for the list of courses mapped to you and the navigation guide.</p><br/>';
+        $message  .='<p><b>Important:</b> The password is auto generated and cannot be changed. In case you are unable to log-in, write to <Mailbox Name> along with a screenshot of the error.</p>';
+
+        Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
+        return 'Email sent successfully!';
+
     }
 
 

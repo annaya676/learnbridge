@@ -16,18 +16,30 @@ class AdminController extends Controller
   
     public function datatables()
     {
-         $datas = Admin::where('role_id',1)->orderBy('id', 'desc')->get();
+         $datas = Admin::where('role_id',1)->orderBy('id', 'asc')->get();
          //--- Integrating This Collection Into Datatables
 
          return Datatables::of($datas)
                             ->addColumn('status', function(Admin $data) {
                                 // $role = $data->role_id == 0 ? 'No Role' : $data->role->name;
                                 $alertmsg="return confirm('Are you sure you want to update the status?')";
+                                if($data->is_super_admin==1){
+                                    return ($data->status == 1)?
+                                    '<a href="#" class="text-13 py-2 px-8 bg-success-50 text-success-600 d-inline-flex align-items-center gap-8 rounded-pill">
+                                    <span class="w-6 h-6 bg-success-600 rounded-circle flex-shrink-0"></span>
+                                    Active
+                                    </a>'
+                                    :
+                                    '<a href="#" class="text-13 py-2 px-8 bg-warning-50 text-warning-600 d-inline-flex align-items-center gap-8 rounded-pill">
+                                    <span class="w-6 h-6 bg-warning-600 rounded-circle flex-shrink-0"></span>
+                                    Inactive
+                                    </a>'
+                                    ;
+                                }else{
 
                                 return ($data->status == 1)?
-
-                            '  <a href="'.route('admin.status.update',['id1' => $data->id, 'id2' => 0]).'" 
-                            class="text-13 py-2 px-8 bg-success-50 text-success-600 d-inline-flex align-items-center gap-8 rounded-pill"
+                                '  <a href="'.route('admin.status.update',['id1' => $data->id, 'id2' => 0]).'" 
+                                class="text-13 py-2 px-8 bg-success-50 text-success-600 d-inline-flex align-items-center gap-8 rounded-pill"
                                     onclick="'.$alertmsg.'">
                                 <span class="w-6 h-6 bg-success-600 rounded-circle flex-shrink-0"></span>
                                 Active
@@ -40,6 +52,7 @@ class AdminController extends Controller
                                 Inactive
                                 </a>'
                                 ;
+                                }
                             }) 
                             ->addColumn('action', function(Admin $data) {
                                 return '<a href="'.route('admin.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>
@@ -134,6 +147,7 @@ class AdminController extends Controller
        
         $admin = Admin::find($id);
         $admin->update($validatedData);
+        
         return redirect()->back()->with('success','admin update successfully');
     }
 
@@ -141,9 +155,11 @@ class AdminController extends Controller
 
             // Update the status
             $admin = Admin::find($id);
-            $admin->status = $status;
-            $admin->update();
-
+            if($admin->is_super_admin!=1){
+                $admin->status = $status;
+                $admin->update();
+            }
+           
             // Return a success message
             return redirect()->back()->with('success','Status updated successfully!');    
 

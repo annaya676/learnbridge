@@ -58,9 +58,7 @@
                     <span class="position-absolute top-50 translate-middle-y ms-16 text-gray-600 d-flex"><i class="ph ph-lock"></i></span>
                 </div>
             </div>
-            <div class="mb-32 flex-between flex-wrap gap-8">
-                <a href="{{ route('admin.forgot') }}" class="text-main-600 hover-text-decoration-underline text-15 fw-medium">Forgot Password?</a>
-            </div>
+          
             <button type="submit" id="login" class="btn btn-main rounded-pill w-100">Sign In</button>
             
 
