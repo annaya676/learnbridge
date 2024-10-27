@@ -78,12 +78,7 @@
         <li class="sidebar-submenu__item">
             <a href="{{ route('categories' )}}" class="sidebar-submenu__link"> View Category </a>
         </li>  
-        <li class="sidebar-submenu__item">
-            <a href="{{ route('sub-categories.create' )}}" class="sidebar-submenu__link"> Add Sub Category </a>
-        </li>  
-        <li class="sidebar-submenu__item">
-            <a href="{{ route('sub-categories' )}}" class="sidebar-submenu__link"> View Sub Category </a>
-        </li>  
+    
         <li class="sidebar-submenu__item">
             <a href="{{ route('course.create' )}}" class="sidebar-submenu__link"> Add Course </a>
         </li>

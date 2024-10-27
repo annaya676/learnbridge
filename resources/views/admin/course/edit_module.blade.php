@@ -73,18 +73,18 @@
                                     <div id="emailHelp" class="form-text">Upload only mp4.</div>
                                       @if($module->video)
                                     <div class="flex-align gap-8 mt-1">
-                                        <a href="{{ asset('uploads/videos/'.$module->video) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview video</a>
+                                        <a href="{{ route('admin.file.preview.video', ['filename' =>$module->video]) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview video</a>
                                     </div>
                                 @endif
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <label for="pdf" class="form-label mb-8 h6">Pdf | PPT </label>
+                                    <label for="pdf" class="form-label mb-8 h6">Pdf </label>
                                     <input type="file" name="pdf" class="form-control py-11 @error('pdf') is-invalid @enderror" id="pdf" >
                                     @error('pdf') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                                     <div id="pdfHelp" class="form-text">Upload only pdf.</div>
                                       @if($module->document)
                                     <div class="flex-align gap-8 mt-1">
-                                        <a href="{{ asset('uploads/docs/'.$module->document) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview Pdf</a>
+                                        <a href="{{ route('admin.file.preview.pdf', ['filename' => $module->document]) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview Pdf</a>
                                     </div>
                                 @endif
                                 </div>

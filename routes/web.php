@@ -12,8 +12,11 @@ Route::get("/about", [FrontController::class, 'about'])->name('about');
 
 // User
 Route::middleware('auth')->group( function(){
+    Route::get('/pdf/preview/{filename}', [UserController::class, 'previewPDF'])->name('file.preview.pdf');
+    Route::get('/video/preview/{filename}', [UserController::class, 'previewVideo'])->name('file.preview.video');
 
     Route::get("/dashboard", [UserController::class, 'dashboard'])->name('user.dashboard');
+    Route::get("/course/{id}", [UserController::class, 'courses'])->name('user.courses');
     Route::get("/course/details/{id}", [UserController::class, 'course'])->name('user.course');
     
     Route::get("/course/details/{id1}/{slug}/{id2}", [UserController::class, 'course'])->name('user.course.module');

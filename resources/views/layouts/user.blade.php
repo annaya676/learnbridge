@@ -247,8 +247,24 @@
 
     </div>
 </div>
+        @if (Auth::guard('web')->user())
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between align-items-center breaking-news">
+                        <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"> 
+                            @php
+                                $doj = Auth::guard('web')->user()->doj;
+                            @endphp
+                            <a class=" text-red" href="#">Please submit all assignments before Doj - {{  \Carbon\Carbon::create($doj)->subDays(5)->format('d-m-Y') }}</a> 
+                        </marquee>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
 
-        <!-- Main Content Area Start -->
+         <!-- Main Content Area Start -->
         @yield('content')
         <!-- Main Content Area End -->
        

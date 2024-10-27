@@ -27,6 +27,10 @@ Route::prefix('admin')->group( function(){
 });
 
 Route::middleware(['admin', 'role:1'])->prefix('admin')->group( function(){
+   
+    Route::get('/pdf/preview/{filename}', [DashboardController::class, 'previewPDF'])->name('admin.file.preview.pdf');
+    Route::get('/video/preview/{filename}', [DashboardController::class, 'previewVideo'])->name('admin.file.preview.video');
+
     Route::get("/", [DashboardController::class, 'dashboard'])->name('home');
     Route::get("/dashboard", [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get("/profile", [DashboardController::class, 'profile'])->name('profile');
@@ -119,16 +123,7 @@ Route::middleware(['admin', 'role:1'])->prefix('admin')->group( function(){
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update'); 
     Route::get('/categories/status/update/{id1}/{id2}', [CategoryController::class, 'updateStatus'])->name('categories.status.update');
     
-    Route::get('/sub-categories', [CategoryController::class, 'subcategories'])->name('sub-categories');
-    Route::get("/sub-categories/datatables", [CategoryController::class, 'datatablesSubCategory'])->name('sub-categories.datatables');
-    Route::get('/sub-categories/create', [CategoryController::class, 'createSubCategory'])->name('sub-categories.create'); 
-    Route::post('/sub-categories', [CategoryController::class, 'storeSubCategory'])->name('sub-categories.store'); 
-    Route::get('/sub-categories/{id}/edit', [CategoryController::class, 'editSubCategory'])->name('sub-categories.edit'); 
-    Route::put('/sub-categories/{id}', [CategoryController::class, 'updateSubCategory'])->name('sub-categories.update'); 
-    Route::get('/sub-categories/status/update/{id1}/{id2}', [CategoryController::class, 'updateSubCategoryStatus'])->name('sub-categories.status.update');
-    Route::post('/sub-categories-ajax', [CategoryController::class, 'getSubCategories'])->name('getSubCategories');;
-
-    
+   
      
 
 

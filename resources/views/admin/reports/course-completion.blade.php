@@ -51,8 +51,7 @@
                     <th class="h6 text-gray-300"  >{{ __('Date of Joining') }}</th>
                     <th class="h6 text-gray-300"  >{{ __('Designation') }}</th>	
                     {{-- <th class="h6 text-gray-300"  >{{ __('Grade') }}</th> --}}
-                    <th class="h6 text-gray-300"  >{{ __('Department') }}</th> 
-                    {{-- <th class="h6 text-gray-300"  >{{ __('Sub LoB') }}</th>                         --}}
+                    <th class="h6 text-gray-300"  >{{ __('Sub LoB') }}</th>                        
                     </tr>
                 </thead>
                 
@@ -150,8 +149,7 @@ $(document).ready(function() {
                     { data: 'doj', name: 'doj' },
                     { data: 'designation', name: 'designation' },
                     // { data: 'grade', name: 'grade' },
-                    { data: 'department', name: 'department' },
-                    // { data: 'sub_lob', name: 'sub_lob' },
+                    { data: 'sub_lob', name: 'sub_lob' },
                      ],
                 language : {
                     processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'

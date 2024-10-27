@@ -237,13 +237,8 @@ class UserController extends Controller
     public function importUserCsv(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:csv',
+            'file' => 'required|file|mimes:csv,txt|mimetypes:text/plain,text/csv,application/csv,application/excel,application/vnd.ms-excel',
         ]);
-
-        // Excel::import(new UsersImport, $request->file('user_file'));
-
-        // return redirect()->back()->with('success', 'Users imported successfully.');
-   
 
         $file = $request->file('file');
 
@@ -260,41 +255,32 @@ class UserController extends Controller
         
             if ($i < $batchSize && $i > 0) {
                 
-                // 0 => "Candidate Id"
-                // 1 => "Name"
-                // 2 => "Email"
-                // 3 => "Phone"
-                // 4 => "Course Applicability (lob id)"
-                // 5 => "Designation"
-                // 6 => "Department"
-                // 7 => "Grade"
-                // 8 => "Employment Type"
-                // 9 => "Date of Joining"
-                // 10 => "Offer Acceptance Date"
-                // 11 => "Recruiter"
+              
+
                 $checkemail = User::where('email', $data[2])->first();
                 $checkphone = User::where('phone', $data[3])->first();
-                $checkcandidate_id = User::where('candidate_id', $data[0])->first();
 
-                if (!$checkemail && !$checkphone && !$checkcandidate_id) {
+                if (!$checkemail && !$checkphone) {
                     $pass=1234;
                     $token=hash('sha256',time());
                     $batch[] = [
-                            'candidate_id' => $data[0],	
-                            'name' => $data[1], 
-                            'email' => $data[2],	
-                            'phone' => $data[3],	
-                            'lob_id' => $data[4],	
-                            'designation' => $data[5],	
-                            'department' => $data[6],	
-                            'grade' => $data[7],	
-                            'employment_type' => $data[8],
-                            'actual_date' => $data[9],
-                            'doj' => $data[10],	
-                            'recruiter' => $data[11],
+                            'name' => $data[0], 
+                            'email'=> $data[1], 
+                            'phone' => $data[2], 
+                            'lob_id' => $data[3], 
+                            'designation' => $data[4], 
+                            'grade' => $data[5], 
+                            'doj' => $data[6], 
+                            'gender' => $data[7], 
+                            'sub_lob' => $data[8], 
+                            'college_name' => $data[9], 
+                            'location' => $data[10], 
+                            'specialization' => $data[11], 
+                            'college_location' => $data[12], 
+                            'offer_release_spoc'=> $data[13], 
+                            'trf' => $data[14], 
                             'password'=>Hash::make($pass),
                             'token'=>$token,
-                            'offer_revoke'=>'',
                             'status' => 1,
                     ];
                     User::insert($batch);

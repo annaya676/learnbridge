@@ -1,0 +1,4 @@
+# Deny direct access to videos and PDFs in uploads
+<FilesMatch "\.(pdf|mp4|webm)$">
+    Require all denied
+</FilesMatch>

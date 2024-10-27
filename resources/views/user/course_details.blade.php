@@ -34,22 +34,30 @@
                     @if($module_type =='')
                         @if($lesson->video!='')
                         @php $module_type='video'; @endphp
-                        <video id="player" class="player" playsinline controls data-poster="assets/images/thumbs/course-details.png">
-                            <source src="{{ asset('uploads/videos/'.$lesson->video) }}" type="video/mp4">
-                            <source src="{{ asset('uploads/videos/'.$lesson->video) }}" type="video/webm">
-                        </video>
+                        <video id="player" class="player"  controls="false" data-poster="assets/images/thumbs/course-details.png">
+                            <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
+                            <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/webm">
+                                Your browser does not support the video tag.
+                            </video> 
+                       
                         @elseif ($lesson->document!='')
                         @php $module_type='document'; @endphp
-                        <iframe id="pdfIframe" src=" {{ asset('uploads/docs/'.$lesson->document) }}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" width="100%" height="500" ></iframe>
+                           
+                            <iframe id="pdfIframe" src="{{ route('file.preview.pdf', ['filename' => $lesson->document]) }}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" width="100%" height="500" ></iframe>
+                        
                         @endif
                     @else
                         @if($module_type=='video')
-                        <video id="player" class="player" playsinline controls data-poster="assets/images/thumbs/course-details.png">
-                            <source src="{{ asset('uploads/videos/'.$lesson->video) }}" type="video/mp4">
-                            <source src="{{ asset('uploads/videos/'.$lesson->video) }}" type="video/webm">
-                        </video>
+                        <video id="player" class="player"  controls="false" data-poster="assets/images/thumbs/course-details.png">
+                            <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
+                            <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/webm">
+                            Your browser does not support the video tag.
+                        </video> 
+
                         @elseif ($module_type=='document')
-                        <iframe id="pdfIframe" src=" {{ asset('uploads/docs/'.$lesson->document) }}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" width="100%" height="500" ></iframe>
+                           
+                        <iframe id="pdfIframe" src="{{ route('file.preview.pdf', ['filename' => $lesson->document]) }}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" width="100%" height="500" ></iframe>
+                           
                         @endif
                     @endif
 
@@ -96,7 +104,7 @@
                             <li class="course-list__item flex-align gap-8 mb-16 {{ in_array( $module->id, $is_read_video)?'active':'' }}">
                                 <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-{{  $module->video_unlocked?'circle':'lock-key' }}"></i></span>
                                 <div class="w-100">
-                                    <a href="{{ $module->video_unlocked?route('user.course.module',['id1' => $details->course->id,'slug'=>'video', 'id2' => $module->id]):'' }}" class="{{ ($module->id == $module_id && $module_type == 'video')?'text-decoration-underline':'text-gray-300' }} fw-medium d-block hover-text-main-600 d-lg-block">
+                                    <a href="{{ $module->video_unlocked?route('user.course.module',['id1' => $details->course->id,'slug'=>'video', 'id2' => $module->id]):'javascript:void(0)' }}" class="{{ ($module->id == $module_id && $module_type == 'video')?'text-decoration-underline':'text-gray-300' }} fw-medium d-block hover-text-main-600 d-lg-block">
                                         <i class="ph-fill ph-video"></i> {{ $module->module_name }}
                                     </a>
                                 </div>
@@ -108,7 +116,7 @@
 
                                 </span>
                                 <div class="w-100">
-                                    <a href="{{ $module->document_unlocked?route('user.course.module',['id1' => $details->course->id, 'slug'=>'document',  'id2' => $module->id]):'#' }}" class="{{ ($module->id == $module_id && $module_type == 'document')?'text-decoration-underline':'text-gray-300' }} fw-medium d-block hover-text-main-600 d-lg-block">
+                                    <a href="{{ $module->document_unlocked?route('user.course.module',['id1' => $details->course->id, 'slug'=>'document',  'id2' => $module->id]):'javascript:void(0)' }}" class="{{ ($module->id == $module_id && $module_type == 'document')?'text-decoration-underline':'text-gray-300' }} fw-medium d-block hover-text-main-600 d-lg-block">
                                         <i class="ph-fill ph-file"></i> {{ $module->module_name }}
                                     </a>
                                 </div>
@@ -117,7 +125,7 @@
                         </ul>
                     </div>
                 </div>
-                @endforeach
+                @endforeach 
                 @if ($details->course->isquiz==1)
                 <div class="course-item">
                     <button type="button" class="course-item__button flex-align gap-4 w-100 p-16 border-bottom border-gray-100">
@@ -132,7 +140,7 @@
                             @if($details->quiz_status == 0 || $details->quiz_status == 2)
                            
                             <li class="course-list__item flex-align gap-8 mb-16">
-                                <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-circle"></i></span>
+                                <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-{{ $quizUnlock?'circle':'lock-key' }}"></i></span>
                                 <div class="w-100">
                                     @if($details->quiz_status == 2)
                                     
@@ -141,7 +149,7 @@
                                     </a>
                                     @else
 
-                                    <a href="{{ route('quiz.index',$details->course->id) }}" class="text-gray-300 fw-medium d-block hover-text-main-600 d-lg-block">
+                                    <a href="{{ $quizUnlock?route('quiz.index',$details->course->id):'javascript:void(0)' }}" class="text-gray-300 fw-medium d-block hover-text-main-600 d-lg-block">
                                         Quiz Start
                                     </a>
                                     @endif
@@ -175,17 +183,17 @@
                     <div class="course-item-dropdown border-bottom border-gray-100">
                         <ul class="course-list p-16 pb-0">
                             <li class="course-list__item flex-align gap-8 mb-16 {{ $details->assignment_download_status==1?'active':'' }}">
-                                <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-circle"></i></span>
+                                <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-{{ $assignmentUnlock?'circle':'lock-key' }}"></i></span>
                                 <div class="w-100">
-                                    <a href="{{ route('user.assignments.download', $details->course->id) }}" class="text-gray-300 fw-medium d-block hover-text-main-600 d-lg-block">
+                                    <a href="{{ $assignmentUnlock?route('user.assignments.download', $details->course->id):'javascript:void(0)' }}" class="text-gray-300 fw-medium d-block hover-text-main-600 d-lg-block">
                                        Download Assignments
                                     </a>
                                 </div>
                             </li>
                             <li class="course-list__item flex-align gap-8 mb-16 {{ $details->assignment_status==1?'active':'' }}">
-                                <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-circle"></i></span>
+                                <span class="circle flex-shrink-0 text-32 d-flex text-gray-200"><i class="ph ph-{{ $assignmentUnlock?'circle':'lock-key' }}"></i></span>
                                 <div class="w-100">
-                                    <a href="{{ route('user.assignments', $details->course->id) }}" class="text-gray-300 fw-medium d-block hover-text-main-600 d-lg-block">
+                                    <a href="{{ $assignmentUnlock?route('user.assignments', $details->course->id):'javascript:void(0)' }}" class="text-gray-300 fw-medium d-block hover-text-main-600 d-lg-block">
 
                                         @if ($details->assignment_status==2)
                                         In Review

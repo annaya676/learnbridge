@@ -17,7 +17,7 @@ class Course extends Authenticatable
 
 
     protected $fillable = [
-        'category_id', 'subcategory_id', 'course_id', 'course_name ', 'description', 'image', 'sme_id', 'lob_id', 'assignment', 'status', 'created_at', 'updated_at'
+        'category_id', 'course_id', 'course_name ', 'description', 'image', 'sme_id', 'lob_id', 'assignment', 'status', 'created_at', 'updated_at'
     ];
 
     public function module(): HasMany
@@ -38,7 +38,7 @@ class Course extends Authenticatable
 
     public function updateby(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'uploader', 'id'); 
+        return $this->belongsTo(Admin::class, 'uploader', 'id'); 
     }
 
     public function category(): BelongsTo
@@ -46,11 +46,7 @@ class Course extends Authenticatable
         return $this->belongsTo(Category::class, 'category_id', 'id'); 
     }
 
-    public function subcategory(): BelongsTo
-    {
-        return $this->belongsTo(SubCategory::class, 'subcategory_id', 'id'); 
-    }
-
+ 
     
    
 }

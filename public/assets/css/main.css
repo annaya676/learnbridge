@@ -9845,3 +9845,32 @@ button:focus {
 .dt-search{
     padding: 10px;
 }
+
+/* custome css */
+
+.btn-main {
+    background-color:  #87409d !important;
+    border-color: #87409d !important;
+}
+
+.btn-main:hover {
+    background-color: #6c1f85 !important; /* New hover background color */
+    border-color: #6c1f85  !important;     /* New hover border color */
+}
+
+.btn-outline-main {
+    background-color: transparent !important;
+    border-color:  #87409d !important;
+    color:   #6c1f85 !important;
+}
+
+.btn-outline-main:hover {
+    background-color:#6c1f85  !important;
+    border-color:  #6c1f85  !important;
+    color: hsl(var(--white)) !important;
+}
+.text-red {
+ 
+    color: var(--danger-500) !important;
+}
+

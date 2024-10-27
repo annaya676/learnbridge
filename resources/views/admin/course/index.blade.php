@@ -40,7 +40,6 @@
                         <th class="h6 text-gray-300">{{ __('Course Id') }}</th>
                         <th class="h6 text-gray-300">{{ __('Course Name') }}</th>
                         <th class="h6 text-gray-300">{{ __('Category') }}</th>
-                        <th class="h6 text-gray-300">{{ __('Sub category') }}</th>
                         <th class="h6 text-gray-300">{{ __('Status') }}</th>
                         <th class="h6 text-gray-300">{{ __('Actions') }}</th>
 
@@ -75,7 +74,6 @@
                 { data: 'course_id', name: 'course_id', className: "text-center" },
                 { data: 'course_name', name: 'course_name'  },
                 { data: 'category_id', name: 'category_id'  },
-                { data: 'subcategory_id', name: 'subcategory_id'  },
                 { data: 'status', name: 'status', className: "text-center" },
                 { data: 'action', searchable: false, orderable: false, className: "text-center"  }
                 ],

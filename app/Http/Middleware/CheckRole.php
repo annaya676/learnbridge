@@ -29,18 +29,20 @@ class CheckRole
             return $next($request);
         }
         elseif(Auth::guard("admin")->user()->role_id == 2 && $roles[0] == 1){
-            return redirect()->route("assignment")->with('error', 'Unauthorized action.');
+            // return redirect()->route("assignment")->with('error', 'Unauthorized action.');
+            return redirect()->route("assignment");
             // abort(403, 'Unauthorized action.');
         }
         elseif(Auth::guard("admin")->user()->role_id == 2 && $roles[0] == 3){
-            return redirect()->route("assignment")->with('error', 'Unauthorized action.');
-            // abort(403, 'Unauthorized action.');
+            // return redirect()->route("assignment")->with('error', 'Unauthorized action.');
+            return redirect()->route("assignment");
         }
         elseif(Auth::guard("admin")->user()->role_id == 3 && $roles[0] == 3){
             return $next($request);
         }
         elseif(Auth::guard("admin")->user()->role_id == 3 && ($roles[0] == 1 || $roles[0] == 2)){
-            return redirect()->route("user")->with('error', 'Unauthorized action.');
+            // return redirect()->route("user")->with('error', 'Unauthorized action.');
+            return redirect()->route("user");
             // abort(403, 'Unauthorized action.');
         }
         return redirect()->route("admin.login");

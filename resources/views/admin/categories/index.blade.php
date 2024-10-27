@@ -37,8 +37,9 @@
             <table id="assignmentTable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th class="h6 text-gray-300"  >{{ __('Name') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Image') }}</th>
+                        <th class="h6 text-gray-300"  >{{ __('Name') }}</th>
+                        <th class="h6 text-gray-300"  >{{ __('Sub Set') }}</th>
                         <th class="h6 text-gray-300" >{{ __('Status') }}</th>
                         <th class="h6 text-gray-300">{{ __('Actions') }}</th>
 
@@ -71,8 +72,9 @@
 
                ajax: '{{ route('categories.datatables') }}',
                columns: [
-                        { data: 'name', name: 'name' },
                         { data: 'image', name: 'image' },
+                        { data: 'name', name: 'name' },
+                        { data: 'subset', name: 'subset' },
                         { data: 'status',  name: 'status'  },
             			{ data: 'action', searchable: false, orderable: false }
                      ],

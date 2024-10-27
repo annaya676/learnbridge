@@ -13,6 +13,41 @@ use App\Models\Coursemap;
 class DashboardController extends Controller
 {
    
+    public function previewPDF($filename)
+    {
+            $path = public_path("uploads/docs/$filename");
+
+            // Check if file exists
+            if (!file_exists($path)) {
+                abort(404);
+            }
+            // Get MIME type and return for inline preview
+            $mimeType = mime_content_type($path);
+            return response()->file($path, [
+                'Content-Type' => $mimeType,
+                'Content-Disposition' => 'inline'
+            ]);
+
+    }
+
+    public function previewVideo($filename)
+    {
+         
+            $path = public_path("uploads/videos/$filename");
+
+            // Check if file exists
+            if (!file_exists($path)) {
+                abort(404);
+            }
+            // Get MIME type and return for inline preview
+            $mimeType = mime_content_type($path);
+            return response()->file($path, [
+                'Content-Type' => $mimeType,
+                'Content-Disposition' => 'inline'
+            ]);
+      
+    }
+
     public function dashboard(){
         // Course Completion & Inprogress report
         // assignment

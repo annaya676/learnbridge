@@ -12,6 +12,8 @@ use App\Models\Course;
 use App\Models\QuizQuestion;
 use App\Models\Module;
 use App\Models\UserQuizAnswer;
+use App\Models\Category;
+use Carbon\Carbon;
 
 // use App\Mail\Websitemail;
 
@@ -20,8 +22,69 @@ use Illuminate\Support\Facades\Response;
 class UserController extends Controller
 {
    
+    public function previewPDF(Request $request, $filename)
+    {
+        
+        $referer = $request->headers->get('referer');
+
+        if ($referer && strpos($referer, url('/')) === 0) {
+            // The request came from within your application
+            // Handle it accordingly
+            
+            $path = public_path("uploads/docs/$filename");
+
+            // Check if file exists
+            if (!file_exists($path)) {
+                abort(404);
+            }
+
+            if (!request()->headers->has('referer') || !str_contains(request()->headers->get('referer'), env('APP_URL'))) {
+                abort(403, 'Direct access is forbidden.');
+            }
+
+            // Get MIME type and return for inline preview
+                $mimeType = mime_content_type($path);
+                return response()->file($path, [
+                    'Content-Type' => $mimeType,
+                    'Content-Disposition' => 'inline'
+                ]);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function previewVideo(Request $request,$filename)
+    {
+        $referer = $request->headers->get('referer');
+
+        if ($referer && strpos($referer, url('/')) === 0) {
+            // The request came from within your application
+            // Handle it accordingly
+            
+            $path = public_path("uploads/videos/$filename");
+
+            // Check if file exists
+            if (!file_exists($path)) {
+                abort(404);
+            }
+
+            if (!request()->headers->has('referer') || !str_contains(request()->headers->get('referer'), env('APP_URL'))) {
+                abort(403, 'Direct access is forbidden.');
+            }
+
+            // Get MIME type and return for inline preview
+                $mimeType = mime_content_type($path);
+                return response()->file($path, [
+                    'Content-Type' => $mimeType,
+                    'Content-Disposition' => 'inline'
+                ]);
+        } else {
+            abort(404);
+        }
+    }
     public function dashboard(){
         
+    
         $user_id=  Auth::guard('web')->user()->id;
         $lobIdToFind=  Auth::guard('web')->user()->lob_id;
          
@@ -46,11 +109,49 @@ class UserController extends Controller
 
         }
 
-        //  course_id lob_id user_id
         $myCourses = Coursemap::where('user_id', $user_id)->with('course')->get(); 
-        return view("user.dashboard",compact('myCourses'));
+        $cat_ids=array();
+        $course_completed_status=array();
+        if($myCourses){
+            /// check course is completed or not and course category id for category active or deactive
+            foreach($myCourses as $myCourse){
+                $cat_ids[]=$myCourse->course->category_id;
+                if (array_key_exists($myCourse->course->category_id,$course_completed_status))
+                {
+                    if($course_completed_status[$myCourse->course->category_id] != 0){
+                    $course_completed_status[$myCourse->course->category_id]=$myCourse->is_complete;
+                    }
+                }
+                else
+                {
+                $course_completed_status[$myCourse->course->category_id]=$myCourse->is_complete;
+                }
+
+            }
+        }
+     
+        // Retrieve the actual categories based on the category IDs
+        $myCategoryCourses =  $cat_ids?Category::whereIn('id', $cat_ids)->orderBy('id', 'asc')->get():array();
+
+        return view("user.dashboard",compact('myCategoryCourses','course_completed_status'));
     }
 
+    public function courses($category_id){
+        // dd($categoty_id);
+        $user_id=  Auth::guard('web')->user()->id;
+
+
+        $myCourses = Coursemap::where('user_id', $user_id)
+            ->whereHas('course', function ($query) use ($category_id) {
+                $query->where('category_id', $category_id);
+            })->with('course') ->get();
+
+        if ($myCourses->isEmpty()) {
+            abort(404); // Show a 404 error if no data is found
+        }
+        
+        return view("user.courses",compact('myCourses'));
+    }
     public function checkCourseComplete($course_id){
 
         $user_id=  Auth::guard('web')->user()->id;
@@ -71,7 +172,7 @@ class UserController extends Controller
 
             $quiz=true;
             if ($quiz){
-                    $assignment = $details->quiz_status==1?true:false;
+                    $quiz = $details->quiz_status==1?true:false;
             }
             $assignment=true;
             if ($details->course->assignment !=''){
@@ -146,9 +247,36 @@ class UserController extends Controller
                     }
                 }
             }
+
+            ///check course is completed status update
             $this->checkCourseComplete($course_id);
             
-            return view("user.course_details",compact('module_id','module_type','details','lesson'));
+            //// for quiz and video lock check
+            $documentLessons = Module::where('course_id', $course_id)
+                        ->whereNotNull('document')
+                        ->where('document', '!=', '')
+                        ->pluck('id')->toArray();
+
+            $videoLessons = Module::where('course_id', $course_id)
+                    ->whereNotNull('video')
+                    ->where('video', '!=', '')
+                    ->pluck('id')->toArray();
+            $matchDocs = empty(array_diff($documentLessons, $is_read_docs));
+            $matchVideo = empty(array_diff($videoLessons, $is_read_video));
+           
+            $quizUnlock=false;
+            $assignmentUnlock=false;
+            if($matchDocs && $matchVideo){
+                $quizUnlock=true;
+                if ($details->isquiz==1){
+                        $assignmentUnlock = $details->quiz_status==1?true:false;
+                }else{
+                        $assignmentUnlock =true;       
+                }
+            }
+            ///////for quiz and video lock check end
+
+            return view("user.course_details",compact('assignmentUnlock','quizUnlock','module_id','module_type','details','lesson'));
 
         } else {
             return redirect()->back()->with('error', 'not found');

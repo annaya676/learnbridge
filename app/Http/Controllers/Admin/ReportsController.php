@@ -136,18 +136,21 @@ class ReportsController extends Controller
             $datas = Coursemap::orderBy('id', 'desc')->with('course','user','lob')->get();   
         }
         // Prepare CSV content
-        $csvContent = "User Name,User Id,Email ID,Course Title,Course Code,Course Start Date,Is Assessment Available,Assessment Status,Assessment Date,Course Completion Date,Course Status,Course Duration,Date of Joining,Designation,Grade,Department,Sub LoB\n"; // CSV header
+        $csvContent = "User Name,User Id,Email ID,Course Title,Course Code,Course Start Date,Is Assessment Available,Assessment Status,Assessment Date,Course Completion Date,Course Status,Course Duration,Date of Joining,Designation,Grade,Sub LoB\n"; // CSV header
      
         foreach ($datas as $data) {
             $module_duration = $data->course->module->sum('duration').'min';
-            $assignment = $data->assignment!=''?'Yes':'No';
-            $assignment_status='';
+            $assignment = $data->course->assignment!=''?'Yes':'No';
+            $assignment_status=$data->course->assignment!=''?'Pending':'';
+            $AssessmentDate = $data->assignment_upload_date;	
             if($data->assignment_status == 1){
-            $assignment_status= 'Completed';
+                $assignment_status= 'Completed';
             }elseif($data->assignment_status == 2){
-            $assignment_status= 'In Review' ;
+                $assignment_status= 'In Review' ;
             }elseif($data->assignment_status == 3){
-            $assignment_status= 'Rework' ;
+                $assignment_status= 'Rework' ;
+            }else{
+               $AssessmentDate = '';	 
             }
             $UserName = $data->user->name;
             $UserId = $data->user->id;
@@ -157,17 +160,15 @@ class ReportsController extends Controller
             $CourseStartDate = $data->updated_at;
             $IsAssessmentAvailable =  $assignment;
             $AssessmentStatus = $assignment_status;
-            $AssessmentDate = $data->assignment_upload_date;	
             $CourseCompletionDate = $data->is_complete==1?$data->updated_at:'';
             $CourseStatus = $data->status == 1?'Active':'Inactive';
             $CourseDuration = $module_duration;
             $DateofJoining = $data->user->doj;
             $Designation = $data->user->designation;
             $Grade = $data->user->grade;
-            $Department = $data->user->department;
             $SubLoB = $data->user->sub_lob;  
             
-            $csvContent .= "{$UserName},{$UserId},{$EmailID},{$CourseTitle},{$CourseCode},{$CourseStartDate},{$IsAssessmentAvailable},{$AssessmentStatus},{$AssessmentDate},{$CourseCompletionDate},{$CourseStatus},{$CourseDuration},{$DateofJoining},{$Designation},{$Grade},{$Department},{$SubLoB}\n"; // Custom CSV row
+            $csvContent .= "{$UserName},{$UserId},{$EmailID},{$CourseTitle},{$CourseCode},{$CourseStartDate},{$IsAssessmentAvailable},{$AssessmentStatus},{$AssessmentDate},{$CourseCompletionDate},{$CourseStatus},{$CourseDuration},{$DateofJoining},{$Designation},{$Grade},{$SubLoB}\n"; // Custom CSV row
         }
 
         // Define the response headers
@@ -245,10 +246,7 @@ class ReportsController extends Controller
                 ->addColumn('grade', function(Coursemap $data) {
                 return $data->user->grade;
                 })  
-                ->addColumn('department', function(Coursemap $data) {
-                return $data->user->department;
-                })  
-                ->addColumn('sub_lob', function(Coursemap $data) {
+               ->addColumn('sub_lob', function(Coursemap $data) {
                 return $data->user->sub_lob;
                 })  
                   
@@ -272,7 +270,7 @@ class ReportsController extends Controller
                     return $status;
                 }) 
                 
-                ->rawColumns(['user_name','id','email', 'course_id', 'course_name', 'course_start_date','IsAssessmentAvailable','assignment_status','assignment_upload_date','is_complete','course_status','module_duration','doj','designation','grade','department','sub_lob','lob_id','assignment_assign','course_status'])         
+                ->rawColumns(['user_name','id','email', 'course_id', 'course_name', 'course_start_date','IsAssessmentAvailable','assignment_status','assignment_upload_date','is_complete','course_status','module_duration','doj','designation','grade','sub_lob','lob_id','assignment_assign','course_status'])         
                 ->toJson(); //--- Returning Json Data To Client Side
     }
 
@@ -304,7 +302,7 @@ class ReportsController extends Controller
             $status= 'Inactive' ;
             }
 
-            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->grade},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->offer_release_spoc},{$status},{$data->doj},{$data->trf},\n"; // Custom CSV row
+            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->grade},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->offer_release_spoc},{$status},{$data->doj},{$data->trf},\n"; // Custom CSV row
         }
 
 
@@ -382,8 +380,12 @@ class ReportsController extends Controller
         }
 
         // Prepare CSV content
-     
-        $csvContent = "Course Name,Description,Module Duration,Is Active,Is Assessment Available,Total Modules,Created Date";
+
+        // Module Name
+        // Description	
+        // IsApplicable To LoB Name
+
+        $csvContent = "Course Code,Category Name,Course Name,Module Duration,Is Active,Is Assessment Available,Total Modules,Created By,Created Date\n"; 
         
         foreach ($datas as $data) {
             $module_duration = $data->module->sum('duration').'min';
@@ -394,7 +396,7 @@ class ReportsController extends Controller
             }else{
             $status= 'Deactive</a>' ;
             } 
-            $csvContent .= "{$data->course_name},{$data->description},{$module_duration},{$status},{$assignment },{$total_modules},{$data->created_at}\n"; // Custom CSV row
+            $csvContent .= "{$data->course_id},{$data->category->name},{$data->course_name},{$module_duration},{$status},{$assignment },{$total_modules},{$data->updateby->name},{$data->created_at}\n"; // Custom CSV row
         }
 
         // Define the response headers
