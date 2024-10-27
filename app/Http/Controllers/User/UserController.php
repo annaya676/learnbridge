@@ -171,7 +171,7 @@ class UserController extends Controller
                             ->pluck('id')->toArray();
 
             $quiz=true;
-            if ($quiz){
+            if ($details->course->isquiz==1){
                     $quiz = $details->quiz_status==1?true:false;
             }
             $assignment=true;
@@ -181,7 +181,6 @@ class UserController extends Controller
 
             $matchDocs = empty(array_diff($documentLessons, $is_read_docs));
             $matchVideo = empty(array_diff($videoLessons, $is_read_video));
-        
             if($matchDocs && $matchVideo && $quiz && $assignment){
                 $details->is_complete = 1;
                 $details->save();
@@ -478,7 +477,6 @@ class UserController extends Controller
        
     }
 
-
     public function updatePdfReadStatus(Request $request,$course_id,$module_id){
         $user_id=  Auth::guard('web')->user()->id;
         $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
@@ -495,6 +493,7 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Invalid request'], 400);
     }
+    
     public function updateVideoReadStatus(Request $request,$course_id,$module_id){
         $user_id=  Auth::guard('web')->user()->id;
         $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();

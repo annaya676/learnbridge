@@ -8,6 +8,7 @@ use App\Models\Coursemap;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Models\Module;
 use Validator;
 use Auth;
 use Yajra\DataTables\DataTables;
@@ -109,7 +110,6 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-               
         
         return view('admin.assignment.index');
 
@@ -142,8 +142,6 @@ class AssignmentController extends Controller
          $request->validate([
             'status' => 'required',
             'smefile' => 'file|mimes:zip,pdf,docx,doc,xlsx|max:2048',
-
-            // 'remark' => 'required',
         ]);
        
         $data = Coursemap::findOrFail($id);
@@ -164,6 +162,11 @@ class AssignmentController extends Controller
         $data->assignment_remark = $request->input('remark');
         $data->assignment_upload_date=date('Y-m-d');;     
         $data->update();
+
+        if($data->assignment_status==1){
+            $this->checkCourseComplete($data->course_id,$data->user_id);
+        }
+
         return redirect()->back()->with('success','Update Successfully');
     }
 
@@ -185,6 +188,42 @@ class AssignmentController extends Controller
         
     }
 
+
+    public function checkCourseComplete($course_id,$user_id){
+
+$details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
+        if($details){
+            $is_read_docs = explode(",",$details->is_read_docs);
+            $is_read_video = explode(",",$details->is_read_video);
+
+            $documentLessons = Module::where('course_id', $course_id)
+                                ->whereNotNull('document')
+                                ->where('document', '!=', '')
+                                ->pluck('id')->toArray();
+
+            $videoLessons = Module::where('course_id', $course_id)
+                            ->whereNotNull('video')
+                            ->where('video', '!=', '')
+                            ->pluck('id')->toArray();
+
+            $quiz=true;
+            if ($details->course->isquiz==1){
+                    $quiz = $details->quiz_status==1?true:false;
+            }
+            $assignment=true;
+            if ($details->course->assignment !=''){
+                $assignment = $details->assignment_status==1?true:false;
+            } 
+
+            $matchDocs = empty(array_diff($documentLessons, $is_read_docs));
+            $matchVideo = empty(array_diff($videoLessons, $is_read_video));
+            if($matchDocs && $matchVideo && $quiz && $assignment){
+                $details->is_complete = 1;
+                $details->save();
+            }
+        }
+
+    }
 
 
 
