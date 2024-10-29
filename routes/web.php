@@ -6,6 +6,7 @@ use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\FrontController;
 
 //Front
+
 Route::get("/", [UserController::class, 'dashboard'])->name('user.home')->middleware('auth');
 Route::get("/about", [FrontController::class, 'about'])->name('about');
 

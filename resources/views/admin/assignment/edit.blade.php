@@ -55,7 +55,7 @@
                                 <div id="emailHelp" class="form-text">Upload only zip, excel, word and pdf.</div>
                                 @if($data->assignment_sme_file)
                                     <div class="flex-align gap-8 mt-1">
-                                        <a href="{{ asset('uploads/assignment/'.$data->assignment_sme_file) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview </a>
+                                        <a href="{{   asset('public/uploads/assignment/'.$data->assignment_sme_file) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview </a>
                                     </div>
                                 @endif
                             </div>

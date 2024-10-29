@@ -21,7 +21,7 @@ class CategoryController extends Controller
          return Datatables::of($datas)
                             ->addColumn('image', function(Category $data) {
                                 if($data->image!=''){
-                                    return '<img style="height:50px;" src="'.asset('uploads/category/'.$data->image).'">';
+                                    return '<img style="height:50px;" src="'.asset('public/uploads/category/'.$data->image).'">';
 
                                 }else{
                                     return '';
@@ -150,7 +150,7 @@ class CategoryController extends Controller
             $file->move(public_path('uploads/category'), $fileName);
             $category->image =$fileName;
         }
-        $category->name = $request->subset;
+        $category->subset = $request->subset;
         $category->name = $request->name;
         $category->update();
 

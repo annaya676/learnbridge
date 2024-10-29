@@ -41,13 +41,20 @@ class Course extends Authenticatable
         return $this->belongsTo(Admin::class, 'uploader', 'id'); 
     }
 
-    public function category(): BelongsTo
+    // public function category(): BelongsTo
+    // {
+    //     return $this->belongsTo(Category::class, 'category_id', 'id'); 
+    // }
+
+    public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id'); 
+        return $this->belongsTo(Category::class);
     }
 
- 
-    
+    public function courseMaps()
+    {
+        return $this->hasMany(CourseMap::class);
+    }
    
 }
 

@@ -1,0 +1,5 @@
+Course Code,Category Name,Course Name,Duration (minutes),Is Active,Is Assessment,Is Quiz, Total Modules,Author,Created By,Created Date
+9986,INSTILL,Testing,12,Deactive,Yes,No,1,Jack and Annie,admin,27 Oct 2024
+4423,INSTILL,CWM,70,Deactive,Yes,No,2,Annie,admin,26 Oct 2024
+6439,INNOVATE,React,40,Active,No,Yes,2,Jack,admin,26 Oct 2024
+3357,IMBIBE,Laravel,40,Active,Yes,Yes,2,Jack and Annie,admin,26 Oct 2024

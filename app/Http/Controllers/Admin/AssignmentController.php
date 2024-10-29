@@ -12,6 +12,8 @@ use App\Models\Module;
 use Validator;
 use Auth;
 use Yajra\DataTables\DataTables;
+use App\Mail\Websitemail;
+use Illuminate\Support\Facades\Mail;
 
 class AssignmentController extends Controller
 {
@@ -160,14 +162,19 @@ class AssignmentController extends Controller
 
         $data->assignment_status = $request->input('status');
         $data->assignment_remark = $request->input('remark');
-        $data->assignment_upload_date=date('Y-m-d');;     
+        $data->sme_submission_date=date('Y-m-d');;     
         $data->update();
 
         if($data->assignment_status==1){
             $this->checkCourseComplete($data->course_id,$data->user_id);
+            // $this->userAssignmentStatusCompleted($data->course_id,$data->user_id);//send email to user
         }
 
-        return redirect()->back()->with('success','Update Successfully');
+        if($data->assignment_status==2){  //send email to user
+            // $this->userAssignmentStatusRework($data->course_id,$data->user_id);
+        }
+
+        return redirect()->route('assignment')->with('success','Update Successfully');
     }
 
 
@@ -191,7 +198,7 @@ class AssignmentController extends Controller
 
     public function checkCourseComplete($course_id,$user_id){
 
-$details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
+        $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
         if($details){
             $is_read_docs = explode(",",$details->is_read_docs);
             $is_read_video = explode(",",$details->is_read_video);
@@ -225,6 +232,47 @@ $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)
 
     }
 
+    public function userAssignmentStatusRework($course_id,$user_id){
+        //Event: To be triggered upon Assignment Submission by SME as ‘Rework Required’
+        $user = User::find($user_id);
+        $courses = Course::where('id', $course_id)->first();
+        $email_send_to=$user->email;
+        $CC_email='joshisummi@gmail.com';
+        $subject  ='LearnBridge – Update on Assignment shared by SME';
+
+        $message  ='<h2>Hi '.$user->name.',</h2>';
+
+        $message  .='<p>Your Assignment for course '.$courses->course_name.'  has been marked as ‘Rework Required’ by the SME.</p>';
+
+        $message  .='<p>Please read the comments shared and the file submitted (as applicable) by the SME to rework.</p>';
+
+        $message  .='<p>The assignment will need to be resubmitted post rework for a re-evaluation by the SME.</p>';
+
+        Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
+
+        return true;
+
+    }
+
+    public function userAssignmentStatusCompleted($course_id,$user_id){
+        //    Event: To be triggered upon Assignment Submission by SME as ‘Completed’
+        $user = User::find($user_id);
+        $courses = Course::where('id', $course_id)->first();
+
+        $email_send_to=$user->email ;
+        $CC_email='joshisummi@gmail.com';
+        $subject  =' LearnBridge – Update on Assignment shared by SME';
+
+        $message  ='<h2> Hi '.$user->name.',</h2>';
+
+        $message  .='<p>Your Assignment for course '.$courses->course_name.'  has been marked as completed by the SME.</p>';
+
+        $message  .='<p>Congratulations! You have successfully completed the course on '.$courses->course_name.' .</p>';
+
+        Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
+        return true;
+
+    }
 
 
 

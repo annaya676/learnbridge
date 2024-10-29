@@ -13,7 +13,7 @@
                     <div class="card">
                         <div class="card-body">
                             <a href="{{ route('reports.course.completion') }}">
-                            <h4 class="mb-2">{{ $courseCompletion }}+</h4>
+                            {{-- <h4 class="mb-2">{{ $courseCompletion }}+</h4> --}}
                             <span class="text-gray-600">Course Completion & Inprogress report</span>
                             </a>
                             <div class="flex-between gap-8 mt-16">
@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-body">
                             <a href="{{ route('reports.assignment') }}">
-                            <h4 class="mb-2">{{ $assignment }}+</h4>
+                            {{-- <h4 class="mb-2">{{ $assignment }}+</h4> --}}
                             <span class="text-gray-600">Assignment Progress Report</span>
                             </a>
                             <div class="flex-between gap-8 mt-16">
@@ -41,7 +41,7 @@
                     <div class="card">
                         <div class="card-body">
                             <a href="{{ route('reports.user.details') }}">
-                            <h4 class="mb-2">{{ $userDetails }}+</h4>
+                            {{-- <h4 class="mb-2">{{ $userDetails }}+</h4> --}}
                             <span class="text-gray-600">User Report</span>
                             </a>
                             <div class="flex-between gap-8 mt-16">
@@ -55,7 +55,7 @@
                     <div class="card">
                         <div class="card-body">
                             <a href="{{ route('reports.course.catalogue') }}">
-                            <h4 class="mb-2">{{ $courseCatalogue }}+</h4>
+                            {{-- <h4 class="mb-2">{{ $courseCatalogue }}+</h4> --}}
                             <span class="text-gray-600">Course Catalogue Report</span>
                             </a>
                             <div class="flex-between gap-8 mt-16">
@@ -109,21 +109,21 @@
 @section('scripts')
 <!--js code here-->
   <!-- file upload -->
-  <script src="{{ asset('assets/js/plyr.js') }}"></script>
+  <script src="{{ asset('public/assets/js/plyr.js') }}"></script>
   <!-- full calendar -->
-  <script src="{{ asset('assets/js/full-calendar.js') }}"></script>
+  <script src="{{ asset('public/assets/js/full-calendar.js') }}"></script>
   <!-- jQuery UI -->
-  <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
+  <script src="{{ asset('public/assets/js/jquery-ui.js') }}"></script>
   <!-- jQuery UI -->
-  <script src="{{ asset('assets/js/editor-quill.js') }}"></script>
+  <script src="{{ asset('public/assets/js/editor-quill.js') }}"></script>
   <!-- apex charts -->
-  <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('public/assets/js/apexcharts.min.js') }}"></script>
   <!-- Calendar Js -->
-  <script src="{{ asset('assets/js/calendar.js') }}"></script>
+  <script src="{{ asset('public/assets/js/calendar.js') }}"></script>
   <!-- jvectormap Js -->
-  <script src="{{ asset('assets/js/jquery-jvectormap-2.0.5.min.js') }}"></script>
+  <script src="{{ asset('public/assets/js/jquery-jvectormap-2.0.5.min.js') }}"></script>
   <!-- jvectormap world Js -->
-  <script src="{{ asset('assets/js/jquery-jvectormap-world-mill-en.js') }}"></script>
+  <script src="{{ asset('public/assets/js/jquery-jvectormap-world-mill-en.js') }}"></script>
   
 <script type="text/javascript">
 

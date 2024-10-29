@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Hash;
 use Auth;
 use App\Models\Coursemap;
+use App\Models\Admin;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\QuizQuestion;
@@ -14,6 +15,8 @@ use App\Models\Module;
 use App\Models\UserQuizAnswer;
 use App\Models\Category;
 use Carbon\Carbon;
+use App\Mail\Websitemail;
+use Illuminate\Support\Facades\Mail;
 
 // use App\Mail\Websitemail;
 
@@ -82,12 +85,12 @@ class UserController extends Controller
             abort(404);
         }
     }
-    public function dashboard(){
-        
     
+    public function dashboard(Request $request){
+        
         $user_id=  Auth::guard('web')->user()->id;
         $lobIdToFind=  Auth::guard('web')->user()->lob_id;
-         
+      
 
         $lobCourses = Course::whereRaw("FIND_IN_SET($lobIdToFind, lob_id) > 0")->where('status', 1)->get();
       
@@ -115,25 +118,60 @@ class UserController extends Controller
         if($myCourses){
             /// check course is completed or not and course category id for category active or deactive
             foreach($myCourses as $myCourse){
-                $cat_ids[]=$myCourse->course->category_id;
-                if (array_key_exists($myCourse->course->category_id,$course_completed_status))
-                {
-                    if($course_completed_status[$myCourse->course->category_id] != 0){
-                    $course_completed_status[$myCourse->course->category_id]=$myCourse->is_complete;
+                if($myCourse->course){
+
+                    $cat_ids[]=$myCourse->course->category_id;
+                    if (array_key_exists($myCourse->course->category_id,$course_completed_status))
+                    {
+                        if($course_completed_status[$myCourse->course->category_id] != 0){
+                            if($myCourse->assignment_status > 0){
+                                $course_completed_status[$myCourse->course->category_id]=1;
+                            }else{
+                                $course_completed_status[$myCourse->course->category_id]=$myCourse->is_complete;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if($myCourse->assignment_status > 0){
+                            $course_completed_status[$myCourse->course->category_id]=1;
+                        }else{
+                            $course_completed_status[$myCourse->course->category_id]=$myCourse->is_complete;
+                        }
+                        
                     }
                 }
-                else
-                {
-                $course_completed_status[$myCourse->course->category_id]=$myCourse->is_complete;
-                }
-
             }
         }
      
-        // Retrieve the actual categories based on the category IDs
-        $myCategoryCourses =  $cat_ids?Category::whereIn('id', $cat_ids)->orderBy('id', 'asc')->get():array();
+        
+        
+        // Get the authenticated user
+        $user = $request->user();
 
-        return view("user.dashboard",compact('myCategoryCourses','course_completed_status'));
+        // Get categories with the count of enrolled courses for the user
+        $categories = Category::with(['courses.courseMaps' => function ($query) use ($user) {
+            $query->where('user_id', $user->id); // Filter enrollments by user ID
+        }])->get();
+
+        // Prepare data for view
+        $categoryData = $categories->map(function ($category) {
+            return [
+                'category_id' => $category->id,
+                'category_image' => $category->image,
+                'category_name' => $category->name,
+                'category_subset' => $category->subset,
+                'course_count' => $category->courses->filter(function ($course) {
+                    return $course->courseMaps->isNotEmpty(); // Count only courses with enrollments
+                })->count(),
+                'enrolled_courses' => $category->courses->filter(function ($course) {
+                    return $course->courseMaps->isNotEmpty(); // Get enrolled courses for this category
+                }),
+            ];
+        });
+
+
+        return view("user.dashboard",compact('course_completed_status','categoryData'));
     }
 
     public function courses($category_id){
@@ -149,9 +187,12 @@ class UserController extends Controller
         if ($myCourses->isEmpty()) {
             abort(404); // Show a 404 error if no data is found
         }
+        $category = Category::where('id', $category_id)->orderBy('id', 'asc')->first();
+
         // dd($myCourses);
-        return view("user.courses",compact('myCourses'));
+        return view("user.courses",compact('myCourses','category'));
     }
+
     public function checkCourseComplete($course_id){
 
         $user_id=  Auth::guard('web')->user()->id;
@@ -188,6 +229,7 @@ class UserController extends Controller
         }
 
     }
+    
     public function course($course_id, $module_type='',$module_id=''){
 
         $user_id=  Auth::guard('web')->user()->id;
@@ -310,7 +352,6 @@ class UserController extends Controller
             } 
     }
 
-  
     public function assignments_upload(Request $request, $courseId){
         $request->validate( [
             'file' => 'required',
@@ -335,7 +376,11 @@ class UserController extends Controller
                 $details->assignment_upload_date=date('Y-m-d');;     
                 $details->update();
 
-                return redirect()->back()->with('success','upload successfully');
+                // $this->userAssignmentSubmission($details->course_id,$user_id);
+               
+                
+                return redirect()->route('user.assignments', $details->course_id)->with('success','upload successfully');
+           
             }else{
                 return redirect()->back()->with('error', 'assignment not upload'); 
             }
@@ -347,8 +392,6 @@ class UserController extends Controller
 
 
     }
-
-
 
     public function showQuiz($course_id,$questionindex=''){
             $user_id=  Auth::guard('web')->user()->id;
@@ -511,5 +554,32 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Invalid request'], 400);
     }
+
+    public function userAssignmentSubmission($course_id,$user_id){
+        // Event: To be triggered upon Assignment Submission
+    
+        $link =route('login');
+        $user = User::find($user_id);
+        $courses = Course::where('id', $course_id)->first();
+        $sme_ids =  explode(",",$courses->sme_id);
+        $sme_email = Admin::whereIn('id', $sme_ids)->where('role_id',2)->orderBy('id', 'desc')->pluck('email')->implode(',');
+        $sme_name = Admin::whereIn('id', $sme_ids)->where('role_id',2)->orderBy('id', 'desc')->pluck('name')->implode(', ');
+
+        $email_send_to=$sme_email;
+        $CC_email='joshisummi@gmail.com';
+        $subject  ='LearnBridge – Assignment Submission by '.$user->name.','.$user->lob->name;
+        $message  ='<h2>Hi '.$sme_name.','.$user->name.',</h2>';
+
+        $message  .='<p>An assignment for Course '.$courses->course_name.' has been submitted by '.$user->name.','.$user->lob->name.' on '.date('d-m-Y').'.</p>';
+
+        $message  .='<p>Please access LearnBridge to review the submitted assignment.</p>';
+
+        $message  .='<p>To access LearnBridge <a href='.$link.'> Click Here </a></p>';
+        
+        Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
+        return true;
+
+    }
+
 
 }

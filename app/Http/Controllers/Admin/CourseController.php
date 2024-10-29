@@ -31,7 +31,7 @@ class CourseController extends Controller
                     return ($data->category)?$data->category->name:'';
                 })     
                 ->addColumn('image', function(Course $data) {
-                    return '<img style="height:50px;" src="'.asset('uploads/thumb/'.$data->image).'">';
+                    return '<img style="height:50px;" src="'.asset('public/uploads/thumb/'.$data->image).'">';
                 }) 
                 ->addColumn('status', function(Course $data) {
                     // $role = $data->role_id == 0 ? 'No Role' : $data->role->name;

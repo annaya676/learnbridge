@@ -134,7 +134,12 @@
                                 <input type="text" class="form-control py-11 @error('trf') is-invalid @enderror"  value="{{ $user->trf }}"  name="trf" id="trf" placeholder="Enter RTF">
                                 @error('trf') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
-                                                                                    
+                            <div class="col-sm-6 col-xs-6">
+                                <label for="joiner_status" class="form-label mb-8 h6">Joiner Status</label>
+                                <input type="text" class="form-control py-11 @error('joiner_status') is-invalid @enderror"  value="{{ $user->joiner_status }}"  name="joiner_status" id="joiner_status" placeholder="Enter Joiner Status">
+                                @error('joiner_status') <div class="invalid-feedback">{{ $message }}</div> @enderror  
+                            </div>
+                                                                               
                             
 
                             <div class="col-12">

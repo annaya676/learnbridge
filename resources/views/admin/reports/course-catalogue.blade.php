@@ -136,7 +136,7 @@ $(document).ready(function() {
                         // { data: 'created_at', name: 'created_at' },
                      ],
                 language : {
-                    processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'
+                    processing: '<img src="{{asset('public/assets/images/logo/logo.png')}}">'
                 },
                 drawCallback: function () {
                 $('.paging_full_numbers').addClass('card-footer flex-between flex-wrap');

@@ -90,11 +90,15 @@ class AdminController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required',
-            "email" => ["required","email",'unique:admins'],
+            "email" => ["required","email",'regex:/@evalueserve\.com$/i','unique:admins'],
             'phone' => ['required','digits:10','numeric','unique:admins'],
             'password' => 'required',
-            ]
-        );
+            ], [
+                'email.regex' => 'The email must be a valid @evalueserve.com address.',
+                ]
+            );
+        
+
        
         $admin = new Admin();
         $token=hash('sha256',time());
@@ -139,9 +143,11 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|string|email|max:255|unique:admins,email,' . $id,
+            'email' => 'required|string|email|max:255|regex:/@evalueserve\.com$/i|unique:admins,email,' . $id,
             'phone' => 'required|numeric|digits:10|unique:admins,phone,' . $id,
-        ]
+           ], [
+            'email.regex' => 'The email must be a valid @evalueserve.com address.',
+            ]
         );
 
        

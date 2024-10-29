@@ -50,7 +50,7 @@
                                 <input type="number" value="{{ $sme->phone }}" class="form-control py-11 @error('phone') is-invalid @enderror"   name="phone" id="phone" placeholder="Enter Phone">
                                 @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
-         
+{{--          
                             <div class="col-sm-6 col-xs-6">
                                 <label for="lob" class="form-label mb-8 h6">LOB</label>
                                 <select class="form-control py-11 @error('lob_id') is-invalid @enderror" required name="lob_id">
@@ -63,7 +63,7 @@
 
                                 </select>
                                 @error('lob_id') <div class="invalid-feedback">{{ $message }}</div> @enderror  
-                            </div>
+                            </div> --}}
 
                            
                             <div class="col-12">

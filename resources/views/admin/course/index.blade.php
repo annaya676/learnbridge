@@ -78,7 +78,7 @@
                 { data: 'action', searchable: false, orderable: false, className: "text-center"  }
                 ],
                 language : {
-                 processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'
+                 processing: '<img src="{{asset('public/assets/images/logo/logo.png')}}">'
                 },
                 drawCallback: function () {
                 $('.paging_full_numbers').addClass('card-footer flex-between flex-wrap');

@@ -152,7 +152,7 @@ $(document).ready(function() {
                     { data: 'sub_lob', name: 'sub_lob' },
                      ],
                 language : {
-                    processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'
+                    processing: '<img src="{{asset('public/assets/images/logo/logo.png')}}">'
                 },
                 drawCallback: function () {
                 $('.paging_full_numbers').addClass('card-footer flex-between flex-wrap');

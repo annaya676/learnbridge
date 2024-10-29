@@ -79,15 +79,14 @@ class TaController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required',
-            "email" => ["required","email",'unique:admins'],
+            "email" => ["required","email",'regex:/@evalueserve\.com$/i','unique:admins'],
             'phone' => ['required','digits:10','numeric','unique:admins'],
-            'lob_id' => 'required',
-            ],
-        [
-           'lob_id.required' => 'Please select your LOB.',
-           ]
+           ], [
+            'email.regex' => 'The email must be a valid @evalueserve.com address.',
+            ]
         );
        
+
         $pass=1234;
         $token=hash('sha256',time());
 
@@ -131,13 +130,11 @@ class TaController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|string|email|max:255|unique:admins,email,' . $id,
+            'email' => 'required|string|email|max:255|regex:/@evalueserve\.com$/i|unique:admins,email,' . $id,
             'phone' => 'required|numeric|digits:10|unique:admins,phone,' . $id,
-            'lob_id' => 'required',
-        ],
-        [
-           'lob_id.required' => 'Please select your LOB.',
-           ]
+           ], [
+            'email.regex' => 'The email must be a valid @evalueserve.com address.',
+            ]
         );
 
         $sme = Admin::find($id);

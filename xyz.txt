@@ -1,4 +1,0 @@
-category subcategory add and view (name image)
-course add edit page select category subcategory
-course list page list category subcategory
-quiz and assignments lock

@@ -34,7 +34,7 @@ class UserController extends Controller
                                 $alertmsg="return confirm('Are you sure you want to update the status?')";
 
                                 return ($data->status == 1)?
-
+                               
                             '  <a href="'.route('user.status.update',['id1' => $data->id, 'id2' => 0]).'" 
                             class="text-13 py-2 px-8 bg-success-50 text-success-600 d-inline-flex align-items-center gap-8 rounded-pill"
                                     onclick="'.$alertmsg.'">
@@ -51,9 +51,21 @@ class UserController extends Controller
                                 ;
                             }) 
                             ->addColumn('action', function(User $data) {
-                                return '<a href="'.route('user.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>
-                                        <a href="'.route('user.changepassword',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Change Password</a>';
- 
+                                $alertmsg="return confirm('Are you sure you want to revoke user?')";
+
+                                if(Auth::guard("admin")->user()->role_id==3){
+
+                                    return '<a   onclick="'.$alertmsg.'" href="'.route('user.revoke',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Revoke</a>
+                                    <a href="'.route('user.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>
+                                    <a href="'.route('user.changepassword',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Change Password</a>';
+
+                                }else{
+
+                                    return '<a href="'.route('user.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>
+                                    <a href="'.route('user.changepassword',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Change Password</a>';
+
+                                }
+                            
                             }) 
                             ->rawColumns(['status','action'])         
                             ->toJson(); //--- Returning Json Data To Client Side
@@ -120,10 +132,10 @@ class UserController extends Controller
         $input['status'] = 1;
         $user->fill($input)->save();
 
-        $this->userActivatedEmail($user->id,$pass);
+        // $this->userActivatedEmail($user->id,$pass);
 
+        return redirect()->route('user')->with('success','user create successfully'); 
 
-        return redirect()->back()->with('success','user create successfully');    
      
     }
 
@@ -195,6 +207,23 @@ class UserController extends Controller
     
     }
 
+    public function revoke($id){
+
+        // Update the revoke
+        $user = User::find($id);
+        $user->status = 2;
+        $user->revokes = 1;
+        $user->update();
+
+        // Return a success message
+        return redirect()->back()->with('success','Revoke updated successfully!');    
+
+
+    }
+
+
+
+    
 
     public function changepassword($id)
     {
@@ -259,8 +288,6 @@ class UserController extends Controller
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
         
             if ($i < $batchSize && $i > 0) {
-                
-              
 
                 $checkemail = User::where('email', $data[2])->first();
                 $checkphone = User::where('phone', $data[3])->first();
@@ -287,7 +314,9 @@ class UserController extends Controller
                             'password'=>Hash::make($pass),
                             'token'=>$token,
                             'status' => 1,
+                            'joiner_status'=>$data[15]
                     ];
+
                     User::insert($batch);
                     $batch = [];
                     $count++;
@@ -320,7 +349,7 @@ class UserController extends Controller
         $message  .='<p><b>Important:</b> The password is auto generated and cannot be changed. In case you are unable to log-in, write to <Mailbox Name> along with a screenshot of the error.</p>';
 
         Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
-        return 'Email sent successfully!';
+        return true;
 
     }
 

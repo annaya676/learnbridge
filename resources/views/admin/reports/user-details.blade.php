@@ -73,14 +73,14 @@
                         <div class="col mb-20">
                             <label for="startDate" class="form-label fw-semibold text-primary-light text-sm mb-8">Start Date</label>
                             <div class=" position-relative">
-                                <input class="form-control radius-8 bg-base" max="{{ date('Y-m-d') }}" required name="start_date" id="startDate" type="date">
+                                <input class="form-control radius-8 bg-base" max="{{ date('Y-m-d') }}" name="start_date" id="startDate" type="date">
                                 <span class="position-absolute end-0 top-50 translate-middle-y me-12 line-height-1"></span>
                             </div>
                         </div>
                         <div class="col mb-20">
                             <label for="endDate" class="form-label fw-semibold text-primary-light text-sm mb-8">End Date </label>
                             <div class=" position-relative">
-                                <input class="form-control radius-8 bg-base" max="{{ date('Y-m-d') }}" required name="end_date" id="endDate" type="date">
+                                <input class="form-control radius-8 bg-base" max="{{ date('Y-m-d') }}" name="end_date" id="endDate" type="date">
                                 <span class="position-absolute end-0 top-50 translate-middle-y me-12 line-height-1"></span>
                             </div>
                         </div>
@@ -139,7 +139,7 @@ $(document).ready(function() {
 
                      ],
                 language : {
-                    processing: '<img src="{{asset('assets/images/logo/logo.png')}}">'
+                    processing: '<img src="{{asset('public/assets/images/logo/logo.png')}}">'
                 },
                 drawCallback: function () {
                 $('.paging_full_numbers').addClass('card-footer flex-between flex-wrap');

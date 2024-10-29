@@ -1,12 +1,5 @@
 @extends('layouts.user')
 @section('content')
-<style>
-    iframe {
-        width: 100%;
-        height: 100vh;
-        border: none;
-    }
-</style>
         
 <div class="dashboard-body">
     <!-- Breadcrumb Start -->
@@ -34,12 +27,17 @@
                     @if($module_type =='')
                         @if($lesson->video!='')
                         @php $module_type='video'; @endphp
-                        <video id="player" class="player"  controls="false" data-poster="assets/images/thumbs/course-details.png">
+                        {{-- <video id="player" class="player"  controls autoplay controlsList="nodownload" oncontextmenu="return false;"> --}}
+                            <video id="player"  playsinline class="w-100">
+
+                        {{-- <video id="player" class="player"  controls autoplay  data-poster="assets/images/thumbs/course-details.png"> --}}
                             <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
                             <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/webm">
                                 Your browser does not support the video tag.
                             </video> 
-                       
+                            <button id="playButton" class="btn btn-main position-absolute start-50 translate-middle-x mt-2">Play</button>
+
+                            
                         @elseif ($lesson->document!='')
                         @php $module_type='document'; @endphp
                            
@@ -48,7 +46,7 @@
                         @endif
                     @else
                         @if($module_type=='video')
-                        <video id="player" class="player"  controls="false" data-poster="assets/images/thumbs/course-details.png">
+                        <video id="player" class="player"   autoplay playsinline style="pointer-events: none;"  data-poster="assets/images/thumbs/course-details.png">
                             <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
                             <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/webm">
                             Your browser does not support the video tag.
@@ -228,6 +226,15 @@
     $(document).ready(function() {
     var video = document.getElementById('player');
 
+
+    const playButton = document.getElementById('playButton');
+
+    playButton.addEventListener('click', () => {
+        video.muted = false;   // Ensure the video is unmuted
+        video.play();          // Start playing the video
+        playButton.style.display = 'none';  // Hide the play button
+    });
+
     video.addEventListener('ended', function() {
         // Video has finished playing
         updateVideoStatus();
@@ -264,17 +271,7 @@ function updateVideoStatus() {
 
     });
 
-    
-// $(document).ready(function() {
-//     $('#pdfIframe').on('scroll', function() {
-//         // if ($(this).scrollTop() + $(this).height() >= $(this)[0].scrollHeight) {
-//             console.log('ok');
-//             // User has scrolled to the bottom of the PDF
-//         //     updatePdfStatus();
-//         // }
-//     });
-// });
-
+ 
 function updatePdfStatus() {
     
     $.ajax({

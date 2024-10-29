@@ -69,7 +69,7 @@
 
                         @if($course->image)
                         <div class="text-center">
-                        <img src="{{ asset('uploads/thumb/'.$course->image) }}" alt="thumb" class="image-upload__image" height="30">
+                        <img src="{{   asset('public/uploads/thumb/'.$course->image) }}" alt="thumb" class="image-upload__image" height="30">
                         </div>
                          @endif
  
@@ -148,7 +148,7 @@
                                 <div id="emailHelp" class="form-text">Upload only zip, excel, word and pdf.</div>
                                 @if($course->assignment)
                                     <div class="flex-align gap-8 mt-1">
-                                        <a href="{{ asset('uploads/assignment/'.$course->assignment) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview assignment</a>
+                                        <a href="{{   asset('public/uploads/assignment/'.$course->assignment) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview assignment</a>
                                     </div>
                                 @endif
                             </div>

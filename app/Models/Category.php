@@ -12,5 +12,9 @@ class Category extends Model
     protected $fillable = ['name','image','subset'];
 
  
+    public function courses()
+    {
+        return $this->hasMany(Course::class)->active(); 
+    }
     
 }

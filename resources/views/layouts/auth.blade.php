@@ -7,11 +7,11 @@
     <!-- Title -->
     <title>LMS | Login</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('public/assets/images/logo/favicon.png') }}">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/css/bootstrap.min.css') }}">
     <!-- Main css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/css/main.css') }}">
 
     @yield('styles')
 
@@ -31,7 +31,7 @@
 
     <section class="auth d-flex">
         <div class="auth-left bg-main-50 flex-center p-24">
-            <img src="{{ asset('assets/images/thumbs/auth-img.jpg') }}" alt="">
+            <img src="{{ asset('public/assets/images/thumbs/auth-img.jpg') }}" alt="">
         </div>
         <div class="auth-right py-40 px-24 flex-center flex-column">
 
@@ -42,14 +42,14 @@
         </div>
     </section>
         <!-- Jquery js -->
-    <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/jquery-3.7.1.min.js') }}"></script>
     <!-- Bootstrap Bundle Js -->
-    <script src="{{ asset('assets/js/boostrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/assets/js/boostrap.bundle.min.js') }}"></script>
     <!-- Phosphor Js -->
-    <script src="{{ asset('assets/js/phosphor-icon.js') }}"></script>
+    <script src="{{ asset('public/assets/js/phosphor-icon.js') }}"></script>
  
     <!-- main js -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('public/assets/js/main.js') }}"></script>
     
     @yield('scripts')
 

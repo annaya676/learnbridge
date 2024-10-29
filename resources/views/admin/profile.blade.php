@@ -23,7 +23,7 @@
             <div class="setting-profile px-24" style="margin-top: 0px;">
                 <div class="flex-between">
                     <div class="d-flex align-items-end flex-wrap mb-32 gap-24">
-                        <img src="{{ asset('assets/images/user.png') }}" alt="" class="w-120 h-120 rounded-circle border border-white">
+                        <img src="{{ asset('public/assets/images/user.png') }}" alt="" class="w-120 h-120 rounded-circle border border-white">
                         <div>
                             <h4 class="mb-8">{{ ucwords($data->name) }}</h4>
                             <div class="setting-profile__infos flex-align flex-wrap gap-16">

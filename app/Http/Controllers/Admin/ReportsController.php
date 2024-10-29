@@ -31,9 +31,12 @@ class ReportsController extends Controller
             $datas = Coursemap::whereIn('assignment_status', $status)->orderBy('assignment_upload_date', 'desc')->with('course','user','lob')->get();   
         }
         // Prepare CSV content
-        $csvContent = "User Name,Course Name,LOB,Assigned,Date,Status\n"; // CSV header
+        $csvContent = "User Name,Course Name,LOB,Assigned,User Assignment Submit Date,SME Submission Date,Status\n"; // CSV header
 
         foreach ($datas as $data) {
+            $user_assignment_submit_date = $data->assignment_upload_date!=''?Carbon::create($data->assignment_upload_date)->format('d M Y'):'';		
+            $sme_submission_date = $data->sme_submission_date!=''?Carbon::create($data->sme_submission_date)->format('d M Y'):'';	
+            
             $smename=  ($data->sme)?$data->sme->name:'';
             $status='';
             if($data->assignment_status == 1){
@@ -43,7 +46,7 @@ class ReportsController extends Controller
             }elseif($data->assignment_status == 3){
             $status= 'Rework' ;
             }
-            $csvContent .= "{$data->user->name},{$data->course->course_name},{$data->lob->name},{$smename},{$data->assignment_upload_date},{$status}\n"; // Custom CSV row
+            $csvContent .= "{$data->user->name},{$data->course->course_name},{$data->lob->name},{$smename},{$user_assignment_submit_date},{$sme_submission_date},{$status}\n"; // Custom CSV row
         }
 
         // Define the response headers
@@ -136,13 +139,18 @@ class ReportsController extends Controller
             $datas = Coursemap::orderBy('id', 'desc')->with('course','user','lob')->get();   
         }
         // Prepare CSV content
-        $csvContent = "User Name,User Id,Email ID,Course Title,Course Code,Course Start Date,Is Assessment Available,Assessment Status,Assessment Date,Course Completion Date,Course Status,Course Duration,Date of Joining,Designation,Grade,Sub LoB\n"; // CSV header
+        $csvContent = "User Name,User Id,Email ID,Course Title,Course Code,Course Start Date,Is Assessment Available,Assessment Status,Assessment Date,Quiz,Course Completion Date,Course Status,Duration (minutes),Date of Joining,Designation,Grade,Sub LoB,Trf No\n"; // CSV header
      
         foreach ($datas as $data) {
-            $module_duration = $data->course->module->sum('duration').'min';
+            $module_duration = $data->course->module->sum('duration');
+            $Quiz = $data->course->isquiz==1?'Yes':'';
             $assignment = $data->course->assignment!=''?'Yes':'No';
             $assignment_status=$data->course->assignment!=''?'Pending':'';
-            $AssessmentDate = $data->assignment_upload_date;	
+            $AssessmentDate = $data->assignment_upload_date!=''?Carbon::create($data->assignment_upload_date)->format('d M Y'):'';	
+            $updated_at = $data->updated_at!=''?Carbon::create($data->updated_at)->format('d M Y'):'';	
+            $DateofJoining = Carbon::create($data->user->doj)->format('d M Y');	
+            $CourseStartDate = Carbon::create($data->created_at)->format('d M Y');	
+
             if($data->assignment_status == 1){
                 $assignment_status= 'Completed';
             }elseif($data->assignment_status == 2){
@@ -152,23 +160,22 @@ class ReportsController extends Controller
             }else{
                $AssessmentDate = '';	 
             }
+            
             $UserName = $data->user->name;
             $UserId = $data->user->id;
             $EmailID = $data->user->email;
             $CourseTitle = $data->course->course_name;
             $CourseCode = $data->course->course_id;	
-            $CourseStartDate = $data->updated_at;
             $IsAssessmentAvailable =  $assignment;
             $AssessmentStatus = $assignment_status;
-            $CourseCompletionDate = $data->is_complete==1?$data->updated_at:'';
-            $CourseStatus = $data->status == 1?'Active':'Inactive';
+            $CourseCompletionDate = $data->is_complete==1?$updated_at:'';
+            $CourseStatus = $data->is_complete==1?'Completed':'In progress';
             $CourseDuration = $module_duration;
-            $DateofJoining = $data->user->doj;
             $Designation = $data->user->designation;
             $Grade = $data->user->grade;
             $SubLoB = $data->user->sub_lob;  
-            
-            $csvContent .= "{$UserName},{$UserId},{$EmailID},{$CourseTitle},{$CourseCode},{$CourseStartDate},{$IsAssessmentAvailable},{$AssessmentStatus},{$AssessmentDate},{$CourseCompletionDate},{$CourseStatus},{$CourseDuration},{$DateofJoining},{$Designation},{$Grade},{$SubLoB}\n"; // Custom CSV row
+            $trfNo =$data->user->trf;
+            $csvContent .= "{$UserName},{$UserId},{$EmailID},{$CourseTitle},{$CourseCode},{$CourseStartDate},{$IsAssessmentAvailable},{$AssessmentStatus},{$AssessmentDate},{$Quiz},{$CourseCompletionDate},{$CourseStatus},{$CourseDuration},{$DateofJoining},{$Designation},{$Grade},{$SubLoB},{$trfNo}\n"; // Custom CSV row
         }
 
         // Define the response headers
@@ -292,17 +299,19 @@ class ReportsController extends Controller
         } else{
             $datas = User::orderBy('id', 'desc')->with('lob')->get();
         }
-        $csvContent = "User Id,Name,Gender,Designation,Grade,LoB,Sub-Lob,College Name,Location,Specialization,College Location,Contact Number,Email Id,Offer Release Spoc,Joining Status,DOJ,TRF\n"; // CSV header
+        $csvContent = "User Id,Name,Gender,Designation,Grade,LoB,Sub-Lob,College Name,Location,Specialization,College Location,Contact Number,Email Id,Offer Release Spoc,User Status,DOJ,TRF,Joiner Status\n"; // CSV header
         foreach ($datas as $data) {
             $lobname=  ($data->lob)?$data->lob->name:'';
             
-            if($data->assignment_status == 1){
+            if($data->status == 1){
             $status= 'Active';
             }else{
             $status= 'Inactive' ;
             }
+            
+            $DateofJoining = Carbon::create($data->doj)->format('d M Y');	            
 
-            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->grade},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->offer_release_spoc},{$status},{$data->doj},{$data->trf},\n"; // Custom CSV row
+            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->grade},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->offer_release_spoc},{$status},{$DateofJoining},{$data->trf},{$data->joiner_status}\n"; // Custom CSV row
         }
 
 
@@ -332,7 +341,11 @@ class ReportsController extends Controller
         return Datatables::of($datas)
                             ->addColumn('lob_id', function(User $data) {
                                 return $data->lob->name;
-                            })   
+                            })  
+                            ->addColumn('doj', function(User $data) {
+                                return Carbon::create($data->doj)->format('d M Y');
+                            }) 
+                            
                            ->addColumn('status', function(User $data) {
                                // $role = $data->role_id == 0 ? 'No Role' : $data->role->name;
                                $alertmsg="return confirm('Are you sure you want to update the status?')";
@@ -385,18 +398,23 @@ class ReportsController extends Controller
         // Description	
         // IsApplicable To LoB Name
 
-        $csvContent = "Course Code,Category Name,Course Name,Module Duration,Is Active,Is Assessment Available,Total Modules,Created By,Created Date\n"; 
+        $csvContent = "Course Code,Category Name,Course Name,Duration (minutes),Is Active,Is Assessment,Is Quiz, Total Modules,Author,Created By,Created Date\n"; 
         
         foreach ($datas as $data) {
-            $module_duration = $data->module->sum('duration').'min';
+            $module_duration = $data->module->sum('duration');
             $total_modules = $data->module->count();
             $assignment = $data->assignment!=''?'Yes':'No';
+            $isquiz = $data->isquiz==1?'Yes':'No';
+            
             if($data->status == 1){
             $status= 'Active';
             }else{
-            $status= 'Deactive</a>' ;
+            $status= 'Deactive' ;
             } 
-            $csvContent .= "{$data->course_id},{$data->category->name},{$data->course_name},{$module_duration},{$status},{$assignment },{$total_modules},{$data->updateby->name},{$data->created_at}\n"; // Custom CSV row
+            
+            $created_at =Carbon::create($data->created_at )->format('d M Y');	
+
+            $csvContent .= "{$data->course_id},{$data->category->name},{$data->course_name},{$module_duration},{$status},{$assignment },{$isquiz},{$total_modules},{$data->author},{$data->updateby->name},{$created_at}\n"; // Custom CSV row
         }
 
         // Define the response headers

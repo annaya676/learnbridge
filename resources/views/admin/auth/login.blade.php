@@ -3,7 +3,7 @@
 
     <div class="auth-right__inner mx-auto w-100">
         <a href="index.html" class="auth-right__logo">
-            <img src="{{ asset('assets/images/logo/logo.png') }}" alt="">
+            <img src="{{ asset('public/assets/images/logo/logo.png') }}" alt="">
         </a>
         <h2 class="mb-8">Sign-In to your account </h2>
         <p class="text-gray-600 text-15 mb-32">Welcome to LearnBridge!</p>

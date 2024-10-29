@@ -27,7 +27,7 @@ class User extends Authenticatable
         'lob_id',
         'department',
         'doj',
-
+        'joiner_status',
         'gender',
         'sub_lob',
         'college_name',
@@ -36,8 +36,8 @@ class User extends Authenticatable
         'college_location',	
         'offer_release_spoc',
         'trf',
-
-    
+        'revokes',
+        'sme_submission_date',
         'password',
         'token',
         'status',

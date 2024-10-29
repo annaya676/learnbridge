@@ -42,7 +42,7 @@
                         <th class="h6 text-gray-300">{{ __('Email') }}</th>
                         <th class="h6 text-gray-300">{{ __('Phone') }}</th>
                         <th class="h6 text-gray-300">{{ __('Status') }}</th>
-                        <th class="h6 text-gray-300" width="260px">{{ __('Actions') }}</th>
+                        <th class="h6 text-gray-300">{{ __('Actions') }}</th>
 
                     </tr>
                 </thead>
@@ -78,7 +78,7 @@
                 { data: 'action', searchable: false, orderable: false }
                 ],
                 language : {
-                 processing: '<img src="{{asset('assets/lms/images/logo/logo.png')}}">'
+                 processing: '<img src="{{asset('public/assets/images/logo/logo.png')}}">'
                 },
                 drawCallback: function () {
                 $('.paging_full_numbers').addClass('card-footer flex-between flex-wrap');

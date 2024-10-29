@@ -50,7 +50,7 @@
         </div>
 
 
-    @if ($details->assignment_status!=1)    
+    @if ($details->assignment_status==3 || $details->assignment_status==0)    
     <form action="{{ route('user.assignments.upload',$details->course->id)}}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
         @csrf
     
@@ -81,7 +81,7 @@
 @if($details->assignment_sme_file)
     <h5>Download SME Feedback</h5>
     <div class="flex-align gap-8 mt-1">
-        <a href="{{ asset('uploads/assignment/'.$details->assignment_sme_file) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Download </a>
+        <a href="{{   asset('public/uploads/assignment/'.$details->assignment_sme_file) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Download </a>
     </div>
 @endif
 

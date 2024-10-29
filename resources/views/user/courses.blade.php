@@ -9,14 +9,14 @@
 <li><a href="{{ route('user.home') }}" class="text-gray-200 fw-normal text-15 hover-text-main-600">Home</a></li>
 <li> <span class="text-gray-500 fw-normal d-flex"><i class="ph ph-caret-right"></i></span> </li>
 <li><span class="text-main-600 fw-normal text-15">Courses</span></li>
+<li> <span class="text-gray-500 fw-normal d-flex"><i class="ph ph-caret-right"></i></span> </li>
+<li><span class="text-main-600 fw-normal text-15">{{ $category->subset }}</span></li>
+
+
 </ul>
 </div>
 <!-- Breadcrumb End -->
 
- <!-- Course Tab Start -->
- {{-- <div class="card">
-    <div class="card-body">
-        --}}
         <div class="row g-20">
             @foreach ($myCourses as $myCourse)
             @if ($myCourse->course)
@@ -48,7 +48,7 @@
                 <div class="card border border-gray-100">
                     <div class="card-body p-8">
                         <a href="course-details.html" class="bg-main-100 rounded-8 overflow-hidden text-center mb-8 h-164 flex-center">
-                            <img src="{{  asset('uploads/thumb/'.$myCourse->course->image) }}" alt="Course Image">
+                            <img src="{{    asset('public/uploads/thumb/'.$myCourse->course->image) }}" alt="Course Image">
                         </a>
                         <div class="p-8">
                             <h5 class="mb-0"><a href="course-details.html" class="hover-text-main-600">{{ $myCourse->course->course_name }}</a></h5>
@@ -76,9 +76,6 @@
 
         </div>
      
-    {{-- </div>
-</div> --}}
-<!-- Course Tab End -->
 
 </div>
    

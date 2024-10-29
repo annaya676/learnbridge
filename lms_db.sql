@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 27, 2024 at 04:27 AM
+-- Generation Time: Oct 29, 2024 at 08:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,9 +33,10 @@ CREATE TABLE `admins` (
   `email` varchar(255) NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `lob_id` int(11) NOT NULL COMMENT '1 admin 2 sme 3 TA',
+  `role_id` int(11) DEFAULT NULL COMMENT '1 admin 2 sme 3 TA',
+  `lob_id` int(11) NOT NULL DEFAULT 0,
   `status` int(11) NOT NULL DEFAULT 1,
+  `is_super_admin` int(11) DEFAULT 0,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -45,9 +46,17 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `password`, `role_id`, `lob_id`, `status`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '8000000006', '$2y$12$G1n3scAJ9xHv6aAy7ZPsrO3MhpFiYy8p0GDRMzp6qyK89KxyoJUL.', 1, 0, 1, '', '2024-08-17 12:37:52', '2024-10-07 09:15:20'),
-(8, 'SME', 'sme@gmail.com', '8700000000', '$2y$12$qM/XL6yCqrKOMLEWnP6jruXzz9vErq9PQ2Oimr8Eua0a24cgqPAjy', 2, 1, 1, 'b871ff290ba19a8ed7c3e4f465b35fcdfc66564bdabfd8a19da3318fff26ebea', '2024-10-10 10:46:40', '2024-10-26 07:44:25');
+INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `password`, `role_id`, `lob_id`, `status`, `is_super_admin`, `token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@gmail.com', '8000000006', '$2y$12$G1n3scAJ9xHv6aAy7ZPsrO3MhpFiYy8p0GDRMzp6qyK89KxyoJUL.', 1, 0, 1, 1, '', '2024-08-17 12:37:52', '2024-10-27 08:23:29'),
+(8, 'SME', 'sme@gmail.com', '8700000000', '$2y$12$qM/XL6yCqrKOMLEWnP6jruXzz9vErq9PQ2Oimr8Eua0a24cgqPAjy', 2, 1, 1, 0, 'b871ff290ba19a8ed7c3e4f465b35fcdfc66564bdabfd8a19da3318fff26ebea', '2024-10-10 10:46:40', '2024-10-27 08:26:49'),
+(11, 'admin1', 'admin11@gmail.com', '8000010006', '$2y$12$G1n3scAJ9xHv6aAy7ZPsrO3MhpFiYy8p0GDRMzp6qyK89KxyoJUL.', 1, 0, 1, 0, '', '2024-08-17 12:37:52', '2024-10-27 03:04:55'),
+(12, 'sme12', 'sme2@gmail.com', '9999798316', '$2y$12$zHdW16Jgh.hQgGdl15Z6pePdoc3gUAXzBbLNJGFS.UvOYUkQSYTz2', 2, 1, 1, 0, '51470b8722303eec26f1a50b94d4cb4a76c19d2040b61be1516afd5a437f55bf', '2024-10-27 05:43:12', '2024-10-29 03:56:55'),
+(13, 'vipin', 'ta@gmail.com', '7777778888', '$2y$12$ePOtqz0HmPccBf/8o55R8.WsaIfOpRag0vuWMXU4Eu2pFXh.lYGUi', 3, 1, 1, 0, 'da7e61c8a65434f42f7fb89528bc95b73393c378a5131a4aeedf6894fd4c4058', '2024-10-29 03:50:38', '2024-10-29 03:59:45'),
+(14, 'vipin sme', 'smes@gmail.com', '8885798316', '$2y$12$nOXp20GKlURAA6JlCM1Qyui14t8AGkEoMRqKTQb/mAIhGE5zkJbBm', 2, 0, 1, 0, '52c5513531cb4e07ee88f8807b115f6a61a28e6700ce72cc0ae89b12b5e599c9', '2024-10-29 03:57:32', '2024-10-29 03:57:32'),
+(15, 'tas', 'tas@gmail.com', '3333798316', '$2y$12$VZf02TR0aUXNSYRgnTIn9uc5MBeSSCn34.PtZkd1D22sgjtkD7vdC', 3, 0, 1, 0, 'aaa363ad677fcccd5681b36d0bdb21a21a72623d3073fb0d2bff787addbe03d2', '2024-10-29 03:58:15', '2024-10-29 03:58:15'),
+(16, 'Quincy Wilkinson', 'mefdab@evalueserve.com', '8080808080', '$2y$12$zKl7PMPERSP2BA1CEsmaTu8HwCMNZlgrvR3ihxm9fE9.xtU4Hxr9K', 3, 0, 1, 0, '261191c49fff029b2b0634829e633d9a05c89566f5984fc834d22fc6d1d94612', '2024-10-29 11:48:54', '2024-10-29 11:49:10'),
+(17, 'Samuel Cotton', 'fonussi@evalueserve.com', '7676767676', '$2y$12$FTWQs0HnpAjrNE44QYbcr.JttJ.ZjDZNFipzAkVqK6i6iQMaTdYx.', 2, 0, 1, 0, '8e3ddad73b888670860fb368f393307e0e7143e913ec5fef08f837be3d5e8afc', '2024-10-29 11:49:39', '2024-10-29 11:49:54'),
+(18, 'Cruz Wynn', 'tiqusz@evalueserve.com', '8585858585', '$2y$12$zgEyIaSitvADGLpZ0pxgZOAjLHHSalS4aVvhoNFiqx4s3dwseKmSe', 1, 0, 1, 0, '368493c71c962e716ff9e1d854832f2dbad6ba52bc9fbfe271ca14b1d2b46143', '2024-10-29 11:50:33', '2024-10-29 11:50:44');
 
 -- --------------------------------------------------------
 
@@ -96,7 +105,7 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name`, `image`, `subset`, `status`, `created_at`, `updated_at`) VALUES
 (12, 'INSTILL', '1729928283.jpg', 'Domain and Functional', 1, '2024-10-26 02:08:03', '2024-10-26 02:08:03'),
 (13, 'INNOVATE', '1729928311.jpg', 'Technology and Digital', 1, '2024-10-26 02:08:31', '2024-10-26 02:08:31'),
-(14, 'IMBIBE', '1729928334.jpg', 'Behavioral and Communication', 1, '2024-10-26 02:08:54', '2024-10-26 02:08:54');
+(14, 'IMBIBE', '1729928334.jpg', 'Behavioral and Communication', 1, '2024-10-26 02:08:54', '2024-10-29 01:59:42');
 
 -- --------------------------------------------------------
 
@@ -120,7 +129,8 @@ CREATE TABLE `coursemaps` (
   `is_complete` int(11) NOT NULL DEFAULT 0,
   `is_read_video` text DEFAULT NULL,
   `is_read_docs` text DEFAULT NULL,
-  `assignment_upload_date` date NOT NULL,
+  `assignment_upload_date` date DEFAULT NULL,
+  `sme_submission_date` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -129,10 +139,11 @@ CREATE TABLE `coursemaps` (
 -- Dumping data for table `coursemaps`
 --
 
-INSERT INTO `coursemaps` (`id`, `user_id`, `course_id`, `lob_id`, `quiz_status`, `quiz_score`, `assignment_status`, `assignment_file`, `assignment_remark`, `assignment_download_status`, `assignment_assign`, `assignment_sme_file`, `is_complete`, `is_read_video`, `is_read_docs`, `assignment_upload_date`, `created_at`, `updated_at`) VALUES
-(36, 22, 4, 1, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-26', '2024-10-26 03:07:43', '2024-10-26 03:07:43'),
-(37, 22, 5, 1, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-26', '2024-10-26 03:07:43', '2024-10-26 03:07:43'),
-(38, 22, 6, 1, 0, 0, 0, '', '', 0, NULL, NULL, 0, '5', '6', '2024-10-26', '2024-10-26 03:07:43', '2024-10-26 12:13:49');
+INSERT INTO `coursemaps` (`id`, `user_id`, `course_id`, `lob_id`, `quiz_status`, `quiz_score`, `assignment_status`, `assignment_file`, `assignment_remark`, `assignment_download_status`, `assignment_assign`, `assignment_sme_file`, `is_complete`, `is_read_video`, `is_read_docs`, `assignment_upload_date`, `sme_submission_date`, `created_at`, `updated_at`) VALUES
+(38, 22, 6, 1, 1, 0, 1, '1730226644.csv', NULL, 1, '8', NULL, 1, '5', '6', '2024-10-29', '2024-10-29', '2024-10-26 03:07:43', '2024-10-29 13:58:20'),
+(40, 22, 7, 1, 0, 0, 1, '1730018611.pdf', NULL, 1, '8', NULL, 1, NULL, '7', NULL, NULL, '2024-10-27 03:08:55', '2024-10-27 03:13:49'),
+(41, 22, 5, 1, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-29', NULL, '2024-10-29 13:18:45', '2024-10-29 13:18:45'),
+(42, 22, 4, 1, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-29', NULL, '2024-10-29 13:19:02', '2024-10-29 13:19:02');
 
 -- --------------------------------------------------------
 
@@ -163,9 +174,10 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `course_id`, `course_name`, `description`, `image`, `assignment`, `sme_id`, `lob_id`, `category_id`, `isquiz`, `author`, `uploader`, `status`, `updated_at`, `created_at`) VALUES
-(4, 3357, 'Laravel', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929104.jpg', '1729929104.pdf', '8', '1,2,26', 14, 1, 'Jack and Annie', 1, 1, '2024-10-26 02:28:53', '2024-10-26 02:21:44'),
+(4, 3357, 'Laravel', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929104.jpg', '1729929104.pdf', '8,12', '1,2,26', 14, 1, 'Jack and Annie', 1, 1, '2024-10-27 05:43:31', '2024-10-26 02:21:44'),
 (5, 6439, 'React', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929585.png', '', '8', '1,2,26', 13, 1, 'Jack', 1, 1, '2024-10-26 02:31:34', '2024-10-26 02:29:45'),
-(6, 4423, 'CWM', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929762.jpg', '1729929762.pdf', '8', '1,2,26', 12, NULL, 'Annie', 1, 1, '2024-10-26 02:34:19', '2024-10-26 02:32:42');
+(6, 4423, 'CWM', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929762.jpg', '1729929762.pdf', '8', '1,2,26', 12, NULL, 'Annie', 1, 1, '2024-10-29 12:56:53', '2024-10-26 02:32:42'),
+(7, 9986, 'Testing', 'this is for test', '1730018281.jpg', '1730018281.pdf', '8,12', '1,2,26', 12, NULL, 'Jack and Annie', 1, 1, '2024-10-29 12:56:50', '2024-10-27 03:08:01');
 
 -- --------------------------------------------------------
 
@@ -301,7 +313,8 @@ INSERT INTO `modules` (`id`, `course_id`, `module_name`, `description`, `duratio
 (3, 5, 'React introduction', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 10, '', '1729929654.pdf', 1, '2024-10-26 02:30:54', '2024-10-26 02:30:54'),
 (4, 5, 'React setup', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 30, '1729929687.mp4', '1729964468.pdf', 1, '2024-10-26 02:31:27', '2024-10-26 12:11:08'),
 (5, 6, 'CWM', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 30, '1729929804.mp4', '', 1, '2024-10-26 02:33:24', '2024-10-26 02:33:24'),
-(6, 6, 'CWM Concept', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 40, '', '1729929853.pdf', 1, '2024-10-26 02:34:13', '2024-10-26 02:34:13');
+(6, 6, 'CWM Concept', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 40, '', '1729929853.pdf', 1, '2024-10-26 02:34:13', '2024-10-26 02:34:13'),
+(7, 7, 'Concept Of Wealth Management', 'cdscdcid sijifdu ifsdifi sdi', 12, '', '1730018303.pdf', 1, '2024-10-27 03:08:23', '2024-10-27 03:08:23');
 
 -- --------------------------------------------------------
 
@@ -373,7 +386,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('zDWSZunzs1Sh8ptkDWpM8hfMXRuxLW4UXuB8oWY8', 22, '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSFcyT09WdnI1RjRORFF6UDQ4U2FJQ21id2FMRlFpVmZla1FaeEpCQyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9sZWFybmJyaWRnZS9wdWJsaWMvYWRtaW4vZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjI7czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1729968807);
+('AqFplWyUFAHi14JnhCziECTaMdkgt2mM2Ra9xdvH', 22, '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicnA5Sms1R3dqb2habW51OHY5NFdLOVdSdmNJSmhrQjNISzlRTE1iViI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9sZWFybmJyaWRnZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIyO3M6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1730230119);
 
 -- --------------------------------------------------------
 
@@ -387,7 +400,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `phone` bigint(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `lob_id` int(11) DEFAULT NULL,
+  `lob_id` int(11) DEFAULT 0,
   `designation` varchar(255) DEFAULT NULL,
   `grade` varchar(255) DEFAULT NULL,
   `gender` varchar(200) DEFAULT NULL,
@@ -402,6 +415,8 @@ CREATE TABLE `users` (
   `expectance_date` date DEFAULT current_timestamp(),
   `token` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1 COMMENT '0=pending, 1 active, 2 suspended',
+  `joiner_status` varchar(200) DEFAULT NULL,
+  `revokes` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -410,8 +425,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `lob_id`, `designation`, `grade`, `gender`, `sub_lob`, `college_name`, `location`, `specialization`, `college_location`, `offer_release_spoc`, `doj`, `trf`, `expectance_date`, `token`, `status`, `created_at`, `updated_at`) VALUES
-(22, 'vipin', 'user@gmail.com', 9765798316, '$2y$12$2aqJLZzNm4JbNOL104gBYO3H0Gp/mCpvJU2lN5dQjwHqRRcSGWdbO', 1, 'Chartered Wealth Manager', 'A', 'male', 'This is for sub lob', 'S.M.T.', 'Noida', 'Web Development', 'Delhi', 'abc', '2024-10-26', 'xyz', '2024-10-26', '2b42809b170df7dba1fca019974c0957ea272bc7eed2ed3cfa6b4b3c2308cac4', 1, '2024-10-26 02:37:48', '2024-10-26 02:37:48');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `lob_id`, `designation`, `grade`, `gender`, `sub_lob`, `college_name`, `location`, `specialization`, `college_location`, `offer_release_spoc`, `doj`, `trf`, `expectance_date`, `token`, `status`, `joiner_status`, `revokes`, `created_at`, `updated_at`) VALUES
+(22, 'user', 'user@gmail.com', 9797979797, '$2y$12$2aqJLZzNm4JbNOL104gBYO3H0Gp/mCpvJU2lN5dQjwHqRRcSGWdbO', 1, 'IT', 'A', 'male', 'This is for sub lob', 'S.M.T.', 'Noida', 'Web Development', 'Delhi', 'abc', '2024-10-26', 'xyz', '2024-10-30', '2b42809b170df7dba1fca019974c0957ea272bc7eed2ed3cfa6b4b3c2308cac4', 1, 'active', 0, '2024-10-26 02:37:48', '2024-10-29 18:48:08');
 
 -- --------------------------------------------------------
 
@@ -428,6 +443,18 @@ CREATE TABLE `user_quiz_answers` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_quiz_answers`
+--
+
+INSERT INTO `user_quiz_answers` (`id`, `course_id`, `user_id`, `question_id`, `answer`, `updated_at`, `created_at`) VALUES
+(13, 5, 22, 7, 'A', '2024-10-27 03:29:09', '2024-10-27 03:29:09'),
+(14, 5, 22, 8, 'A', '2024-10-27 03:29:11', '2024-10-27 03:29:11'),
+(15, 5, 22, 9, 'A', '2024-10-27 03:29:13', '2024-10-27 03:29:13'),
+(16, 5, 22, 10, 'A', '2024-10-27 03:29:15', '2024-10-27 03:29:15'),
+(17, 5, 22, 11, 'A', '2024-10-27 03:29:18', '2024-10-27 03:29:18'),
+(18, 5, 22, 12, 'A', '2024-10-27 03:29:20', '2024-10-27 03:29:20');
 
 --
 -- Indexes for dumped tables
@@ -550,7 +577,7 @@ ALTER TABLE `user_quiz_answers`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -562,13 +589,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `coursemaps`
 --
 ALTER TABLE `coursemaps`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -598,7 +625,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `quiz_questions`
@@ -610,13 +637,13 @@ ALTER TABLE `quiz_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `user_quiz_answers`
 --
 ALTER TABLE `user_quiz_answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
