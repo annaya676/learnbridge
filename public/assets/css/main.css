@@ -9874,3 +9874,6 @@ button:focus {
     color: var(--danger-500) !important;
 }
 
+.toggle-password{
+    cursor: pointer;
+}

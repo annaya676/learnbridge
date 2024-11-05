@@ -80,7 +80,7 @@
                                     
                                     <option value="">{{ __('Select category') }}</option>
                                     @foreach($category as $cat)
-                                      <option  value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                      <option  {{ old('category_id') == $cat->id ? 'selected' : '' }}  value="{{ $cat->id }}">{{ $cat->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror  
@@ -99,7 +99,7 @@
                                     
                                     <option value="">{{ __('Select SME') }}</option>
                                     @foreach($smes as $sme)
-                                      <option  value="{{ $sme->id }}">{{ $sme->name }}</option>
+                                      <option   {{ (collect(old('sme_id'))->contains($sme->id)) ? 'selected' : '' }} value="{{ $sme->id }}">{{ $sme->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -114,7 +114,7 @@
 
                                     <option value="">{{ __('Select LOB') }}</option>
                                     @foreach($lobs as $lob)
-                                      <option  value="{{ $lob->id }}">{{ $lob->name }}</option>
+                                      <option {{ (collect(old('lob_id'))->contains($lob->id)) ? 'selected' : '' }}  value="{{ $lob->id }}">{{ $lob->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -125,7 +125,7 @@
 
                             <div class="col-sm-12">
                                 <label for="author" class="form-label mb-8 h6">Author <span class="text-13 text-gray-400 fw-medium">(Required)</span> </label>
-                                <input type="text"  class="form-control py-11 @error('author') is-invalid @enderror"  name="author" id="author" placeholder="Enter Author">
+                                <input type="text"  class="form-control py-11 @error('author') is-invalid @enderror"  value="{{ old('author', '') }}"  name="author" id="author" placeholder="Enter Author">
                                 @error('author') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
 

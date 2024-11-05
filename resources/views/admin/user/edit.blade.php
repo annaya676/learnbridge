@@ -49,7 +49,7 @@
 
                             <div class="col-sm-6 col-xs-6">
                                 <label for="phone" class="form-label mb-8 h6">Phone</label>
-                                <input type="number" value="{{ $user->phone }}" class="form-control py-11 @error('phone') is-invalid @enderror"   name="phone" id="phone" placeholder="Enter Phone">
+                                <input type="number" value="{{ $user->phone }}" class="form-control py-11 @error('phone') is-invalid @enderror"   minlength="10"  maxlength="12"  name="phone" id="phone" placeholder="Enter Phone">
                                 @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
          
@@ -89,7 +89,7 @@
                  
                             <div class="col-sm-6 col-xs-6">
                                 <label for="doj" class="form-label mb-8 h6">Date Of Joining</label>
-                                <input type="date" class="form-control py-11 @error('doj') is-invalid @enderror" value="{{ $user->doj }}"  name="doj" id="doj" placeholder="">
+                                <input type="date" class="form-control py-11 @error('doj') is-invalid @enderror" value="{{ $user->doj }}"  min="{{ $user->doj }}" name="doj" id="doj" placeholder="">
                                 @error('doj') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             

@@ -136,7 +136,7 @@
                             <div class="col-7">
                                 <label for="confirm-password" class="form-label mb-8 h6">Confirm Password</label>
                                 <div class="position-relative">
-                                    <input type="password" name="confirm_password" class="form-control py-11 @error('confirm_password') is-invalid @enderror"  placeholder="Enter Confirm Password">
+                                    <input type="password" name="confirm_password" class="form-control py-11 @error('confirm_password') is-invalid @enderror" id="confirm-password"  placeholder="Enter Confirm Password">
                                     <span class="toggle-password position-absolute top-50 inset-inline-end-0 me-16 translate-middle-y ph ph-eye-slash" id="#confirm-password"></span>
                                     @error('confirm_password')
                                     <div class="invalid-feedback">{{ $message }}</div>

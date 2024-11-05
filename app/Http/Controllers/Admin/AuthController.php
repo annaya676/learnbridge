@@ -40,7 +40,7 @@ class AuthController extends Controller
 
             return redirect()->route('dashboard');
         }else{
-            return redirect()->route('admin.login')->with('error','The email and password is incorrect! please try again!');
+            return redirect()->route('admin.login')->with('error','The Email/password is incorrect! please try again!');
         }
 
     }
@@ -73,8 +73,8 @@ class AuthController extends Controller
 
         \Mail::to($request->email)->send(new Websitemail($subject, $message));
 
-        return redirect()->back()->with('success','We have send a password reset link on your email.
-        please check your email, if you do not find the email in your inbox please check span folder');
+        return redirect()->back()->with('success','We have sent a password reset link on your email.
+        please check your email, if you do not find the email in your inbox please check spam folder');
 
     }
 

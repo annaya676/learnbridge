@@ -47,8 +47,7 @@
                            
                             <div class="col-12">
                                 <div class="flex-align justify-content-end gap-8">
-                                    <button type="reset" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Cancel</button>
-                                    <button type="submit" class="btn btn-main rounded-pill py-9">Save  Changes</button>
+                                    <button type="submit" class="btn btn-main rounded-pill py-9">Submit</button>
                                 </div>
                             </div>
                         </div>

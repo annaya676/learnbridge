@@ -41,10 +41,12 @@ class UserController extends Controller
                 abort(404);
             }
 
-            if (!request()->headers->has('referer') || !str_contains(request()->headers->get('referer'), env('APP_URL'))) {
+            // if (!request()->headers->has('referer') || !str_contains(request()->headers->get('referer'), env('APP_URL'))) {
+            //     abort(403, 'Direct access is forbidden.');
+            // }
+            if (!$request->headers->has('origin') || !str_contains($request->headers->get('origin'), env('APP_URL'))) {
                 abort(403, 'Direct access is forbidden.');
             }
-
             // Get MIME type and return for inline preview
                 $mimeType = mime_content_type($path);
                 return response()->file($path, [
@@ -71,10 +73,14 @@ class UserController extends Controller
                 abort(404);
             }
 
-            if (!request()->headers->has('referer') || !str_contains(request()->headers->get('referer'), env('APP_URL'))) {
+            // if (!request()->headers->has('referer') || !str_contains(request()->headers->get('referer'), env('APP_URL'))) {
+            //     abort(403, 'Direct access is forbidden.');
+            // }
+
+            if (!$request->headers->has('origin') || !str_contains($request->headers->get('origin'), env('APP_URL'))) {
                 abort(403, 'Direct access is forbidden.');
             }
-
+            
             // Get MIME type and return for inline preview
                 $mimeType = mime_content_type($path);
                 return response()->file($path, [

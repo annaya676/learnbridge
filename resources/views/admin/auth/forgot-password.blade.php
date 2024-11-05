@@ -11,9 +11,8 @@
         @foreach ($errors->all() as $error)
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ $error }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
+
             </div>  
         @endforeach      
     @endif
@@ -21,9 +20,7 @@
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
         </div> 
     @endif
 
@@ -31,9 +28,7 @@
     @if(session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button>
         </div> 
     @endif
 
@@ -48,12 +43,8 @@
             </div>
         </div>
       
-        <div class="mb-32 flex-between flex-wrap gap-8">
-             <a href="{{ route('admin.login') }}" class="text-main-600 hover-text-decoration-underline text-15 fw-medium">Remember Password?</a>
-        </div>
-        <button type="submit" id="login" class="btn btn-main rounded-pill w-100">Sign In</button>
-        
-
+        <button type="submit" id="login" class="btn btn-main rounded-pill w-100">Next</button>
+        <a href="{{ route('admin.login') }}" class="my-32 text-main-600 flex-align gap-8 justify-content-center"> <i class="ph ph-arrow-left d-flex"></i> Back To Login</a>
     </form>
 </div>
 

@@ -56,14 +56,14 @@
 
    <!-- Modal Add Event -->
    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-md modal-dialog modal-dialog-centered">
         <div class="modal-content radius-16 bg-base">
             <div class="modal-header py-16 px-24 border border-top-0 border-start-0 border-end-0">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Report Export CSV</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Assignment Progress Report</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-24">
-                <form method="POST" action="{{ route('reports.assignment.export') }}">
+                <form method="POST" id="filter-form" action="{{ route('reports.assignment.export') }}">
                     @csrf
                     <div class="row">   
                         <div class="col mb-20">
@@ -83,7 +83,7 @@
                       
                      
                         <div class="d-flex align-items-center justify-content-center gap-8 mt-24">
-                            <button type="reset" class="btn filter bg-danger-600 hover-bg-danger-800 border-danger-600 hover-border-danger-800 text-md px-24 py-12 radius-8"> 
+                            <button type="reset" class="btn reset-filter bg-danger-600 hover-bg-danger-800 border-danger-600 hover-border-danger-800 text-md px-24 py-12 radius-8"> 
                                 <i class="ph ph-arrow-clockwise"></i>
                             </button>
                             <button type="submit" class="btn bg-main-600 hover-bg-main-800 border-main-600 hover-border-main-800 text-md px-24 py-12 radius-8"> 
@@ -144,10 +144,22 @@ $(document).ready(function() {
             table.ajax.reload(); // Reload data with filters
         });
  
-});   $('#filter-form').on('submit', function (e) {
+        $('.reset-filter').on('click', function (e) {
             e.preventDefault();
+            $("#filter-form").trigger("reset");
+
             table.ajax.reload(); // Reload data with filters
         });
+ 
+
+});  
+
+
+
+$('#filter-form').on('submit', function (e) {
+    e.preventDefault();
+    table.ajax.reload(); // Reload data with filters
+});
 
 </script>
 

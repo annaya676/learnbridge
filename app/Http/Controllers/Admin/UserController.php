@@ -101,7 +101,9 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             "email" => ["required","email",'unique:users'],
-            'phone' => ['required','digits:10','numeric','unique:users'],
+            // 'phone' => ['required','min:10','max:12','numeric','unique:users'],
+            'phone' => 'required|string|min:10|max:12|unique:users',
+
             'lob_id' => 'required',         
             'designation'=> 'required',
             'grade'=> 'required',
@@ -168,7 +170,7 @@ class UserController extends Controller
         $request->validate([
                 'name' => 'required',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-                'phone' => 'required|numeric|digits:10|unique:users,phone,' . $id,
+                'phone' => 'required|string|min:10|max:12|unique:users,phone,' . $id,
                 'lob_id' => 'required',
                 'designation'=> 'required',
                 'grade'=> 'required',

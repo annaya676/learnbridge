@@ -78,7 +78,7 @@ class CourseController extends Controller
     public function create()
     {
         $lobs = Lob::all();
-        $smes = Admin::where('role_id',2)->orderBy('name', 'asc')->get();
+        $smes = Admin::where('status',1)->where('role_id',2)->orderBy('name', 'asc')->get();
         $category = Category::orderBy('id', 'desc')->get();
 
         return view('admin.course.create',compact('lobs','smes','category'));

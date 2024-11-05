@@ -74,7 +74,7 @@ class LobController extends Controller
     {
     
         $validatedData = $request->validate([
-            'name' => 'required',
+            "name" => ["required",'unique:lobs'],
             'description' => 'required',
         ]);
        
@@ -108,7 +108,7 @@ class LobController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:lobs,name,' . $id,
             'description' => 'required',
         ]);
        

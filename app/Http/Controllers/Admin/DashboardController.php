@@ -83,7 +83,7 @@ class DashboardController extends Controller
            
         $data->update($input);
 
-        return redirect()->back()->with('success','profile updated successfully');    
+        return redirect()->back()->with('success','Profile updated successfully!');    
 
     }
 
@@ -102,10 +102,10 @@ class DashboardController extends Controller
         }
 
         $admin = Auth::guard('admin')->user();
-        $admin->password=Hash::make($request->input('password'));
+        $admin->password=Hash::make($request->input('new_password'));
         $admin->update();
         // Return a success message
-        return redirect()->back()->with('success','password updated successfully!');    
+        return redirect()->back()->with('success','Password updated successfully!');    
 
     }
 

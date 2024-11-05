@@ -14,7 +14,7 @@
 <!-- Breadcrumb End -->
 
         <!-- Breadcrumb Right Start -->
-        <div class="flex-align gap-8 flex-wrap">
+        {{-- <div class="flex-align gap-8 flex-wrap">
             
             <div class="flex-align text-gray-500 text-13 border border-gray-100 rounded-4 ps-20 focus-border-main-600 bg-white">
                 <span class="text-lg"><i class="ph ph-layout"></i></span>
@@ -24,7 +24,7 @@
                     <option value="json">JSON</option>
                 </select>
             </div>
-        </div>
+        </div> --}}
         <!-- Breadcrumb Right End -->
 
     </div>
