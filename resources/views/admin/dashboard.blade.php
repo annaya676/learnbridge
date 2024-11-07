@@ -15,11 +15,11 @@
                             <a href="{{ route('reports.course.completion') }}">
                             {{-- <h4 class="mb-2">{{ $courseCompletion }}+</h4> --}}
                             <span class="text-gray-600">Course Completion & Inprogress report</span>
-                            </a>
+                            
                             <div class="flex-between gap-8 mt-16">
                                 <span class="flex-shrink-0 w-48 h-48 flex-center rounded-circle bg-main-600 text-white text-2xl"><i class="ph-fill ph-book-open"></i></span>
-                                <div id="complete-course" class="remove-tooltip-title rounded-tooltip-value"></div>
                             </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -29,11 +29,12 @@
                             <a href="{{ route('reports.assignment') }}">
                             {{-- <h4 class="mb-2">{{ $assignment }}+</h4> --}}
                             <span class="text-gray-600">Assignment Progress Report</span>
-                            </a>
+                           
                             <div class="flex-between gap-8 mt-16">
                                 <span class="flex-shrink-0 w-48 h-48 flex-center rounded-circle bg-main-two-600 text-white text-2xl"><i class="ph-fill ph-certificate"></i></span>
-                                <div id="earned-certificate" class="remove-tooltip-title rounded-tooltip-value"></div>
+                                
                             </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -43,28 +44,33 @@
                             <a href="{{ route('reports.user.details') }}">
                             {{-- <h4 class="mb-2">{{ $userDetails }}+</h4> --}}
                             <span class="text-gray-600">User Report</span>
-                            </a>
+                           
                             <div class="flex-between gap-8 mt-16">
                                 <span class="flex-shrink-0 w-48 h-48 flex-center rounded-circle bg-purple-600 text-white text-2xl"> <i class="ph-fill ph-graduation-cap"></i></span>
-                                <div id="course-progress" class="remove-tooltip-title rounded-tooltip-value"></div>
+                              
                             </div>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-3 col-sm-6">
+              
                     <div class="card">
+                   
                         <div class="card-body">
-                            <a href="{{ route('reports.course.catalogue') }}">
+                        <a href="{{ route('reports.course.catalogue') }}">
                             {{-- <h4 class="mb-2">{{ $courseCatalogue }}+</h4> --}}
                             <span class="text-gray-600">Course Catalogue Report</span>
-                            </a>
+                           
                             <div class="flex-between gap-8 mt-16">
                                 <span class="flex-shrink-0 w-48 h-48 flex-center rounded-circle bg-warning-600 text-white text-2xl"><i class="ph-fill ph-users-three"></i></span>
-                                <div id="community-support" class="remove-tooltip-title rounded-tooltip-value"></div>
+                               
                             </div>
-                       
+                            </a>
                         </div>
+                        
                     </div>
+                    
                 </div>
             </div>
             <!-- Widgets End -->

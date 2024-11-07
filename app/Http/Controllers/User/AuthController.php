@@ -39,7 +39,7 @@ class AuthController extends Controller
 
             return redirect()->route('user.dashboard');
         }else{
-            return redirect()->route('login')->with('error','The Email/password is incorrect! please try again!');
+            return redirect()->route('login')->with('error','Invalid email or password! Please try again!');
         }
 
     }

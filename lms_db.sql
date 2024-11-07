@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 29, 2024 at 08:29 PM
+-- Host: 127.0.0.1
+-- Generation Time: Nov 07, 2024 at 12:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,16 +47,13 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `password`, `role_id`, `lob_id`, `status`, `is_super_admin`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '8000000006', '$2y$12$G1n3scAJ9xHv6aAy7ZPsrO3MhpFiYy8p0GDRMzp6qyK89KxyoJUL.', 1, 0, 1, 1, '', '2024-08-17 12:37:52', '2024-10-27 08:23:29'),
-(8, 'SME', 'sme@gmail.com', '8700000000', '$2y$12$qM/XL6yCqrKOMLEWnP6jruXzz9vErq9PQ2Oimr8Eua0a24cgqPAjy', 2, 1, 1, 0, 'b871ff290ba19a8ed7c3e4f465b35fcdfc66564bdabfd8a19da3318fff26ebea', '2024-10-10 10:46:40', '2024-10-27 08:26:49'),
-(11, 'admin1', 'admin11@gmail.com', '8000010006', '$2y$12$G1n3scAJ9xHv6aAy7ZPsrO3MhpFiYy8p0GDRMzp6qyK89KxyoJUL.', 1, 0, 1, 0, '', '2024-08-17 12:37:52', '2024-10-27 03:04:55'),
-(12, 'sme12', 'sme2@gmail.com', '9999798316', '$2y$12$zHdW16Jgh.hQgGdl15Z6pePdoc3gUAXzBbLNJGFS.UvOYUkQSYTz2', 2, 1, 1, 0, '51470b8722303eec26f1a50b94d4cb4a76c19d2040b61be1516afd5a437f55bf', '2024-10-27 05:43:12', '2024-10-29 03:56:55'),
-(13, 'vipin', 'ta@gmail.com', '7777778888', '$2y$12$ePOtqz0HmPccBf/8o55R8.WsaIfOpRag0vuWMXU4Eu2pFXh.lYGUi', 3, 1, 1, 0, 'da7e61c8a65434f42f7fb89528bc95b73393c378a5131a4aeedf6894fd4c4058', '2024-10-29 03:50:38', '2024-10-29 03:59:45'),
-(14, 'vipin sme', 'smes@gmail.com', '8885798316', '$2y$12$nOXp20GKlURAA6JlCM1Qyui14t8AGkEoMRqKTQb/mAIhGE5zkJbBm', 2, 0, 1, 0, '52c5513531cb4e07ee88f8807b115f6a61a28e6700ce72cc0ae89b12b5e599c9', '2024-10-29 03:57:32', '2024-10-29 03:57:32'),
-(15, 'tas', 'tas@gmail.com', '3333798316', '$2y$12$VZf02TR0aUXNSYRgnTIn9uc5MBeSSCn34.PtZkd1D22sgjtkD7vdC', 3, 0, 1, 0, 'aaa363ad677fcccd5681b36d0bdb21a21a72623d3073fb0d2bff787addbe03d2', '2024-10-29 03:58:15', '2024-10-29 03:58:15'),
-(16, 'Quincy Wilkinson', 'mefdab@evalueserve.com', '8080808080', '$2y$12$zKl7PMPERSP2BA1CEsmaTu8HwCMNZlgrvR3ihxm9fE9.xtU4Hxr9K', 3, 0, 1, 0, '261191c49fff029b2b0634829e633d9a05c89566f5984fc834d22fc6d1d94612', '2024-10-29 11:48:54', '2024-10-29 11:49:10'),
-(17, 'Samuel Cotton', 'fonussi@evalueserve.com', '7676767676', '$2y$12$FTWQs0HnpAjrNE44QYbcr.JttJ.ZjDZNFipzAkVqK6i6iQMaTdYx.', 2, 0, 1, 0, '8e3ddad73b888670860fb368f393307e0e7143e913ec5fef08f837be3d5e8afc', '2024-10-29 11:49:39', '2024-10-29 11:49:54'),
-(18, 'Cruz Wynn', 'tiqusz@evalueserve.com', '8585858585', '$2y$12$zgEyIaSitvADGLpZ0pxgZOAjLHHSalS4aVvhoNFiqx4s3dwseKmSe', 1, 0, 1, 0, '368493c71c962e716ff9e1d854832f2dbad6ba52bc9fbfe271ca14b1d2b46143', '2024-10-29 11:50:33', '2024-10-29 11:50:44');
+(1, 'Super Admin', 'university@evalueserve.com', '8000000006', '$2y$12$VzaahZCf8raSCTQcgBkVuOJuOeE6i6c4vqtGCtfGIeCOZrV8yIjF6', 1, 0, 1, 1, 'af8a25160432df17a8017176b7c8ccb79893fa7cd499fc14ad80e1eebfb488b7', '2024-08-17 12:37:52', '2024-11-05 20:31:27'),
+(20, 'Sumit Joshi', 'sumit.joshi@evalueserve.com', '9898987878', '$2y$12$LUD9WyFhpeTg.ClgN290seU5IGjm94XO0n1yeHuNxmK9ZVfxcH4I2', 2, 0, 1, 0, 'e525483110a3003f08ff605b55910f1fe95708457151106ea622df6ce694a872', '2024-10-29 20:50:09', '2024-10-29 20:50:09'),
+(21, 'Sushant Raj', 'sushant.raj@evalueserve.com', '7777778877', '$2y$12$Qdx8fI/V/xMnJmWDNY1O2e7OZSvr4OJK/e06KHHl3VCHpPfjxl7g6', 2, 0, 1, 0, '9b94ab7125da5d723f2536bee459746a253cb57224812ac9a7bb0d2d0184f121', '2024-10-29 20:50:34', '2024-10-29 20:50:34'),
+(22, 'Ravi Shankar Jha', 'ravi.jha@evalueserve.com', '9999998899', '$2y$12$ADO6n3iFB73AygTrpwqBgO7GBp6kPdC0IhIfQt/Y5njQGVO1SzXRO', 2, 0, 1, 0, '0a8fe63aa98dcef31191d75588c090ec8f22b0645bcfe43207510205bc5f5b0f', '2024-10-29 20:50:59', '2024-10-29 20:50:59'),
+(23, 'Ravinder Ahuja', 'ravinder.ahuja@evalueserve.com', '6677667777', '$2y$12$HgPxHlKFNPwvbHvRnjjUSeQ4yS2/jYI6EcmmuaQ1ZxV9MDtaIO1XK', 2, 0, 1, 0, '07069526d2386ca2a9b28b7685c9e41503ee5b0f4b307087f7cb639a03c92312', '2024-10-29 20:51:22', '2024-10-29 20:51:22'),
+(24, 'Mohak Pachisia', 'mohak.pachisia@evalueserve.com', '7766776677', '$2y$12$qlC1YEbCttlkcAKYPsvhXuuuRZ.sH1fZD6Z2hNa/mEbPPqgPM5nue', 2, 0, 0, 0, 'de1daec3c541d25c1c398865d165ca8dac22750a80a63e2fc1c2d9bba32268c0', '2024-10-29 20:51:55', '2024-11-05 20:49:10'),
+(25, 'Ankita Singh', 'ankita.singh@evalueserve.com', '9999999988', '$2y$12$m2ZjEVow2OJwZ0mX34VqHOnU9ZA1ducruIA1YeqxjE6MYkkxuDM5u', 3, 0, 1, 0, '23c2467c55fddff15611ab2636566c178f28556752946508f8cf4a4a358e99a7', '2024-10-29 21:08:00', '2024-10-29 21:08:00');
 
 -- --------------------------------------------------------
 
@@ -103,9 +100,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `image`, `subset`, `status`, `created_at`, `updated_at`) VALUES
-(12, 'INSTILL', '1729928283.jpg', 'Domain and Functional', 1, '2024-10-26 02:08:03', '2024-10-26 02:08:03'),
-(13, 'INNOVATE', '1729928311.jpg', 'Technology and Digital', 1, '2024-10-26 02:08:31', '2024-10-26 02:08:31'),
-(14, 'IMBIBE', '1729928334.jpg', 'Behavioral and Communication', 1, '2024-10-26 02:08:54', '2024-10-29 01:59:42');
+(15, 'INSTILL', '1730978285.jpg', 'Domain and Functional', 1, '2024-10-29 20:52:42', '2024-11-07 05:48:05'),
+(16, 'INNOVATE', '1730978258.jpg', 'Digital and Technology', 1, '2024-10-29 20:53:27', '2024-11-07 05:47:38'),
+(17, 'IMBIBE', '1730978205.jpg', 'Behavioral and Communication', 1, '2024-10-29 20:54:17', '2024-11-07 05:46:45');
 
 -- --------------------------------------------------------
 
@@ -140,10 +137,9 @@ CREATE TABLE `coursemaps` (
 --
 
 INSERT INTO `coursemaps` (`id`, `user_id`, `course_id`, `lob_id`, `quiz_status`, `quiz_score`, `assignment_status`, `assignment_file`, `assignment_remark`, `assignment_download_status`, `assignment_assign`, `assignment_sme_file`, `is_complete`, `is_read_video`, `is_read_docs`, `assignment_upload_date`, `sme_submission_date`, `created_at`, `updated_at`) VALUES
-(38, 22, 6, 1, 1, 0, 1, '1730226644.csv', NULL, 1, '8', NULL, 1, '5', '6', '2024-10-29', '2024-10-29', '2024-10-26 03:07:43', '2024-10-29 13:58:20'),
-(40, 22, 7, 1, 0, 0, 1, '1730018611.pdf', NULL, 1, '8', NULL, 1, NULL, '7', NULL, NULL, '2024-10-27 03:08:55', '2024-10-27 03:13:49'),
-(41, 22, 5, 1, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-29', NULL, '2024-10-29 13:18:45', '2024-10-29 13:18:45'),
-(42, 22, 4, 1, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-29', NULL, '2024-10-29 13:19:02', '2024-10-29 13:19:02');
+(49, 33, 8, 37, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, '8', '2024-10-30', NULL, '2024-10-30 03:30:33', '2024-10-30 06:27:06'),
+(50, 33, 9, 37, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-30', NULL, '2024-10-30 03:30:33', '2024-10-30 03:30:33'),
+(51, 33, 10, 37, 0, 0, 0, '', '', 0, NULL, NULL, 0, NULL, NULL, '2024-10-30', NULL, '2024-10-30 03:30:33', '2024-10-30 03:30:33');
 
 -- --------------------------------------------------------
 
@@ -174,10 +170,10 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `course_id`, `course_name`, `description`, `image`, `assignment`, `sme_id`, `lob_id`, `category_id`, `isquiz`, `author`, `uploader`, `status`, `updated_at`, `created_at`) VALUES
-(4, 3357, 'Laravel', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929104.jpg', '1729929104.pdf', '8,12', '1,2,26', 14, 1, 'Jack and Annie', 1, 1, '2024-10-27 05:43:31', '2024-10-26 02:21:44'),
-(5, 6439, 'React', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929585.png', '', '8', '1,2,26', 13, 1, 'Jack', 1, 1, '2024-10-26 02:31:34', '2024-10-26 02:29:45'),
-(6, 4423, 'CWM', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', '1729929762.jpg', '1729929762.pdf', '8', '1,2,26', 12, NULL, 'Annie', 1, 1, '2024-10-29 12:56:53', '2024-10-26 02:32:42'),
-(7, 9986, 'Testing', 'this is for test', '1730018281.jpg', '1730018281.pdf', '8,12', '1,2,26', 12, NULL, 'Jack and Annie', 1, 1, '2024-10-29 12:56:50', '2024-10-27 03:08:01');
+(8, 5411, 'Trading Comparables', 'http://localhost:8081/learnbridge/login', '1730956658.jpg', '1730255189.xlsx', '21', '37', 15, NULL, 'Sushant Raj', 1, 1, '2024-11-06 23:47:38', '2024-10-29 20:56:29'),
+(9, 7909, 'Communicating with Empathy', 'Communicating with Empathy', '1730956629.jpg', '', '22', '34,35,36,37', 17, NULL, 'Ravi Shankar Jha', 1, 1, '2024-11-06 23:47:09', '2024-10-29 21:02:48'),
+(10, 3081, 'Working Across Cultures', 'Working Across Cultures', '1730956598.jpg', '', '22', '34,35,36,37', 17, NULL, 'Ravi Shankar Jha', 1, 1, '2024-11-06 23:46:38', '2024-10-29 21:04:49'),
+(12, 9979, 'xyz', 'dfsdfsd', '1730288944.jpg', '', '22,20', '36', 17, NULL, 'Ravi Jha', 1, 0, '2024-10-30 06:19:04', '2024-10-30 06:19:04');
 
 -- --------------------------------------------------------
 
@@ -250,9 +246,11 @@ CREATE TABLE `lobs` (
 --
 
 INSERT INTO `lobs` (`id`, `name`, `description`, `status`, `updated_at`, `created_at`) VALUES
-(1, 'lob1', 'Non ea nisi eveniet nemo corporis aliquid fugit quidem. Quis commodi dolor itaque consequatur sunt.', 1, '2024-10-26 07:45:11', '2024-09-29 06:01:45'),
-(2, 'lob2', 'Earum temporibus cum aut sit nobis. Sapiente non reprehenderit ut quo. Aut laudantium optio ipsum.', 1, '2024-10-26 07:45:22', '2024-09-29 06:01:45'),
-(26, 'lob3', 'Qui alias ut repellat quod. Cupiditate qui voluptatem temporibus at.', 1, '2024-10-26 07:45:28', '2024-09-29 06:01:45');
+(34, 'ITC', 'Information Technology Center', 1, '2024-10-29 20:48:41', '2024-10-29 20:48:41'),
+(35, 'DA', 'Data Analytics', 1, '2024-10-29 20:48:53', '2024-10-29 20:48:53'),
+(36, 'RQS', 'Risk & Quant', 1, '2024-10-29 20:49:11', '2024-10-29 20:49:11'),
+(37, 'CIB', 'cibb', 1, '2024-11-05 06:24:42', '2024-10-29 20:49:23'),
+(38, 'ITC', 'rwerwer', 1, '2024-11-05 06:25:37', '2024-11-05 06:25:37');
 
 -- --------------------------------------------------------
 
@@ -308,13 +306,11 @@ CREATE TABLE `modules` (
 --
 
 INSERT INTO `modules` (`id`, `course_id`, `module_name`, `description`, `duration`, `video`, `document`, `status`, `created_at`, `updated_at`) VALUES
-(1, 4, 'Daria Martin', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 20, '1729929394.mp4', '1729964527.pdf', 1, '2024-10-26 02:26:34', '2024-10-26 12:12:07'),
-(2, 4, 'Lorem ipsum is placeholder', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 20, '1729929443.mp4', '1729929443.pdf', 1, '2024-10-26 02:27:23', '2024-10-26 02:27:23'),
-(3, 5, 'React introduction', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 10, '', '1729929654.pdf', 1, '2024-10-26 02:30:54', '2024-10-26 02:30:54'),
-(4, 5, 'React setup', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 30, '1729929687.mp4', '1729964468.pdf', 1, '2024-10-26 02:31:27', '2024-10-26 12:11:08'),
-(5, 6, 'CWM', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 30, '1729929804.mp4', '', 1, '2024-10-26 02:33:24', '2024-10-26 02:33:24'),
-(6, 6, 'CWM Concept', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', 40, '', '1729929853.pdf', 1, '2024-10-26 02:34:13', '2024-10-26 02:34:13'),
-(7, 7, 'Concept Of Wealth Management', 'cdscdcid sijifdu ifsdifi sdi', 12, '', '1730018303.pdf', 1, '2024-10-27 03:08:23', '2024-10-27 03:08:23');
+(8, 8, 'Trading Comparables - Fundamentals', 'Trading Comparables - Fundamentals', 90, '1730255311.mp4', '1730255311.pdf', 1, '2024-10-29 20:58:31', '2024-10-29 20:58:31'),
+(9, 8, 'Trading Comparables - Balance Sheet Components', 'Trading Comparables - Balance Sheet Components', 20, '1730255396.mp4', '1730255397.pdf', 1, '2024-10-29 20:59:57', '2024-10-29 20:59:57'),
+(10, 8, 'Balance Sheet Components - Case Study', 'Trading Comparables - Balance Sheet Components - Case Study', 45, '1730255447.mp4', '', 1, '2024-10-29 21:00:47', '2024-10-29 21:00:47'),
+(11, 9, 'Communicating with Empathy', 'Communicating with Empathy', 9, '1730255615.mp4', '', 1, '2024-10-29 21:03:35', '2024-10-29 21:03:35'),
+(12, 10, 'Working Across Cultures', 'Working Across Cultures', 8, '1730266988.mp4', '', 1, '2024-10-29 21:06:25', '2024-10-30 00:13:08');
 
 -- --------------------------------------------------------
 
@@ -348,24 +344,6 @@ CREATE TABLE `quiz_questions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `quiz_questions`
---
-
-INSERT INTO `quiz_questions` (`id`, `course_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_answer`, `status`, `updated_at`, `created_at`) VALUES
-(1, 4, 'What is the capital of india 1', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:55:35', '2024-10-26 07:55:35'),
-(2, 4, 'What is the capital of india 2', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:55:35', '2024-10-26 07:55:35'),
-(3, 4, 'What is the capital of india 3', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:55:35', '2024-10-26 07:55:35'),
-(4, 4, 'What is the capital of india 4', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:55:35', '2024-10-26 07:55:35'),
-(5, 4, 'What is the capital of india 5', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:55:35', '2024-10-26 07:55:35'),
-(6, 4, 'What is the capital of india 6', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:55:35', '2024-10-26 07:55:35'),
-(7, 5, 'What is the capital of india 1', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:59:54', '2024-10-26 07:59:54'),
-(8, 5, 'What is the capital of india 2', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:59:54', '2024-10-26 07:59:54'),
-(9, 5, 'What is the capital of india 3', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:59:54', '2024-10-26 07:59:54'),
-(10, 5, 'What is the capital of india 4', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:59:54', '2024-10-26 07:59:54'),
-(11, 5, 'What is the capital of india 5', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:59:54', '2024-10-26 07:59:54'),
-(12, 5, 'What is the capital of india 6', 'New Delhi', 'Karnal', 'Chandigarh', 'Dubai', 'A', 1, '2024-10-26 07:59:54', '2024-10-26 07:59:54');
-
 -- --------------------------------------------------------
 
 --
@@ -386,7 +364,11 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('AqFplWyUFAHi14JnhCziECTaMdkgt2mM2Ra9xdvH', 22, '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicnA5Sms1R3dqb2habW51OHY5NFdLOVdSdmNJSmhrQjNISzlRTE1iViI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9sZWFybmJyaWRnZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjIyO3M6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1730230119);
+('CLDgDfqnCBuieBeL9cB8gb0sIcaZqLUQPPhMrMMw', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZVJvdnFuTTRESElKYWVqU3hzQ0YyZnRsMXRYQTJpVThCSFd4NTBYaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi91c2VyIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyNTt9', 1730968965),
+('OtYXoAoc7yV4nZ6DEVC8J8cinNYhDBRTzx2mUErH', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZUZwM2lyMVhMQnB2eG5xTG0xZ0ZtRFowaU1pM1I0Y3o0NEVkU3ZxUyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1730882557),
+('p9akGnGax6Q6UI3Xebf8JG3hqdepVeBk998rSHQT', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRWJZOXV4cFp1SnZlbGZpZ05MeXF1NjFDbmJINXdrR1pJYnlOdXV1TiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1730877028),
+('pEXTibEst493OYQtmqUhspomimxoDxw3uqblm5Co', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidW0wdDM2aVdOZmJteWppUXNzbzRyNmV0YUZUTVRJWW1hRUtVM1hyMCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi90YSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1730880221),
+('zGDRXPCntUD0f2QhxjyvEQOqLkcLBf6XB05VkyLY', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUUo3RDMya3dFMmZBbVVxSDZpZlJOSktDRHpIQmxSTkRjVHRoN25XcSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi9jYXRlZ29yaWVzLzE1L2VkaXQiO31zOjUyOiJsb2dpbl9hZG1pbl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1730978286);
 
 -- --------------------------------------------------------
 
@@ -426,7 +408,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `lob_id`, `designation`, `grade`, `gender`, `sub_lob`, `college_name`, `location`, `specialization`, `college_location`, `offer_release_spoc`, `doj`, `trf`, `expectance_date`, `token`, `status`, `joiner_status`, `revokes`, `created_at`, `updated_at`) VALUES
-(22, 'user', 'user@gmail.com', 9797979797, '$2y$12$2aqJLZzNm4JbNOL104gBYO3H0Gp/mCpvJU2lN5dQjwHqRRcSGWdbO', 1, 'IT', 'A', 'male', 'This is for sub lob', 'S.M.T.', 'Noida', 'Web Development', 'Delhi', 'abc', '2024-10-26', 'xyz', '2024-10-30', '2b42809b170df7dba1fca019974c0957ea272bc7eed2ed3cfa6b4b3c2308cac4', 1, 'active', 0, '2024-10-26 02:37:48', '2024-10-29 18:48:08');
+(33, 'anuj singh', 'joshisummi@gmail.com', 7788777777, '$2y$12$XzZp9v4Kkb331eGDzZm7s.XVzpzaenuohtTLI9XKnyXfPpC2CYdAa', 37, 'Junior', '1', 'Male', 'FS', 'Chitkara', 'Gurugram', 'btech', 'Punjab', 'Ankita Singh', '2024-11-28', '8989', '2024-10-30', '98d9ac8ac1f319e45d64473f7a09cf3004db2b48f407c9baa45b5284b5656f34', 1, 'xyz', 0, '2024-10-29 21:12:13', '2024-11-06 03:06:26');
 
 -- --------------------------------------------------------
 
@@ -443,18 +425,6 @@ CREATE TABLE `user_quiz_answers` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `user_quiz_answers`
---
-
-INSERT INTO `user_quiz_answers` (`id`, `course_id`, `user_id`, `question_id`, `answer`, `updated_at`, `created_at`) VALUES
-(13, 5, 22, 7, 'A', '2024-10-27 03:29:09', '2024-10-27 03:29:09'),
-(14, 5, 22, 8, 'A', '2024-10-27 03:29:11', '2024-10-27 03:29:11'),
-(15, 5, 22, 9, 'A', '2024-10-27 03:29:13', '2024-10-27 03:29:13'),
-(16, 5, 22, 10, 'A', '2024-10-27 03:29:15', '2024-10-27 03:29:15'),
-(17, 5, 22, 11, 'A', '2024-10-27 03:29:18', '2024-10-27 03:29:18'),
-(18, 5, 22, 12, 'A', '2024-10-27 03:29:20', '2024-10-27 03:29:20');
 
 --
 -- Indexes for dumped tables
@@ -577,25 +547,25 @@ ALTER TABLE `user_quiz_answers`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `coursemaps`
 --
 ALTER TABLE `coursemaps`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -613,7 +583,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `lobs`
 --
 ALTER TABLE `lobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -625,7 +595,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `quiz_questions`
@@ -637,7 +607,7 @@ ALTER TABLE `quiz_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `user_quiz_answers`
