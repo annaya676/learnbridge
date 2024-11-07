@@ -155,5 +155,6 @@ Route::middleware(['admin', 'role:3'])->prefix('admin')->group( function(){
     Route::get('/user/bulkupload', [UserController::class, 'bulkUpload'])->name('user.bulkupload'); 
     Route::post('/user/importusercsv', [UserController::class, 'importUserCsv'])->name('user.importusercsv'); 
     Route::get('/user/revoke/{id}', [UserController::class, 'revoke'])->name('user.revoke');
+    Route::post("/user/export", [UserController::class, 'exportUser'])->name('user.export');
 
 });

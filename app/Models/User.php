@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'designation',
-        'grade',
+        'level',
         'lob_id',
         'department',
         'doj',
@@ -40,6 +40,8 @@ class User extends Authenticatable
         'sme_submission_date',
         'password',
         'token',
+        'qualification',
+        'college_tier',
         'status',
         'created_at',
         'updated_at'

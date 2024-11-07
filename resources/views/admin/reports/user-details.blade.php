@@ -159,6 +159,7 @@ $(document).ready(function() {
         });
         $('#filter-form').on('submit', function (e) {
             e.preventDefault();
+            document.getElementById("filter-form").submit();
             table.ajax.reload(); // Reload data with filters
         });
         

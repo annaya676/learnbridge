@@ -139,7 +139,7 @@ class ReportsController extends Controller
             $datas = Coursemap::orderBy('id', 'desc')->with('course','user','lob')->get();   
         }
         // Prepare CSV content
-        $csvContent = "User Name,User Id,Email ID,Course Title,Course Code,Course Start Date,Is Assessment Available,Assessment Status,Assessment Date,Quiz,Course Completion Date,Course Status,Duration (minutes),Date of Joining,Designation,Grade,Sub LoB,Trf No\n"; // CSV header
+        $csvContent = "User Name,User Id,Email ID,Course Title,Course Code,Course Start Date,Is Assessment Available,Assessment Status,Assessment Date,Quiz,Course Completion Date,Course Status,Duration (minutes),Date of Joining,Designation,Level,Sub LoB,Trf No\n"; // CSV header
      
         foreach ($datas as $data) {
             $module_duration = $data->course->module->sum('duration');
@@ -172,10 +172,10 @@ class ReportsController extends Controller
             $CourseStatus = $data->is_complete==1?'Completed':'In progress';
             $CourseDuration = $module_duration;
             $Designation = $data->user->designation;
-            $Grade = $data->user->grade;
+            $Level = $data->user->level;
             $SubLoB = $data->user->sub_lob;  
             $trfNo =$data->user->trf;
-            $csvContent .= "{$UserName},{$UserId},{$EmailID},{$CourseTitle},{$CourseCode},{$CourseStartDate},{$IsAssessmentAvailable},{$AssessmentStatus},{$AssessmentDate},{$Quiz},{$CourseCompletionDate},{$CourseStatus},{$CourseDuration},{$DateofJoining},{$Designation},{$Grade},{$SubLoB},{$trfNo}\n"; // Custom CSV row
+            $csvContent .= "{$UserName},{$UserId},{$EmailID},{$CourseTitle},{$CourseCode},{$CourseStartDate},{$IsAssessmentAvailable},{$AssessmentStatus},{$AssessmentDate},{$Quiz},{$CourseCompletionDate},{$CourseStatus},{$CourseDuration},{$DateofJoining},{$Designation},{$Level},{$SubLoB},{$trfNo}\n"; // Custom CSV row
         }
 
         // Define the response headers
@@ -250,8 +250,8 @@ class ReportsController extends Controller
                 ->addColumn('designation', function(Coursemap $data) {
                 return $data->user->designation;
                 })  
-                ->addColumn('grade', function(Coursemap $data) {
-                return $data->user->grade;
+                ->addColumn('level', function(Coursemap $data) {
+                return $data->user->level;
                 })  
                ->addColumn('sub_lob', function(Coursemap $data) {
                 return $data->user->sub_lob;
@@ -277,7 +277,7 @@ class ReportsController extends Controller
                     return $status;
                 }) 
                 
-                ->rawColumns(['user_name','id','email', 'course_id', 'course_name', 'course_start_date','IsAssessmentAvailable','assignment_status','assignment_upload_date','is_complete','course_status','module_duration','doj','designation','grade','sub_lob','lob_id','assignment_assign','course_status'])         
+                ->rawColumns(['user_name','id','email', 'course_id', 'course_name', 'course_start_date','IsAssessmentAvailable','assignment_status','assignment_upload_date','is_complete','course_status','module_duration','doj','designation','level','sub_lob','lob_id','assignment_assign','course_status'])         
                 ->toJson(); //--- Returning Json Data To Client Side
     }
 
@@ -299,7 +299,7 @@ class ReportsController extends Controller
         } else{
             $datas = User::orderBy('id', 'desc')->with('lob')->get();
         }
-        $csvContent = "User Id,Name,Gender,Designation,Grade,LoB,Sub-Lob,College Name,Location,Specialization,College Location,Contact Number,Email Id,Offer Release Spoc,User Status,DOJ,TRF,Joiner Status\n"; // CSV header
+        $csvContent = "User Id,Name,Gender,Designation,Level,LoB,Sub-Lob,College Name,Location,Specialization,College Location,Contact Number,Email Id,Offer Release Spoc,User Status,DOJ,TRF,Joiner Status\n"; // CSV header
         foreach ($datas as $data) {
             $lobname=  ($data->lob)?$data->lob->name:'';
             
@@ -311,7 +311,7 @@ class ReportsController extends Controller
             
             $DateofJoining = Carbon::create($data->doj)->format('d M Y');	            
 
-            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->grade},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->offer_release_spoc},{$status},{$DateofJoining},{$data->trf},{$data->joiner_status}\n"; // Custom CSV row
+            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->level},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->offer_release_spoc},{$status},{$DateofJoining},{$data->trf},{$data->joiner_status}\n"; // Custom CSV row
         }
 
 

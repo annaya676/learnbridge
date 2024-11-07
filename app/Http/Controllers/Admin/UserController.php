@@ -14,19 +14,30 @@ use Hash;
 // use Maatwebsite\Excel\Facades\Excel;
 // use App\Imports\UsersImport;
 // use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 use App\Mail\Websitemail;
 use Illuminate\Support\Facades\Mail;
-
-
+use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
    
-    public function datatables()
+    public function datatables(Request $request)
     {
-         $datas = User::orderBy('id', 'desc')->get();
+        //  $datas = User::orderBy('id', 'desc')->get();
          //--- Integrating This Collection Into Datatables
+         $start_date = $request->input('start_date');
+         $end_date = $request->input('end_date');
+         
+         if ($start_date && $end_date) {
+             if( $end_date == date('Y-m-d')){
+                 $end_date = Carbon::tomorrow();
+             }
+             $datas = User::whereBetween('created_at', [$start_date, $end_date])->orderBy('id', 'desc')->with('lob')->get();
+         } else{
+             $datas = User::orderBy('id', 'desc')->with('lob')->get();
+         }
 
          return Datatables::of($datas)
                             ->addColumn('status', function(User $data) {
@@ -56,8 +67,7 @@ class UserController extends Controller
                                 if(Auth::guard("admin")->user()->role_id==3){
 
                                     return '<a   onclick="'.$alertmsg.'" href="'.route('user.revoke',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Revoke</a>
-                                    <a href="'.route('user.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>
-                                    <a href="'.route('user.changepassword',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Change Password</a>';
+                                    <a href="'.route('user.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>';
 
                                 }else{
 
@@ -106,7 +116,7 @@ class UserController extends Controller
 
             'lob_id' => 'required',         
             'designation'=> 'required',
-            'grade'=> 'required',
+            'level'=> 'required',
             'doj'=> 'required',
             'gender'=> 'required',
             'sub_lob'=> 'required',
@@ -116,6 +126,8 @@ class UserController extends Controller
             'college_location'=> 'required',	
             'offer_release_spoc'=> 'required',
             'trf'=> 'required',
+            'qualification'=> 'required',
+            'college_tier'=> 'required',
             ],
             [
             'lob_id.required' => 'Please select your LOB.',
@@ -173,7 +185,7 @@ class UserController extends Controller
                 'phone' => 'required|string|min:10|max:12|unique:users,phone,' . $id,
                 'lob_id' => 'required',
                 'designation'=> 'required',
-                'grade'=> 'required',
+                'level'=> 'required',
                 'doj'=> 'required',
                 'gender'=> 'required',
                 'sub_lob'=> 'required',
@@ -183,6 +195,8 @@ class UserController extends Controller
                 'college_location'=> 'required',	
                 'offer_release_spoc'=> 'required',
                 'trf'=> 'required',
+                'qualification'=> 'required',
+                'college_tier'=> 'required',
             ],
          [
             'lob_id.required' => 'Please select your LOB.',
@@ -224,9 +238,6 @@ class UserController extends Controller
     }
 
 
-
-    
-
     public function changepassword($id)
     {
         try {
@@ -259,10 +270,9 @@ class UserController extends Controller
         $user->password=Hash::make($request->input('password'));
         $user->update();
         // Return a success message
-        return redirect()->back()->with('success','password updated successfully!');    
+        return redirect()->back()->with('success','Password updated successfully!');    
 
     }
-
 
     public function bulkUpload()
     {
@@ -270,6 +280,7 @@ class UserController extends Controller
             return view('admin.user.bulkupload');
    
     }
+
     public function importUserCsv(Request $request)
     {
         $request->validate([
@@ -293,18 +304,21 @@ class UserController extends Controller
 
                 $checkemail = User::where('email', $data[2])->first();
                 $checkphone = User::where('phone', $data[3])->first();
-
-                if (!$checkemail && !$checkphone) {
+                $lob = Lob::where('name', $data[3])->first();
+  
+                if (!$checkemail && !$checkphone && $lob) {
                     $pass=1234;
                     $token=hash('sha256',time());
+                    $DateofJoining = Carbon::create( $data[6])->format('Y-m-d');	            
+
                     $batch[] = [
                             'name' => $data[0], 
                             'email'=> $data[1], 
                             'phone' => $data[2], 
-                            'lob_id' => $data[3], 
+                            'lob_id' => $lob->id, 
                             'designation' => $data[4], 
-                            'grade' => $data[5], 
-                            'doj' => $data[6], 
+                            'level' => $data[5], 
+                            'doj' => $DateofJoining, 
                             'gender' => $data[7], 
                             'sub_lob' => $data[8], 
                             'college_name' => $data[9], 
@@ -313,12 +327,13 @@ class UserController extends Controller
                             'college_location' => $data[12], 
                             'offer_release_spoc'=> $data[13], 
                             'trf' => $data[14], 
+                            'joiner_status'=>$data[15],
+                            'qualification'=>$data[16],
+                            'college_tier'=>$data[17],
                             'password'=>Hash::make($pass),
                             'token'=>$token,
-                            'status' => 1,
-                            'joiner_status'=>$data[15]
+                            'status' => 1
                     ];
-
                     User::insert($batch);
                     $batch = [];
                     $count++;
@@ -328,9 +343,8 @@ class UserController extends Controller
         }
 
     
-     return redirect()->back()->with('success',$count.' users    upload successfully');
+     return redirect()->back()->with('success',$count.'Users upload successfully');
     }
-
 
     public function userActivatedEmail($user_id,$password){
         // Event: User Activated on LearnBridge , user create send this mail
@@ -355,6 +369,45 @@ class UserController extends Controller
 
     }
 
+    public function exportUser(Request $request)
+    {
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        if ($start_date && $end_date) {
+            if( $end_date == date('Y-m-d')){
+                $end_date = Carbon::tomorrow();
+            }
+            $datas = User::whereBetween('created_at', [$start_date, $end_date])->orderBy('id', 'desc')->with('lob')->get();
+        } else{
+            $datas = User::orderBy('id', 'desc')->with('lob')->get();
+        }
+        // $csvContent = "User Id,Name,Gender,Designation,Level,LoB,Sub-Lob,College Name,Location,Qualification,Specialization,College Location,Contact Number,Email Id,College Tier,Offer Release Spoc,User Status,DOJ,TRF,Joiner Status\n"; // CSV header
+      
+        $csvContent = "User Id,Name,Email Id,Contact Number,Gender,Level,Designation,LoB,Sub-Lob,Joining Location,Date of Joining,College Name,Qualification,Specialization,College Location,College Tier,Offer Release Spoc,Joining Status,TRF,Status\n";
+
+        foreach ($datas as $data) {
+            $lobname=  ($data->lob)?$data->lob->name:'';
+            
+            if($data->status == 1){
+            $status= 'Active';
+            }else{
+            $status= 'Inactive' ;
+            }
+            
+            $DateofJoining = Carbon::create($data->doj)->format('d M Y');	            
+            $csvContent .= "{$data->id},{$data->name},{$data->email},{$data->phone},{$data->gender},{$data->level},{$data->designation},{$lobname},{$data->sub_lob},{$data->location},{$DateofJoining},{$data->college_name},{$data->qualification},{$data->specialization},{$data->college_location},{$data->college_tier},{$data->offer_release_spoc},{$data->joiner_status},{$data->trf},{$status}\n"; // Custom CSV row
+
+            // $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->level},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->qualification},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->college_tier},{$data->offer_release_spoc},{$status},{$DateofJoining},{$data->trf},{$data->joiner_status}\n"; // Custom CSV row
+        }
+
+
+        // Define the response headers
+        return Response::make($csvContent, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="user-details.csv"',
+        ]);
+    }
+    
 
 
 }

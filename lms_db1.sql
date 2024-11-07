@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 07, 2024 at 12:19 PM
+-- Host: localhost
+-- Generation Time: Nov 07, 2024 at 06:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `lms_db`
+-- Database: `lms_db1`
 --
 
 -- --------------------------------------------------------
@@ -100,9 +100,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `image`, `subset`, `status`, `created_at`, `updated_at`) VALUES
-(15, 'INSTILL', '1730978285.jpg', 'Domain and Functional', 1, '2024-10-29 20:52:42', '2024-11-07 05:48:05'),
+(15, 'INSTILL', '1730978285.jpg', 'Domain and Functional', 1, '2024-10-29 20:52:42', '2024-11-07 10:53:52'),
 (16, 'INNOVATE', '1730978258.jpg', 'Digital and Technology', 1, '2024-10-29 20:53:27', '2024-11-07 05:47:38'),
-(17, 'IMBIBE', '1730978205.jpg', 'Behavioral and Communication', 1, '2024-10-29 20:54:17', '2024-11-07 05:46:45');
+(17, 'IMBIBE', '1730978205.jpg', 'Behavioral and Communication', 1, '2024-10-29 20:54:17', '2024-11-07 10:48:41');
 
 -- --------------------------------------------------------
 
@@ -250,7 +250,7 @@ INSERT INTO `lobs` (`id`, `name`, `description`, `status`, `updated_at`, `create
 (35, 'DA', 'Data Analytics', 1, '2024-10-29 20:48:53', '2024-10-29 20:48:53'),
 (36, 'RQS', 'Risk & Quant', 1, '2024-10-29 20:49:11', '2024-10-29 20:49:11'),
 (37, 'CIB', 'cibb', 1, '2024-11-05 06:24:42', '2024-10-29 20:49:23'),
-(38, 'ITC', 'rwerwer', 1, '2024-11-05 06:25:37', '2024-11-05 06:25:37');
+(38, 'RWE', 'rwerwer', 1, '2024-11-07 10:51:40', '2024-11-05 06:25:37');
 
 -- --------------------------------------------------------
 
@@ -364,11 +364,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('CLDgDfqnCBuieBeL9cB8gb0sIcaZqLUQPPhMrMMw', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZVJvdnFuTTRESElKYWVqU3hzQ0YyZnRsMXRYQTJpVThCSFd4NTBYaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi91c2VyIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyNTt9', 1730968965),
-('OtYXoAoc7yV4nZ6DEVC8J8cinNYhDBRTzx2mUErH', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZUZwM2lyMVhMQnB2eG5xTG0xZ0ZtRFowaU1pM1I0Y3o0NEVkU3ZxUyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1730882557),
-('p9akGnGax6Q6UI3Xebf8JG3hqdepVeBk998rSHQT', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRWJZOXV4cFp1SnZlbGZpZ05MeXF1NjFDbmJINXdrR1pJYnlOdXV1TiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1730877028),
-('pEXTibEst493OYQtmqUhspomimxoDxw3uqblm5Co', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidW0wdDM2aVdOZmJteWppUXNzbzRyNmV0YUZUTVRJWW1hRUtVM1hyMCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi90YSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1730880221),
-('zGDRXPCntUD0f2QhxjyvEQOqLkcLBf6XB05VkyLY', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUUo3RDMya3dFMmZBbVVxSDZpZlJOSktDRHpIQmxSTkRjVHRoN25XcSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MS9sZWFybmJyaWRnZS9hZG1pbi9jYXRlZ29yaWVzLzE1L2VkaXQiO31zOjUyOiJsb2dpbl9hZG1pbl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1730978286);
+('Pf9uh4euiw7I1gUYXyGE1plyIEOlGG8SzZvFaMbv', NULL, '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQkRnU1Fqa3lmMWM0eG8zRTE5MGhlUzRKdGo3OWRobm91azQxblBHZSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHA6Ly9sb2NhbGhvc3QvbGFyYXZlbC9sZWFybmJyaWRnZS9hZG1pbi91c2VyIjt9czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyNTt9', 1731002072);
 
 -- --------------------------------------------------------
 
@@ -384,7 +380,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `lob_id` int(11) DEFAULT 0,
   `designation` varchar(255) DEFAULT NULL,
-  `grade` varchar(255) DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
   `gender` varchar(200) DEFAULT NULL,
   `sub_lob` varchar(200) DEFAULT NULL,
   `college_name` varchar(200) DEFAULT NULL,
@@ -395,6 +391,8 @@ CREATE TABLE `users` (
   `doj` date NOT NULL,
   `trf` varchar(200) DEFAULT NULL,
   `expectance_date` date DEFAULT current_timestamp(),
+  `college_tier` varchar(200) DEFAULT NULL,
+  `qualification` varchar(250) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1 COMMENT '0=pending, 1 active, 2 suspended',
   `joiner_status` varchar(200) DEFAULT NULL,
@@ -407,8 +405,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `lob_id`, `designation`, `grade`, `gender`, `sub_lob`, `college_name`, `location`, `specialization`, `college_location`, `offer_release_spoc`, `doj`, `trf`, `expectance_date`, `token`, `status`, `joiner_status`, `revokes`, `created_at`, `updated_at`) VALUES
-(33, 'anuj singh', 'joshisummi@gmail.com', 7788777777, '$2y$12$XzZp9v4Kkb331eGDzZm7s.XVzpzaenuohtTLI9XKnyXfPpC2CYdAa', 37, 'Junior', '1', 'Male', 'FS', 'Chitkara', 'Gurugram', 'btech', 'Punjab', 'Ankita Singh', '2024-11-28', '8989', '2024-10-30', '98d9ac8ac1f319e45d64473f7a09cf3004db2b48f407c9baa45b5284b5656f34', 1, 'xyz', 0, '2024-10-29 21:12:13', '2024-11-06 03:06:26');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `lob_id`, `designation`, `level`, `gender`, `sub_lob`, `college_name`, `location`, `specialization`, `college_location`, `offer_release_spoc`, `doj`, `trf`, `expectance_date`, `college_tier`, `qualification`, `token`, `status`, `joiner_status`, `revokes`, `created_at`, `updated_at`) VALUES
+(33, 'anuj singh', 'joshisummi@gmail.com', 7788777777, '$2y$12$XzZp9v4Kkb331eGDzZm7s.XVzpzaenuohtTLI9XKnyXfPpC2CYdAa', 37, 'Junior', '1', 'Male', 'FS', 'Chitkara', 'Gurugram', 'btech', 'Punjab', 'Ankita Singh', '2024-11-28', '8989', '2024-10-30', NULL, NULL, '98d9ac8ac1f319e45d64473f7a09cf3004db2b48f407c9baa45b5284b5656f34', 1, 'xyz', 0, '2024-10-29 21:12:13', '2024-11-06 03:06:26'),
+(36, 'Alexandra Morales', 'zaheki@mailinator.com', 8484848484, '$2y$12$loq7UFUcpiwprD6GwN.lb.J93SlusG8V1mBvU6HW/S9.t6N5o3znO', 34, 'Junior Engineer', 'Level 3', 'Female', 'Labore maxime incidi', 'Bradley Campos', 'Bangalore', 'Sed voluptatem tota', 'Anim dolorum enim id', 'Commodi omnis animi', '2024-11-09', 'Quo rerum non nihil', '2024-11-07', 'Tier 2', 'Veritatis ut dicta m', '99eeda1d16aa46ffe904a6dede0a1563fa7104df0ce34f008392c31b9ec7ce09', 1, 'Yet to Join', 0, '2024-11-07 11:27:56', '2024-11-07 11:28:31'),
+(37, 'vipin', 'vipin1', 5454545454, '$2y$12$vK0.3hkyQn8EGJGBR4yf8O6ywVKBcui767z3Nx09.nusjfobU0Qc6', 36, 'Junior Engineer', 'Level 3', 'Male', 'Labore maxime incidi', 'Bradley Campos', 'Bangalore', 'Sed voluptatem tota', 'Anim dolorum enim id', 'Commodi omnis animi', '2024-12-12', 'Quo rerum non nihil', '2024-11-07', 'Tier 2', 'Veritatis ut dicta m', 'df47d6bf203aa39949b065a1cd8fe0bc3d54e689334e8f5b4df2cf2c46ae6de6', 1, 'Yet to Join', 0, '2024-11-07 17:52:34', '2024-11-07 17:52:34');
 
 -- --------------------------------------------------------
 
@@ -607,7 +607,7 @@ ALTER TABLE `quiz_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `user_quiz_answers`

@@ -57,25 +57,37 @@
                                     
                                     <option value="">{{ __('Select LOB') }}</option>
                                     @foreach($lobs as $lob)
-                                      <option  value="{{ $lob->id }}">{{ $lob->name }}</option>
+                                      <option {{ old('lob_id') == $lob->id ? 'selected' : '' }}  value="{{ $lob->id }}">{{ $lob->name }}</option>
                                     @endforeach
-                                </select>
-
                                 </select>
                                 @error('lob_id') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
 
                             <div class="col-sm-6 col-xs-6">
                                 <label for="designation" class="form-label mb-8 h6">Designation</label>
-                                <input type="text" class="form-control py-11 @error('designation') is-invalid @enderror"  value="{{ old('designation', '') }}"  name="designation" id="designation" placeholder="Enter Designation">
+                                <select class="form-control py-11 @error('designation') is-invalid @enderror" required name="designation">
+                                    <option  value="">{{ __('Select Designation') }}</option>
+                                    <option {{ old('designation') == "Junior Analyst" ? 'selected' : '' }} value="Junior Analyst">Junior Analyst</option>
+                                    <option {{ old('designation') == "Junior Associate" ? 'selected' : '' }} value="Junior Associate">Junior Associate</option>
+                                    <option {{ old('designation') == "Intern" ? 'selected' : '' }} value="Intern">Intern</option>
+                                    <option {{ old('designation') == "Junior Associate - Design" ? 'selected' : '' }} value="Junior Associate - Design">Junior Associate - Design</option>
+                                    <option {{ old('designation') == "Junior Engineer" ? 'selected' : '' }} value="Junior Engineer">Junior Engineer</option>
+                                    <option {{ old('designation') == "Junior Sales Support Analyst" ? 'selected' : '' }} value="Junior Sales Support Analyst">Junior Sales Support Analyst</option>
+                                </select>
                                 @error('designation') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             
                  
                             <div class="col-sm-6 col-xs-6">
-                                <label for="grade" class="form-label mb-8 h6">Grade</label>
-                                <input type="text" class="form-control py-11 @error('grade') is-invalid @enderror"  value="{{ old('grade', '') }}"  name="grade" id="grade" placeholder="Enter Grade">
-                                @error('grade') <div class="invalid-feedback">{{ $message }}</div> @enderror  
+                                <label for="level" class="form-label mb-8 h6">Level</label>
+                                <select class="form-control py-11 @error('level') is-invalid @enderror" required name="level">
+                                    <option  value="">{{ __('Select Level') }}</option>
+                                    <option {{ old('level') == "Level 1" ? 'selected' : '' }} value="Level 1">Level 1</option>
+                                    <option {{ old('level') == "Level 2" ? 'selected' : '' }} value="Level 2">Level 2</option>
+                                    <option {{ old('level') == "Level 3" ? 'selected' : '' }} value="Level 3">Level 3</option>
+                                    <option {{ old('level') == "Level 4" ? 'selected' : '' }} value="Level 4">Level 4</option>
+                                </select>
+                                @error('level') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             
                  
@@ -88,7 +100,12 @@
                  
                             <div class="col-sm-6 col-xs-6">
                                 <label for="gender" class="form-label mb-8 h6">Gender</label>
-                                <input type="text" class="form-control py-11 @error('gender') is-invalid @enderror"  value="{{ old('gender', '') }}"  name="gender" id="gender" placeholder="Enter Gender">
+                                <select class="form-control py-11 @error('gender') is-invalid @enderror" required name="gender">
+                                    <option  value="">{{ __('Select Gender') }}</option>
+                                    <option {{ old('gender') == "Male" ? 'selected' : '' }} value="Male">Male</option>
+                                    <option {{ old('gender') == "Female" ? 'selected' : '' }} value="Female">Female</option>
+                                    <option {{ old('gender') == "Other" ? 'selected' : '' }} value="Other">Other</option>
+                                </select>
                                 @error('gender') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             <div class="col-sm-6 col-xs-6">
@@ -102,9 +119,19 @@
                                 @error('college_name') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="location" class="form-label mb-8 h6">Location</label>
-                                <input type="text" class="form-control py-11 @error('location') is-invalid @enderror"  value="{{ old('location', '') }}"  name="location" id="location" placeholder="Enter Location">
+                                <label for="location" class="form-label mb-8 h6">Joining Location</label>
+                                <select class="form-control py-11 @error('location') is-invalid @enderror" required name="location">
+                                    <option value="">{{ __('Select Joining Location') }}</option>
+                                    <option {{ old('location') == "Gurugram" ? 'selected' : '' }} value="Gurugram">Gurugram</option>
+                                    <option {{ old('location') == "Bangalore" ? 'selected' : '' }} value="Bangalore">Bangalore</option>
+                                    <option {{ old('location') == "Mumbai" ? 'selected' : '' }} value="Mumbai">Mumbai</option>
+                                </select>
                                 @error('location') <div class="invalid-feedback">{{ $message }}</div> @enderror  
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <label for="qualification" class="form-label mb-8 h6">Qualification</label>
+                                <input type="text" class="form-control py-11 @error('qualification') is-invalid @enderror"  value="{{ old('qualification', '') }}"  name="qualification" id="qualification" placeholder="Enter Qualification">
+                                @error('qualification') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             <div class="col-sm-6 col-xs-6">
                                 <label for="specialization" class="form-label mb-8 h6">Specialization</label>
@@ -116,6 +143,20 @@
                                 <input type="text" class="form-control py-11 @error('college_location') is-invalid @enderror"  value="{{ old('college_location', '') }}"  name="college_location" id="college_location" placeholder="Enter College Location">
                                 @error('college_location') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
+
+                            <div class="col-sm-6 col-xs-6">
+                                <label for="college_tier" class="form-label mb-8 h6">College Tier</label>
+                                <select class="form-control py-11 @error('college_tier') is-invalid @enderror" required name="college_tier">
+                                    <option value="">{{ __('Select College Tier') }}</option>
+                                    <option {{ old('college_tier') == "Tier 1" ? 'selected' : '' }} value="Tier 1">Tier 1</option>
+                                    <option {{ old('college_tier') == "Tier 2" ? 'selected' : '' }} value="Tier 2">Tier 2</option>
+                                    <option {{ old('college_tier') == "Tier 3" ? 'selected' : '' }} value="Tier 3">Tier 3</option>
+                                </select>
+                                @error('college_tier') <div class="invalid-feedback">{{ $message }}</div> @enderror  
+                            </div>
+                            
+                            
+
                             <div class="col-sm-6 col-xs-6">
                                 <label for="offer_release_spoc" class="form-label mb-8 h6">Offer Release Spoc</label>
                                 <input type="text" class="form-control py-11 @error('offer_release_spoc') is-invalid @enderror"  value="{{ old('offer_release_spoc', '') }}"  name="offer_release_spoc" id="offer_release_spoc" placeholder="Enter Offer Release Spoc">
@@ -129,7 +170,11 @@
                                       
                             <div class="col-sm-6 col-xs-6">
                                 <label for="joiner_status" class="form-label mb-8 h6">Joiner Status</label>
-                                <input type="text" class="form-control py-11 @error('joiner_status') is-invalid @enderror"  value="{{ old('joiner_status', '') }}"  name="joiner_status" id="joiner_status" placeholder="Enter Joiner Status">
+                                <select class="form-control py-11 @error('joiner_status') is-invalid @enderror" required name="joiner_status">
+                                    <option value="">{{ __('Select Joiner Status') }}</option>
+                                    <option {{ old('joiner_status') == "Yet to Join" ? 'selected' : '' }} value="Yet to Join">Yet to Join</option>
+                                    <option {{ old('joiner_status') == "Joined" ? 'selected' : '' }} value="Joined">Joined</option>
+                                </select>
                                 @error('joiner_status') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             

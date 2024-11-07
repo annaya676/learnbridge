@@ -81,7 +81,7 @@ class CategoryController extends Controller
     {
     // dd($request);
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:categories',
             'subset' => 'required',
             'image' => 'required|file|mimes:png,gpeg,jpg|max:2048',
         ]);
@@ -130,7 +130,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:categories,name,' . $id,
             'subset' => 'required',
             'image' => 'file|mimes:png,gpeg,jpg|max:2048',
         ]);
