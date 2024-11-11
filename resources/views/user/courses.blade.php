@@ -47,18 +47,18 @@
             <div class="col-xxl-3 col-lg-4 col-sm-6">
                 <div class="card border border-gray-100">
                     <div class="card-body p-8">
-                        <a href="course-details.html" class="bg-main-100 rounded-8 overflow-hidden text-center mb-8 h-164 flex-center">
+                        <a href="{{ route('user.course',$myCourse->course->id) }}" class="bg-main-100 rounded-8 overflow-hidden text-center mb-8 h-164 flex-center">
                             <img src="{{    asset('public/uploads/thumb/'.$myCourse->course->image) }}" alt="Course Image">
                         </a>
                         <div class="p-8">
-                            <h5 class="mb-0"><a href="course-details.html" class="hover-text-main-600">{{ $myCourse->course->course_name }}</a></h5>
+                            <h5 class="mb-0"><a href="{{ route('user.course',$myCourse->course->id) }}" class="hover-text-main-600">{{ $myCourse->course->course_name }}</a></h5>
                              <div class="flex-align gap-8 mt-12">
                                 <span class="text-main-600 flex-shrink-0 text-13 fw-medium">{{ round($progressbar) }}%</span>
                                 <div class="progress w-100  bg-main-100 rounded-pill h-8" role="progressbar" aria-label="Basic example" aria-valuenow="{{ $progressbar }}" aria-valuemin="0" aria-valuemax="100">
                                     <div class="progress-bar bg-main-600 rounded-pill" style="width: {{ $progressbar }}%"></div>
                                 </div>
                             </div>
-                            <a href="{{ route('user.course',$myCourse->course->id) }}" class="btn btn-outline-main rounded-pill py-9 w-100 mt-24"> 
+                            {{-- <a href="{{ route('user.course',$myCourse->course->id) }}" class="btn btn-outline-main rounded-pill py-9 w-100 mt-24"> 
                                 @if($myCourse->is_complete==1)
                                 {{'complete'}}
                                 @elseif ($progressbar > 0)
@@ -66,7 +66,7 @@
                                 @else
                                 {{ 'Start' }}
                                 @endif
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>

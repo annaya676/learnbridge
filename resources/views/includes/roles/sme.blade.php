@@ -1,7 +1,7 @@
 @if ( auth('admin')->user()->role_id ==1 )
 <li class="sidebar-menu__item {{ Request::is('admin') || Request::is('admin/dashboard') ? 'activePage' : '' }}">
     <a href="{{ route('dashboard') }}" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-squares-four"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/reports.svg') }}" alt="reports" class="h-32 w-32 rounded-circle">                     
         <span class="text" style="font-family:'Segoe UI'">Reports </span>
     </a>
 </li>
@@ -12,7 +12,7 @@
 
 <li class="sidebar-menu__item has-dropdown {{ Request::is('admin/lob') || Request::is('admin/lob/*') ? 'activePage' : '' }}">
     <a href="javascript:void(0)" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/LOB.svg') }}" alt="lob" class="h-32 w-32 rounded-circle">                     
         <span class="text" style="text-transform: none;">Line of Business</span>
     </a>
     <!-- Submenu start -->
@@ -31,7 +31,7 @@
 
 <li class="sidebar-menu__item has-dropdown {{ Request::is('admin/sme') || Request::is('admin/sme/*') ? 'activePage' : '' }}">
     <a href="javascript:void(0)" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/SME.svg') }}" alt="sme" class="h-32 w-32 rounded-circle">                     
         <span class="text">SME</span>
     </a>
     <!-- Submenu start -->
@@ -50,7 +50,7 @@
 
 <li class="sidebar-menu__item has-dropdown {{ Request::is('admin/user') || Request::is('admin/user/*') ? 'activePage' : '' }}">
     <a href="javascript:void(0)" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/Users.svg') }}" alt="user" class="h-32 w-32 rounded-circle">                     
         <span class="text">Users</span>
     </a>
     <!-- Submenu start -->
@@ -72,7 +72,7 @@
 
 <li class="sidebar-menu__item has-dropdown {{ Request::is('admin/course') || Request::is('admin/course/*') ? 'activePage' : '' }}">
     <a href="javascript:void(0)" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/Courses.svg') }}" alt="Courses" class="h-32 w-32 rounded-circle">                     
         <span class="text">Courses</span>
     </a>
     <!-- Submenu start -->
@@ -91,7 +91,7 @@
 
 <li class="sidebar-menu__item has-dropdown {{ Request::is('admin/course') || Request::is('admin/course/*') ? 'activePage' : '' }}">
     <a href="javascript:void(0)" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/TA.svg') }}" alt="ta" class="h-32 w-32 rounded-circle">                     
         <span class="text">TA</span>
     </a>
     <!-- Submenu start -->
@@ -110,7 +110,7 @@
 
 <li class="sidebar-menu__item has-dropdown {{ Request::is('admin/admin') || Request::is('admin/admin/*') ? 'activePage' : '' }}">
     <a href="javascript:void(0)" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/Admin.svg') }}" alt="Admin" class="h-32 w-32 rounded-circle">                     
         <span class="text">Admin</span>
     </a>
     <!-- Submenu start -->
@@ -129,7 +129,7 @@
 @endif 
 <li class="sidebar-menu__item {{ Request::is('admin/assignment') || Request::is('admin/assignment/*') ? 'activePage' : '' }}">
     <a href="{{ route('assignment') }}" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-squares-four"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/Assignment.svg') }}" alt="Admin" class="h-32 w-32 rounded-circle">                     
         <span class="text" style="font-family:'Segoe UI'">Assignment</span>
     </a>
 </li>

@@ -51,7 +51,9 @@ class CategoryController extends Controller
 
                             }) 
                             ->addColumn('action', function(Category $data) {
-                                return '<a href="'.route('categories.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>';
+                                return '<a href="'.route('categories.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">
+                                <img src="'.asset('public/assets/images/new_icons/Edit.svg').'" alt="edit" class="h-32 w-32 rounded-circle">                     
+                                </a>';
                               }) 
                             ->rawColumns(['status','action','image'])         
                             ->toJson(); //--- Returning Json Data To Client Side

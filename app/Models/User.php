@@ -43,6 +43,7 @@ class User extends Authenticatable
         'qualification',
         'college_tier',
         'status',
+        'isterm',
         'created_at',
         'updated_at'
     ];

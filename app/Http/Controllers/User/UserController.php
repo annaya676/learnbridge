@@ -25,6 +25,15 @@ use Illuminate\Support\Facades\Response;
 class UserController extends Controller
 {
    
+    public function acceptTerms(Request $request)
+{
+    $user = Auth::user();
+    $user->isterm = $request->input('isterm', 1); // Set istermstatus to 1
+    $user->save();
+
+    return response()->json(['status' => 'success']);
+}
+
     public function previewPDF(Request $request, $filename)
     {
         

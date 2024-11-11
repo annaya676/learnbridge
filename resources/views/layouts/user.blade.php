@@ -60,6 +60,9 @@
         .top-header-bg{
         background-color: #43224D;
         }
+        .text-justify {
+    text-align: justify;
+}
     </style>
     
 
@@ -95,7 +98,7 @@
                 
                 <li class="sidebar-menu__item has-dropdown {{  Request::is('course/*') ? 'activePage' : '' }}">
                     <a href="javascript:void(0)" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+                        <img src="{{  asset('public/assets/images/new_icons/Courses.svg') }}" alt="Courses" class="h-32 w-32 rounded-circle">                     
                         <span class="text" style="text-transform: none;">Courses</span>
                     </a>
  
@@ -315,6 +318,90 @@
        
     </div>
     
+   
+    <!-- Welcome Modal -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header no-underline" style=" border-bottom: none; ">
+                    <h5 class="modal-title" id="welcomeModalLabel">Dear {{ Auth::guard('web')->user()->name ?Auth::guard('web')->user()->name:''}},</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" id="closeWelcomeModal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body text-justify ">
+                    <p>Welcome to Evalueserve!</p>
+                    <br/>
+                    <p>We are delighted to have you join our team. We are committed to fostering a collaborative and innovative work environment. As part of your onboarding journey, we are excited to introduce you to our comprehensive training tool, designed to support your professional growth and development. This training is an important part of your joining process and is mandated to be completed before you officially start with us.</p>
+                    <br/>
+                    <p>Please be mindful of privacy and security; do not share your password with anyone. For any questions regarding your joining or learning plan, feel free to write to us at <New DL>.</p>
+                        <br/>
+                    <p>We look forward to your contributions and are confident that you will find your experience at Evalueserve both rewarding and fulfilling.</p>
+                        <br/> <br/>
+                    <p>Let your learning journey begin!</p>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms and Conditions Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header no-underline" style=" border-bottom: none; ">
+                    <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                </div>
+                <div class="modal-body text-justify ">
+                    <p>                   
+Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text. “It’s not Latin, though it looks like it, and it actually says nothing,” Before & After magazine answered a curious reader, “Its ‘words’ loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.”
+                    </p>
+     <p>
+As Cicero would put it, “Um, not so fast.”
+</p>
+<p>
+The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin.
+</p>
+<p>
+Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur—a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and Evil”), a first-century B.C. text from the Roman philosopher Cicero.
+</p>
+<p>
+In particular, the garbled words of lorem ipsum bear an unmistakable resemblance to sections 1.10.32–33 of Cicero’s work, with the most notable passage excerpted below:
+</p>
+<p>
+“Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.”
+</p>
+<p>
+A 1914 English translation by Harris Rackham reads:
+</p>
+<p>
+“Nor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.”
+</p>
+<p>
+McClintock’s eye for detail certainly helped narrow the whereabouts of lorem ipsum’s origin, however, the “how and when” still remain something of a mystery, with competing theories and timelines.
+</p>
+
+                    <br/>
+                    <form id="termsForm" class="needs-validation" novalidate>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+
+                            <label class="form-check-label" for="agreeTerms">
+                                I agree to the terms and conditions
+                            </label>
+
+                        </div>
+                        <div class="text-danger terms-error"></div> 
+
+                    </form>
+                </div>
+                <div class="modal-footer" style=" border-top: none;">
+                    <button type="button" class="btn btn-main rounded-pill py-9" id="submitTerms">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
         <!-- Jquery js -->
     <script src="{{ asset('public/assets/js/jquery-3.7.1.min.js') }}"></script>
     <!-- Bootstrap Bundle Js -->
@@ -328,6 +415,44 @@
     <script src="{{ asset('public/assets/js/main.js') }}"></script>
 
     @yield('scripts')
+
+
+    @if (Auth::guard('web')->user()->isterm!=1)
+
+        <script>
+            $(document).ready(function () {
+                    // Show welcome modal
+                    var welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+                    welcomeModal.show();
+
+                    // When welcome modal is closed, show terms modal
+                    $('#closeWelcomeModal').on('click', function () {
+                        welcomeModal.hide();
+                        var termsModal = new bootstrap.Modal(document.getElementById('termsModal'));
+                        termsModal.show();
+                    });
+
+                // Handle Terms & Conditions form submission
+                $('#submitTerms').on('click', function () {
+                    if ($('#agreeTerms').is(':checked')) {
+                        // Hide terms modal and mark terms as accepted (optional: make AJAX call)
+                        $('#termsModal').modal('hide');
+                        $.ajax({
+                            url: "{{ route('acceptTerms') }}",
+                            method: "POST",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                isterm: 1,
+                            }
+                        });
+                    } else {
+                       $('.terms-error').html("You must agree to the terms and conditions to continue.");
+                    }
+                });
+            });
+        </script>
+
+    @endif
 
 
     <script>

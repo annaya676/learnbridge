@@ -1,7 +1,7 @@
 
 <li class="sidebar-menu__item has-dropdown {{ Request::is('admin/user') || Request::is('admin/user/*') ? 'activePage' : '' }}">
     <a href="javascript:void(0)" class="sidebar-menu__link">
-        <span class="icon"><i class="ph ph-graduation-cap"></i></span>
+        <img src="{{  asset('public/assets/images/new_icons/Users.svg') }}" alt="user" class="h-32 w-32 rounded-circle">                     
         <span class="text">Users</span>
     </a>
     <!-- Submenu start -->

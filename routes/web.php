@@ -13,6 +13,9 @@ Route::get("/about", [FrontController::class, 'about'])->name('about');
 
 // User
 Route::middleware('auth')->group( function(){
+    Route::post('/accept-terms', [UserController::class, 'acceptTerms'])->name('acceptTerms');
+
+
     Route::get('/pdf/preview/{filename}', [UserController::class, 'previewPDF'])->name('file.preview.pdf');
     Route::get('/video/preview/{filename}', [UserController::class, 'previewVideo'])->name('file.preview.video');
 

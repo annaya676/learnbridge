@@ -42,8 +42,12 @@ class TaController extends Controller
                                 ;
                             }) 
                             ->addColumn('action', function(Admin $data) {
-                                return '<a href="'.route('ta.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>
-                                <a href="'.route('ta.changepassword',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Change Password</a>';
+                                return '<a href="'.route('ta.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">
+                                <img src="'.asset('public/assets/images/new_icons/Edit.svg').'" alt="edit" class="h-32 w-32 rounded-circle">                     
+                                </a>
+                                <a href="'.route('ta.changepassword',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">
+                                <img src="'.asset('public/assets/images/new_icons/Change Password.svg').'" alt="Change" class="h-32 w-32 rounded-circle">                     
+                                </a>';
 
                             }) 
                             ->rawColumns(['status','action'])         

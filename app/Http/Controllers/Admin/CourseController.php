@@ -55,7 +55,9 @@ class CourseController extends Controller
                     ;
                 }) 
                 ->addColumn('action', function(Course $data) {
-                    return '<a href="'.route('course.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>';
+                    return '<a href="'.route('course.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">
+                    <img src="'.asset('public/assets/images/new_icons/Edit.svg').'" alt="edit" class="h-32 w-32 rounded-circle">                     
+                                </a>';
                 }) 
                 ->rawColumns(['category_id','image','status','action'])         
                 ->toJson(); //--- Returning Json Data To Client Side
@@ -255,7 +257,9 @@ class CourseController extends Controller
                
                 ->addColumn('action', function(QuizQuestion $data) {
                     // return '<a href="'.route('course.edit',$data->id).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>';
-                    return '<button  onclick="editQuiz(' . $data->id . ')" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</button>';
+                    return '<button  onclick="editQuiz(' . $data->id . ')" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">
+                    <img src="'.asset('public/assets/images/new_icons/Edit.svg').'" alt="edit" class="h-32 w-32 rounded-circle">                     
+                                </button>';
    
                 }) 
                 ->rawColumns(['action'])         
@@ -367,7 +371,9 @@ class CourseController extends Controller
          return Datatables::of($datas)
                
                 ->addColumn('action', function(Module $data) {
-                    return '<a href="'.route('course.editmodule',['id1' => $data->id, 'id2' => $data->course_id]).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">Edit</a>';
+                    return '<a href="'.route('course.editmodule',['id1' => $data->id, 'id2' => $data->course_id]).'" class="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">
+                    <img src="'.asset('public/assets/images/new_icons/Edit.svg').'" alt="edit" class="h-32 w-32 rounded-circle">                     
+                                </a>';
    
                 }) 
                 ->rawColumns(['action'])         

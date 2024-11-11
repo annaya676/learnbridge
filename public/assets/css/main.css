@@ -319,15 +319,17 @@
     color: #dc3545;
 }
 .form-control {
-    border-radius: 8px;
+    border-radius: 4px;
     font-weight: 400;
     outline: none;
     width: 100%;
     padding: 13px 16px;
     background-color: transparent !important;
-    border: 1px solid var(--gray-100);
+    /* border: 1px solid var(--gray-100); */
+    border: 1px solid #d4d4d4;
     color: hsl(var(--heading-color));
     line-height: 1;
+    /* height: 36px !important; */
 }
 
 .form-control::placeholder {
@@ -1483,7 +1485,9 @@ h5, .h5,
 h6, .h6 {
     margin: 0 0 16px 0;
     font-family: var(--heading-font);
-    color: hsl(var(--heading-color));
+    /* color: hsl(var(--heading-color)); */
+    color: #4c4c4d;
+
     line-height: 1.2;
     font-weight: 700;
 }
@@ -9849,20 +9853,29 @@ button:focus {
 /* custome css */
 
 .btn-main {
+    background-color:  #43224d !important;
+    border-color: #43224d !important;
+}
+
+/* .btn-main {
     background-color:  #87409d !important;
     border-color: #87409d !important;
-}
+} */
 
 .btn-main:hover {
     background-color: #6c1f85 !important; /* New hover background color */
     border-color: #6c1f85  !important;     /* New hover border color */
 }
-
 .btn-outline-main {
+    background-color: transparent !important;
+    border-color:  #43224d !important;
+    color:   #43224d !important;
+}
+/* .btn-outline-main {
     background-color: transparent !important;
     border-color:  #87409d !important;
     color:   #6c1f85 !important;
-}
+} */
 
 .btn-outline-main:hover {
     background-color:#6c1f85  !important;
