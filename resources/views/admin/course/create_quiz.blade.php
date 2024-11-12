@@ -51,7 +51,7 @@
                         <label for="fname" class="form-label mb-8 h6">Quiz <span class="text-13 text-gray-400 fw-medium">(Required)</span> </label>
                         <input type="file" name="file" class="form-control py-11 @error('file') is-invalid @enderror" id="file" placeholder="Enter First Name">
                         @error('file') <div class="invalid-feedback">{{ $message }}</div> @enderror  
-                        <div id="emailHelp" class="form-text">Upload only csv.  <a  href="{{ asset('public/assets/lms_quiz_sample.csv') }}" download="quiz_sample.csv"  >Sample File</a> </div>
+                        <div id="emailHelp" class="form-text">Upload only .csv  <a  href="{{ asset('public/assets/lms_quiz_sample.csv') }}" download="quiz_sample.csv"  >Sample File</a> </div>
                     </div>
                     
                     <div class="col-sm-6 col-xs-6 ">

@@ -133,7 +133,7 @@
                                 <label for="assignment" class="form-label mb-8 h6">Assignment File </label>
                                 <input type="file" class="form-control py-11 @error('assignment') is-invalid @enderror" name="assignment" id="assignment">
                                 @error('assignment') <div class="invalid-feedback">{{ $message }}</div> @enderror  
-                                <div id="emailHelp" class="form-text">Upload only zip, excel, word and pdf.</div>
+                                <div id="emailHelp" class="form-text">Upload only zip, excel, word and pdf</div>
 
                             </div>
 

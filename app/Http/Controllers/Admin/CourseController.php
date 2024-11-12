@@ -92,7 +92,7 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        ini_set('memory_limit', '2048M');
+        ini_set('memory_limit', '3048M');
          $request->validate([
             'course_name' => 'required',
             'description' => 'required',
@@ -137,7 +137,7 @@ class CourseController extends Controller
         $course->status =0;
         $course->save();
 
-        return redirect()->route('course.edit', $course->id)->with('success','course create successfully');
+        return redirect()->route('course.quiz', $course->id)->with('success','course create successfully');
         // return redirect()->back()->with('success','course create successfully');    
 
     }
@@ -174,7 +174,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        ini_set('memory_limit', '2048M');
+        ini_set('memory_limit', '3048M');
          $request->validate([
             'course_name' => 'required',
             'description' => 'required',

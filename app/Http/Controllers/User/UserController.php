@@ -36,10 +36,9 @@ class UserController extends Controller
 
     public function previewPDF(Request $request, $filename)
     {
-        
-        $referer = $request->headers->get('referer');
+        // $referer = $request->headers->get('referer');
 
-        if ($referer && strpos($referer, url('/')) === 0) {
+        // if ($referer && strpos($referer, url('/')) === 0) {
             // The request came from within your application
             // Handle it accordingly
             
@@ -47,31 +46,32 @@ class UserController extends Controller
 
             // Check if file exists
             if (!file_exists($path)) {
+
                 abort(404);
             }
 
             // if (!request()->headers->has('referer') || !str_contains(request()->headers->get('referer'), env('APP_URL'))) {
             //     abort(403, 'Direct access is forbidden.');
             // }
-            if (!$request->headers->has('origin') || !str_contains($request->headers->get('origin'), env('APP_URL'))) {
-                abort(403, 'Direct access is forbidden.');
-            }
+            // if (!$request->headers->has('origin') || !str_contains($request->headers->get('origin'), env('APP_URL'))) {
+            //     abort(403, 'Direct access is forbidden.');
+            // }
             // Get MIME type and return for inline preview
                 $mimeType = mime_content_type($path);
                 return response()->file($path, [
                     'Content-Type' => $mimeType,
                     'Content-Disposition' => 'inline'
                 ]);
-        } else {
-            abort(404);
-        }
+        // } else {
+        //     abort(404);
+        // }
     }
 
     public function previewVideo(Request $request,$filename)
     {
-        $referer = $request->headers->get('referer');
+        // $referer = $request->headers->get('referer');
 
-        if ($referer && strpos($referer, url('/')) === 0) {
+        // if ($referer && strpos($referer, url('/')) === 0) {
             // The request came from within your application
             // Handle it accordingly
             
@@ -86,9 +86,9 @@ class UserController extends Controller
             //     abort(403, 'Direct access is forbidden.');
             // }
 
-            if (!$request->headers->has('origin') || !str_contains($request->headers->get('origin'), env('APP_URL'))) {
-                abort(403, 'Direct access is forbidden.');
-            }
+            // if (!$request->headers->has('origin') || !str_contains($request->headers->get('origin'), env('APP_URL'))) {
+            //     abort(403, 'Direct access is forbidden.');
+            // }
             
             // Get MIME type and return for inline preview
                 $mimeType = mime_content_type($path);
@@ -96,9 +96,9 @@ class UserController extends Controller
                     'Content-Type' => $mimeType,
                     'Content-Disposition' => 'inline'
                 ]);
-        } else {
-            abort(404);
-        }
+        // } else {
+        //     abort(404);
+        // }
     }
     
     public function dashboard(Request $request){

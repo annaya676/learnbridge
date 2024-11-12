@@ -95,7 +95,7 @@
                                     <option value="">{{ __('Select category') }}</option>
                                     @foreach($category as $cat)
                                       <option  value="{{ $cat->id }}" {{  $cat->id==$course->category_id?'selected':'' }}>{{ $cat->name }}</option>
-                                    @endforeach
+                                      @endforeach
                                 </select>
                                 @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
@@ -113,7 +113,11 @@
                                     
                                     <option value="">{{ __('Select SME') }}</option>
                                     @foreach($smes as $sme)
+                                    @if($sme->status==1 || in_array($sme->id,$selected_sme_id))
+
                                     <option  value="{{ $sme->id }}" {{  in_array($sme->id,$selected_sme_id)?'selected':'' }} >{{ $sme->name }}</option>
+                                    @endif
+
                                     @endforeach
                                 </select>
 
@@ -145,7 +149,7 @@
                                 <label for="assignment" class="form-label mb-8 h6">Assignment File </label>
                                 <input type="file" class="form-control py-11 @error('assignment') is-invalid @enderror" name="assignment" id="assignment">
                                 @error('assignment') <div class="invalid-feedback">{{ $message }}</div> @enderror 
-                                <div id="emailHelp" class="form-text">Upload only zip, excel, word and pdf.</div>
+                                <div id="emailHelp" class="form-text">Upload only zip, excel, word and pdf</div>
                                 @if($course->assignment)
                                     <div class="flex-align gap-8 mt-1">
                                         <a href="{{   asset('public/uploads/assignment/'.$course->assignment) }}" class="py-9 w-100 "><i class="ph ph-download"></i> Preview assignment</a>

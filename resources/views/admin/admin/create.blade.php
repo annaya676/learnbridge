@@ -53,7 +53,7 @@
 
                             <div class="col-sm-6 col-xs-6">
                                 <label for="new-password" class="form-label mb-8 h6">Password</label>
-                                <input type="text"  name="password" required="" class="form-control py-11  @error('password') is-invalid @enderror" id="new-password" placeholder="Enter Password">
+                                <input type="password"  name="password" required="" class="form-control py-11  @error('password') is-invalid @enderror" id="new-password" placeholder="Enter Password">
                                 @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
 

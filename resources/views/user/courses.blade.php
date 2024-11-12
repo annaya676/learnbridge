@@ -38,7 +38,11 @@
                         $totalWatchCount=$totalWatchCount+1;
                     }
                 } 
-                $progressbar=($totalWatchCount*100)/ $total_module;
+                if($total_module >0){
+                    $progressbar=($totalWatchCount*100)/ $total_module;
+                }else{
+                    $progressbar=0;
+                }
                 
                 if($myCourse->is_complete==1){
                     $progressbar=100;

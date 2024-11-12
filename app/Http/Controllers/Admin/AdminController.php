@@ -116,7 +116,7 @@ class AdminController extends Controller
         $admin->fill($input)->save();
 
 
-        return redirect()->back()->with('success','admin create successfully');    
+        return redirect()->back()->with('success','Admin create successfully');    
 
     }
 
@@ -158,7 +158,7 @@ class AdminController extends Controller
         $admin = Admin::find($id);
         $admin->update($validatedData);
         
-        return redirect()->back()->with('success','admin update successfully');
+        return redirect()->back()->with('success','Admin update successfully');
     }
 
     public function updateStatus($id,$status){
@@ -182,7 +182,7 @@ class AdminController extends Controller
             $admin = Admin::findOrFail($id);
             return view('admin.admin.changepassword', compact('admin'));  
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->route('admin.list')->with('error', 'admin not found');
+            return redirect()->route('admin.list')->with('error', 'Admin not found');
         } catch (\Illuminate\Database\QueryException $e) {
             abort(500);
         } catch (\Exception $e) {
@@ -208,7 +208,7 @@ class AdminController extends Controller
         $admin->password=Hash::make($request->input('password'));
         $admin->update();
         // Return a success message
-        return redirect()->back()->with('success','password updated successfully!');    
+        return redirect()->back()->with('success','Password updated successfully!');    
 
     }
 
