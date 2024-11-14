@@ -239,7 +239,7 @@ class AssignmentController extends Controller
         $user = User::find($user_id);
         $courses = Course::where('id', $course_id)->first();
         $email_send_to=$user->email;
-        $CC_email='joshisummi@gmail.com';
+        $CC_email='learnbridge@university.com';
         $subject  ='LearnBridge – Update on Assignment shared by SME';
 
         $message  ='<h2>Hi '.$user->name.',</h2>';
@@ -262,7 +262,7 @@ class AssignmentController extends Controller
         $courses = Course::where('id', $course_id)->first();
 
         $email_send_to=$user->email ;
-        $CC_email='joshisummi@gmail.com';
+        $CC_email='learnbridge@university.com';
         $subject  =' LearnBridge – Update on Assignment shared by SME';
 
         $message  ='<h2> Hi '.$user->name.',</h2>';

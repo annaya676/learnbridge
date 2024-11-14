@@ -110,7 +110,7 @@ class UserController extends Controller
         $lobCourses = Course::whereRaw("FIND_IN_SET($lobIdToFind, lob_id) > 0")->where('status', 1)->get();
       
          if($lobCourses){
-           
+           $sendMail=false;
             foreach($lobCourses as $lobCourse){
                $checkCourse = Coursemap::where('course_id', $lobCourse->id)->where('user_id', $user_id)->first();
                if(!$checkCourse) { 
@@ -122,9 +122,13 @@ class UserController extends Controller
                     $coursemap->assignment_remark='';     
                     $coursemap->assignment_upload_date=date('Y-m-d');;     
                     $coursemap->save();
+
+                    $sendMail=true;
                 }
             }
-
+            if($sendMail==true){
+                 // $this->userActivationMail($user_id);
+            }
         }
 
         $myCourses = Coursemap::where('user_id', $user_id)->with('course')->get(); 
@@ -391,7 +395,8 @@ class UserController extends Controller
                 $details->assignment_upload_date=date('Y-m-d');;     
                 $details->update();
 
-                // $this->userAssignmentSubmission($details->course_id,$user_id);
+                // send mail 
+                // $this->userAssignmentSubmissionEmail($details->course_id,$user_id);
                
                 
                 return redirect()->route('user.assignments', $details->course_id)->with('success','upload successfully');
@@ -570,7 +575,39 @@ class UserController extends Controller
         return response()->json(['message' => 'Invalid request'], 400);
     }
 
-    public function userAssignmentSubmission($course_id,$user_id){
+
+    ///Send Mail Function
+    public function userActivationMail($user_id){
+        // Event: To be triggered after the User activation mail
+        $user = User::find($user_id);
+        $courses = Coursemap::where('user_id', $user_id)->with('course')->get();
+
+
+        $email_send_to=$user->email ;
+        $CC_email='learnbridge@university.com';
+        $subject  ='LearnBridge – Navigation Guide and Course List';
+
+        $message  ='<h2>Hi '.$user->name.',</h2>';
+
+        $message  .='<p>Evalueserve University is happy to be your learning partner.</p>';
+
+        $message  .='<p>LearnBridge is Evalueserve University’s Learning Platform accessible to our Campus Hires. Via the learning offerings, our aim is to equip you with knowledge and skills that will be the foundation of your journey at Evalueserve.</p>';
+
+        $message  .='<p>The following courses are mapped on LearnBridge for you and need to be completed by <date should be 1-day before '.$user->doj.':</p>';
+        foreach ($courses as $key => $list) {
+        $message  .='<p>'.($key+1).'. '.$list->course->course_name.'</p>';
+        }
+        $message  .='<p>Your access will be deactivated on <date should be 1-day before '.$user->doj.'.</p>';
+
+        $message  .='<p>In case of any questions, please write to learnbridge@university.com.</p>';
+
+        Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
+        return true;
+
+    }
+
+
+    public function userAssignmentSubmissionEmail($course_id,$user_id){
         // Event: To be triggered upon Assignment Submission
     
         $link =route('login');
@@ -581,7 +618,7 @@ class UserController extends Controller
         $sme_name = Admin::whereIn('id', $sme_ids)->where('role_id',2)->orderBy('id', 'desc')->pluck('name')->implode(', ');
 
         $email_send_to=$sme_email;
-        $CC_email='joshisummi@gmail.com';
+        $CC_email='learnbridge@university.com';
         $subject  ='LearnBridge – Assignment Submission by '.$user->name.','.$user->lob->name;
         $message  ='<h2>Hi '.$sme_name.','.$user->name.',</h2>';
 
@@ -595,6 +632,5 @@ class UserController extends Controller
         return true;
 
     }
-
 
 }

@@ -23,11 +23,14 @@
 
   // =========================== Submenu Open & Close Js Start =======================
   $('.has-dropdown').on('click', function () {
-    $('.has-dropdown').removeClass('activePage'); 
+    // $('.has-dropdown').removeClass('bg-gray-50'); 
+    // $('.has-dropdown').removeClass('activePage'); 
     $('.has-dropdown').not($(this)).find('.sidebar-submenu').slideUp(400); 
     
     $(this).find('.sidebar-submenu').slideToggle(400); 
-    $(this).toggleClass('activePage'); 
+    // $(this).toggleClass('activePage'); 
+    // $(this).toggleClass('bg-gray-50'); 
+
   }); 
 
   // $('.sidebar-menu__item.activePage').find('.sidebar-submenu').slideDown(400);

@@ -116,7 +116,7 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            "email" => ["required","email",'unique:users'],
+            "email" => ["required","email","regex:/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/",'unique:users'],
             // 'phone' => ['required','min:10','max:12','numeric','unique:users'],
             'phone' => 'required|string|min:10|max:12|unique:users',
 
@@ -187,7 +187,7 @@ class UserController extends Controller
     {
         $request->validate([
                 'name' => 'required',
-                'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+                'email' => 'required|string|email|regex:/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/|max:255|unique:users,email,' . $id,
                 'phone' => 'required|string|min:10|max:12|unique:users,phone,' . $id,
                 'lob_id' => 'required',
                 'designation'=> 'required',
@@ -357,12 +357,12 @@ class UserController extends Controller
 
         $user = User::find($user_id);
         $email_send_to=$user->email ;
-        $CC_email='joshisummi@gmail.com';
-        $subject  ='Welcome to University! Access credentials for LearnBridge.';
+        $CC_email='learnbridge@university.com';
+        $subject  ='Welcome to Evalueserve! Access credentials for LearnBridge.';
         $link =route('login');
 
         $message  ='<h2>Hi '.$user->name.'</h2>';
-        $message  .='<p>Thank you for choosing to be a part of University! We are happy to share that your access to the University pre-joining Learning Portal – LearnBridge is active.</p><br/>';
+        $message  .='<p>Thank you for choosing to be a part of Evalueserve! We are happy to share that your access to the Evalueserve University pre-joining Learning Portal – LearnBridge is active.</p><br/>';
         $message  .='<p>To access the portal, please use the following credentials:</p>';
         $message  .='<p><b>Link:</b> <a href='.$link.'> Click Here </a></p>';
         $message  .='<p><b>Username:</b> '.$user->email.'</p>';

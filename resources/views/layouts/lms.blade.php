@@ -110,7 +110,7 @@
             <div class="flex-align gap-16" >
                 <!-- Toggle Button Start -->
 
-                <button type="button" class="toggle-btn d-flex text-26 text-gray-500"><span class="text-white">X</span></button>
+                <button type="button" class="toggle-btn d-flex text-24 text-gray-500"><span class="text-white">X</span></button>
                 {{-- <button type="button" class="toggle-btn d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button> --}}
                 <button type="button" class="sidebar-show-btn d-xl-none d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button>
                 <!-- Toggle Button End -->

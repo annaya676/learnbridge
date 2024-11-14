@@ -9890,3 +9890,10 @@ button:focus {
 .toggle-password{
     cursor: pointer;
 }
+
+
+.btn-close:focus {
+    outline: 0;
+    box-shadow: 0px 1px 20px 0rem rgb(13 110 253 / 0%) !important;
+    opacity: var(--bs-btn-close-focus-opacity);
+}
