@@ -33,13 +33,13 @@
                         @method('PUT')
 
                         <div class="row gy-4">
-                            <div class="col-8">
+                            <div class="col-12 col-sm-8">
                                 <label for="fname" class="form-label mb-8 h6">Name</label>
                                 <input type="text" value="{{ $lob->name }}" class="form-control py-11 @error('name') is-invalid @enderror"   name="name" id="fname" placeholder="Enter Name">
                                 @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
                             
-                            <div class="col-8">
+                            <div class="col-12 col-sm-8">
                                 <label for="email" class="form-label mb-8 h6">Description</label>
                                 <textarea class="form-control py-11 @error('description') is-invalid @enderror" required name="description"  id="description" placeholder="Enter Description">{{ $lob->description }}</textarea>
                                 @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror  

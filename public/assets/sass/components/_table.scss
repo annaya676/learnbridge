@@ -28,8 +28,7 @@
     border-bottom-width: 0;
 }
 .table {
-    // min-width: max-content; 
-    min-width: auto;
+    min-width: max-content;
     &.style-two {
         th {
             background-color: var(--gray-50);

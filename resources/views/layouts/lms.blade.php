@@ -37,82 +37,58 @@
     <!-- select2  css -->
     <link rel="stylesheet" href="{{ asset('public/assets/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/assets/select2/css/select2-bootstrap-5-theme.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css') }}">
 
-    
 	@yield('styles')
-    <style type="text/css">
-        .remove-margin{
-        margin-inline-start: 0px !important
-        }
-        .sidebar-hide{
-        margin-inline-start: auto !important
-        }
-        /* SELECT2 */
-        .selection { 
-        width: 100%;
-        }
-        .sidebar-menu__item.activePage .sidebar-menu__link {
-        /* background-color: hsl(var(--main)); */
-        background-color: #87409d;
-        /* color: hsl(var(--white)); */
-        }
-        .top-header-bg{
-        background-color: #43224D;
-        }
-    </style>
-
-</head> 
+  
+</head>  
 <body>
     
-    <!--==================== Preloader Start ====================-->
-    <div class="preloader">
-        <div class="loader"></div>
-    </div>
-    <!--==================== Preloader End ====================-->
+<!--==================== Preloader Start ====================-->
+  <div class="preloader">
+    <div class="loader"></div>
+  </div>
+<!--==================== Preloader End ====================-->
 
-    <!--==================== Sidebar Overlay End ====================-->
-    <div class="side-overlay"></div>
-    <!--==================== Sidebar Overlay End ====================-->
+<!--==================== Sidebar Overlay End ====================-->
+<div class="side-overlay"></div>
+<!--==================== Sidebar Overlay End ====================-->
 
     <!-- ============================ Sidebar Start ============================ -->
-    <aside class="sidebar">
-        <!-- sidebar close btn -->
-        <button type="button" class="sidebar-close-btn text-gray-500 hover-text-white hover-bg-main-600 text-md w-24 h-24 border border-gray-100 hover-border-main-600 d-xl-none d-flex flex-center rounded-circle position-absolute"><i class="ph ph-x"></i></button>
-        <!-- sidebar close btn -->
-        
-        <a href="{{ route('dashboard') }}" class="sidebar__logo text-center p-20 position-sticky inset-block-start-0 bg-white w-100 z-1 pb-10">
-            <img src="{{ asset('public/assets/images/logo/logo.png') }}" alt="Logo">
-        </a>
 
-        <div class="sidebar-menu-wrapper overflow-y-auto scroll-sm">
-            <div class="p-20 pt-10">
-                <ul class="sidebar-menu">
-                    
-                    @if ( auth('admin')->user()->role_id ==1 )
-                        @include('includes.roles.admin')
-                    @elseif ( auth('admin')->user()->role_id ==2)
-                        @include('includes.roles.sme')
-                    @else
-                        @include('includes.roles.ta')
-                    @endif
-                
-                </ul>
-            </div>
-        
+<aside class="sidebar">
+    <!-- sidebar close btn -->
+     <button type="button" class="sidebar-close-btn text-gray-500 hover-text-white hover-bg-main-600 text-md w-24 h-24 border border-gray-100 hover-border-main-600 d-xl-none d-flex flex-center rounded-circle position-absolute"><i class="ph ph-x"></i></button>
+    <!-- sidebar close btn -->
+    
+    <a href="{{ route('dashboard') }}" class="sidebar__logo text-center p-20 position-sticky inset-block-start-0 bg-white w-100 z-1 pb-10">
+        <img src="{{ asset('public/assets/images/logo/logo.png') }}" alt="Logo">
+    </a>
+
+    <div class="sidebar-menu-wrapper overflow-y-auto scroll-sm">
+        <div class="p-20 pt-10">
+            <ul class="sidebar-menu">
+                @if ( auth('admin')->user()->role_id ==1 )
+                @include('includes.roles.admin')
+                @elseif ( auth('admin')->user()->role_id ==2)
+                    @include('includes.roles.sme')
+                @else
+                    @include('includes.roles.ta')
+                @endif
+            </ul>
         </div>
+        
+    </div>
 
-    </aside>    
-    <!-- ============================ Sidebar End  ============================ -->
+</aside>    
+<!-- ============================ Sidebar End  ============================ -->
 
-    <div class="dashboard-main-wrapper" >
-        <div class="top-navbar flex-between gap-16 top-header-bg" >
+    <div class="dashboard-main-wrapper">
+        <div class="top-navbar flex-between gap-16">
 
-            <div class="flex-align gap-16" >
+            <div class="flex-align gap-16">
                 <!-- Toggle Button Start -->
-
-                <button type="button" class="toggle-btn d-flex text-24 text-gray-500"><span class="text-white">X</span></button>
-                {{-- <button type="button" class="toggle-btn d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button> --}}
-                <button type="button" class="sidebar-show-btn d-xl-none d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button>
+                <button type="button" class="toggle-btn d-xl-none d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button>
                 <!-- Toggle Button End -->
                 
                 {{-- <form action="#" class="w-350 d-sm-block d-none">
@@ -127,8 +103,11 @@
                 <div class="flex-align gap-8">
                     <!-- Notification Start -->
                  
-                    <!-- Notification Start -->    
+                    <!-- Notification Start -->
+                  
                 </div>
+
+
                 <!-- User Profile Start -->
                 <div class="dropdown">
                     <button class="users arrow-down-icon border bg-main-50 hover-bg-main-100 border-gray-200 rounded-pill p-4 d-inline-block pe-40 position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -166,40 +145,42 @@
                     </div>
                 </div>
                 <!-- User Profile Start -->
+
             </div>
         </div>
 
-        <!-- Main Content Area Start -->
-        @yield('content')
-        <!-- Main Content Area End -->
-       
+        
+         <!-- Main Content Area Start -->
+         @yield('content')
+         <!-- Main Content Area End -->
+        
     </div>
     
+          
         <!-- Jquery js -->
-    <script src="{{ asset('public/assets/js/jquery-3.7.1.min.js') }}"></script>
-    <!-- Bootstrap Bundle Js -->
-    <script src="{{ asset('public/assets/js/boostrap.bundle.min.js') }}"></script>
-    <!-- Phosphor Js -->
-    <script src="{{ asset('public/assets/js/phosphor-icon.js') }}"></script>
-    <!-- file upload -->
-    <script src="{{ asset('public/assets/js/file-upload.js') }}"></script>
-    <!-- dataTables -->
-    <script src="{{ asset('public/assets/dataTables/dataTables.min.js') }}"></script>
-    <!-- main js -->
-    <script src="{{ asset('public/assets/js/main.js') }}"></script>
-    <script src="{{ asset('public/assets/select2/js/select2.min.js') }}"></script>
+        <script src="{{ asset('public/assets/js/jquery-3.7.1.min.js') }}"></script>
+        <!-- Bootstrap Bundle Js -->
+        <script src="{{ asset('public/assets/js/boostrap.bundle.min.js') }}"></script>
+        <!-- Phosphor Js -->
+        <script src="{{ asset('public/assets/js/phosphor-icon.js') }}"></script>
+        <!-- file upload -->
+        <script src="{{ asset('public/assets/js/file-upload.js') }}"></script>
+        <!-- dataTables -->
+        <script src="{{ asset('public/assets/dataTables/dataTables.min.js') }}"></script>
+        <!-- main js -->
+        <script src="{{ asset('public/assets/js/main.js') }}"></script>
+        <script src="{{ asset('public/assets/select2/js/select2.min.js') }}"></script>
 
-    @yield('scripts')
+        @yield('scripts')
     
-    <script>
-        $( '.select2' ).select2( {
-            theme: "bootstrap-5",
-            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-            placeholder: $( this ).data( 'placeholder' ),
-            closeOnSelect: false,
-        } );
-    </script>
-        
-        
+        <script>
+            $( '.select2' ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                closeOnSelect: false,
+            } );
+        </script>
+
     </body>
 </html>

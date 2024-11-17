@@ -22,15 +22,19 @@
 
 
   // =========================== Submenu Open & Close Js Start =======================
+  // $('.has-dropdown').on('click', function () {
+  //   $('.has-dropdown').removeClass('activePage'); 
+  //   $('.has-dropdown').not($(this)).find('.sidebar-submenu').slideUp(400); 
+    
+  //   $(this).find('.sidebar-submenu').slideToggle(400); 
+  //   $(this).toggleClass('activePage'); 
+  // }); 
+
   $('.has-dropdown').on('click', function () {
-    // $('.has-dropdown').removeClass('bg-gray-50'); 
-    // $('.has-dropdown').removeClass('activePage'); 
     $('.has-dropdown').not($(this)).find('.sidebar-submenu').slideUp(400); 
     
     $(this).find('.sidebar-submenu').slideToggle(400); 
-    // $(this).toggleClass('activePage'); 
-    // $(this).toggleClass('bg-gray-50'); 
-
+ 
   }); 
 
   // $('.sidebar-menu__item.activePage').find('.sidebar-submenu').slideDown(400);
@@ -73,22 +77,9 @@
 
   //  =========================== Sidebar Open & Close Start ===============================
   $('.toggle-btn').on('click', function () {
-
-    $('.sidebar').addClass('d-xl-none')
-    $('.toggle-btn').addClass('d-xl-none')
-    $('.sidebar-show-btn').removeClass('d-xl-none')
-    $('.dashboard-main-wrapper').addClass('remove-margin')
-    //$('.sidebar').removeClass('active')
-    // $('.side-overlay').addClass('show')
+    $('.sidebar').addClass('active')
+    $('.side-overlay').addClass('show')
   }); 
-
-   $('.sidebar-show-btn').on('click', function () {
-      $('.sidebar').removeClass('d-xl-none')
-      $('.toggle-btn').removeClass('d-xl-none')
-      $('.sidebar-show-btn').addClass('d-xl-none')
-      $('.dashboard-main-wrapper').removeClass('remove-margin')
-  }); 
-
 
   $('.side-overlay, .sidebar-close-btn').on('click', function () {
     $('.side-overlay').removeClass('show')

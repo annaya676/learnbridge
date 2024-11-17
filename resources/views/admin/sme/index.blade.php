@@ -22,7 +22,7 @@
 
 
     <div class="card overflow-hidden">
-        <div class="card-body p-0 pt-10">
+        <div class="card-body p-0 pt-10 overflow-x-auto">
             <table id="smeTable" class="table table-striped table-bordered">
                 <thead>
                     <tr>

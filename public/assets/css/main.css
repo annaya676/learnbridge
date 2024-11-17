@@ -739,8 +739,9 @@ tr {
 }
 
 table.dataTable {
-    min-width: 100%;
+    /* min-width: 100%; */
     /* min-width: 1199px; */
+    min-width: 1030px;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) > * {
@@ -9844,56 +9845,3 @@ button:focus {
 
 /* Email Css End */
 /*# sourceMappingURL=main.css.map */
-
-
-.dt-search{
-    padding: 10px;
-}
-
-/* custome css */
-
-.btn-main {
-    background-color:  #43224d !important;
-    border-color: #43224d !important;
-}
-
-/* .btn-main {
-    background-color:  #87409d !important;
-    border-color: #87409d !important;
-} */
-
-.btn-main:hover {
-    background-color: #6c1f85 !important; /* New hover background color */
-    border-color: #6c1f85  !important;     /* New hover border color */
-}
-.btn-outline-main {
-    background-color: transparent !important;
-    border-color:  #43224d !important;
-    color:   #43224d !important;
-}
-/* .btn-outline-main {
-    background-color: transparent !important;
-    border-color:  #87409d !important;
-    color:   #6c1f85 !important;
-} */
-
-.btn-outline-main:hover {
-    background-color:#6c1f85  !important;
-    border-color:  #6c1f85  !important;
-    color: hsl(var(--white)) !important;
-}
-.text-red {
- 
-    color: var(--danger-500) !important;
-}
-
-.toggle-password{
-    cursor: pointer;
-}
-
-
-.btn-close:focus {
-    outline: 0;
-    box-shadow: 0px 1px 20px 0rem rgb(13 110 253 / 0%) !important;
-    opacity: var(--bs-btn-close-focus-opacity);
-}

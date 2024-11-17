@@ -67,20 +67,20 @@
                     <form action="{{ route('profile.submit')}}" method="post"  class="needs-validation" novalidate>
                         @csrf
                         <div class="row gy-4">
-                            <div class="col-7">
+                            <div class="col-12 col-sm-7">
                                 <label for="fname" class="form-label mb-8 h6">Name</label>
                                 <input type="text" class="form-control py-11 @error('name') is-invalid @enderror" name="name" value="{{ $data->name }}" id="fname" placeholder="Enter Name">
                                 @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror  
   
                             </div>
                             
-                            <div class="col-7">
+                            <div class="col-12 col-sm-7">
                                 <label for="email" class="form-label mb-8 h6">Email</label>
                                 <input type="email" class="form-control py-11 @error('email') is-invalid @enderror" name="email" value="{{ $data->email }}"  id="email" placeholder="Enter Email">
                                 @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror  
 
                             </div>
-                            <div class="col-7">
+                            <div class="col-12 col-sm-7">
                                 <label for="phone" class="form-label mb-8 h6">Phone Number</label>
                                 <input type="number" class="form-control py-11 @error('phone') is-invalid @enderror" name="phone" value="{{ $data->phone }}" id="phone" placeholder="Enter Phone Number">
                                 @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror  
@@ -111,7 +111,7 @@
                     <form action="{{ route('profile.updatepassword')}}" method="post"  class="needs-validation" novalidate>
                         @csrf
                         <div class="row gy-4">
-                            <div class="col-7">
+                            <div class="col-12 col-sm-7">
                                 <label for="current-password" class="form-label mb-8 h6">Current Password</label>
                                 <div class="position-relative">
                                     <input type="password" class="form-control py-11 @error('current_password') is-invalid @enderror" name="current_password" id="current-password" placeholder="Enter Current Password">
@@ -122,7 +122,7 @@
                                 </div>
                                   
                             </div>
-                            <div class="col-7">
+                            <div class="col-12 col-sm-7">
                                 <label for="new-password" class="form-label mb-8 h6">New Password</label>
                                 <div class="position-relative">
                                     <input type="password" name="new_password" class="form-control py-11 @error('new_password') is-invalid @enderror" id="new-password" placeholder="Enter New Password">
@@ -133,7 +133,7 @@
                                 </div>
                                  
                             </div>
-                            <div class="col-7">
+                            <div class="col-12 col-sm-7">
                                 <label for="confirm-password" class="form-label mb-8 h6">Confirm Password</label>
                                 <div class="position-relative">
                                     <input type="password" name="confirm_password" class="form-control py-11 @error('confirm_password') is-invalid @enderror" id="confirm-password"  placeholder="Enter Confirm Password">

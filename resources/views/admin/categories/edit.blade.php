@@ -33,18 +33,18 @@
                         @method('PUT')
 
                         <div class="row gy-4">
-                            <div class="col-8">
+                            <div class="col-12 col-sm-8">
                                 <label for="fname" class="form-label mb-8 h6">Name</label>
                                 <input type="text" value="{{ $category->name }}" class="form-control py-11 @error('name') is-invalid @enderror"   name="name" id="fname" placeholder="Enter Name">
                                 @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
-                            <div class="col-8">
+                            <div class="col-12 col-sm-8">
                                 <label for="subset" class="form-label mb-8 h6">Sub Set</label>
                                 <input type="text" value="{{ $category->subset }}" class="form-control py-11 @error('subset') is-invalid @enderror"   name="subset" id="subset" placeholder="Enter Sub Set">
                                 @error('subset') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
 
-                            <div class="col-8">
+                            <div class="col-12 col-sm-8">
                                 <label for="image" class="form-label mb-8 h6">Image </label>
                                 <input type="file" class="form-control py-11 @error('image') is-invalid @enderror" name="image" id="image">
                                 @error('image') <div class="invalid-feedback">{{ $message }}</div> @enderror 

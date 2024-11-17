@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('public/assets/css/jquery-jvectormap-2.0.5.css') }}">
     <!-- Main css -->
     <link rel="stylesheet" href="{{ asset('public/assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/css/custom.css') }}">
 
     
 	@yield('styles')
@@ -43,26 +44,13 @@
             user-select: none;
         }
 
-
         .remove-margin{
             margin-inline-start: 0px !important
         }
     
-        .sidebar-hide{
-            margin-inline-start: auto !important
-        }
-    
-        .sidebar-menu__item.activePage .sidebar-menu__link {
-            /* background-color: hsl(var(--main)); */
-            background-color: #87409d;
-            /* color: hsl(var(--white)); */
-        }
-        .top-header-bg{
-        background-color: #43224D;
-        }
         .text-justify {
-    text-align: justify;
-}
+            text-align: justify;
+        }
     </style>
     
 
@@ -151,16 +139,15 @@
 
     <div class="flex-align gap-16">
         <!-- Toggle Button Start -->
-         <button type="button" class="toggle-btn d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button>
-         <button type="button" class="sidebar-show-btn d-xl-none d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button>
+        <button type="button" class="toggle-btn d-xl-none d-flex text-26 text-gray-500"><i class="ph ph-list text-white"></i></button>
         <!-- Toggle Button End -->
         
-        <form action="#" class="w-350 d-sm-block d-none">
+        {{-- <form action="#" class="w-350 d-sm-block d-none">
             <div class="position-relative">
                 <button type="submit" class="input-icon text-xl d-flex text-gray-100 pointer-event-none"><i class="ph ph-magnifying-glass"></i></button> 
                 <input type="text" class="form-control ps-40 h-40 border-transparent focus-border-main-600 bg-main-50 rounded-pill placeholder-15" placeholder="Search...">
             </div>
-        </form>
+        </form> --}}
     </div>
 
     <div class="flex-align gap-16">
@@ -253,7 +240,6 @@
                 </div>
             </div>
             <!-- Notification Start -->
-            
            
         </div>
 

@@ -8,17 +8,6 @@
             var fileUploadId = `fileUpload-${++fileUploadCount}`;
 
             // Creates HTML content for the file upload area.
-        //     var fileDivContent = `
-        //     <label for="${fileUploadId}" class="file-upload image-upload__box">
-        //         <div class="image-upload__boxInner">
-        //             <i class="ph ph-image mb-8 image-upload__icon"></i>
-        //             <h5 class="mb-4">Drag or <span class="text-main-600"> Browse</span></h5>
-        //             <p class="text-13">PNG, JPEG (max 5mb size)</p>
-                    
-        //         </div>
-        //         <input type="file" id="${fileUploadId}" name="[]" multiple hidden />
-        //     </label>
-        // `;
             var fileDivContent = `
                 <label for="${fileUploadId}" class="file-upload image-upload__box">
                     <div class="image-upload__boxInner">
@@ -27,7 +16,7 @@
                         <p class="text-13">PNG, JPEG (max 5mb size)</p>
                         
                     </div>
-                    <input type="file" id="${fileUploadId}" name="image"  hidden />
+                    <input type="file" id="${fileUploadId}" name="[]" multiple hidden />
                 </label>
             `;
 
