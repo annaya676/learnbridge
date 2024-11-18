@@ -16,7 +16,7 @@
                         <p class="text-13">PNG, JPEG (max 5mb size)</p>
                         
                     </div>
-                    <input type="file" id="${fileUploadId}" name="image" multiple hidden />
+                    <input type="file" id="${fileUploadId}" name="image"  hidden />
                 </label>
             `;
 
