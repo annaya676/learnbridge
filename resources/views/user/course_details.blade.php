@@ -24,24 +24,7 @@
                     </div>
                 </div>
                 <div class="rounded-16 overflow-hidden">
-                    @if($module_type =='')
-                        @if($lesson->video!='')
-                        @php $module_type='video'; @endphp
-
-                            <video id="player"  playsinline class="w-100">
-                            <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
-                            <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/webm">
-                                Your browser does not support the video tag.
-                            </video> 
-                            <button id="playButton" class="btn btn-main position-absolute start-50 translate-middle-x mt-2">Play</button>
- 
-                        @elseif ($lesson->document!='')
-                        @php $module_type='document'; @endphp
-                           
-                            <iframe id="pdfIframe" src="{{ route('file.preview.pdf', ['filename' => $lesson->document]) }}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" width="100%" height="500" ></iframe>
-                        
-                        @endif
-                    @else
+              
                         @if($module_type=='video')
                         
                         <video id="player"  playsinline class="w-100">
@@ -57,8 +40,6 @@
                         <iframe id="pdfIframe" src="{{ route('file.preview.pdf', ['filename' => $lesson->document]) }}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" width="100%" height="500" ></iframe>
                            
                         @endif
-                    @endif
-
 
                 </div>
                 
@@ -266,30 +247,30 @@ function updateVideoStatus() {
 
 @elseif ($module_type=='document')
 <script>
-    $('#pdfIframe').on('load', function () {
+    // $('#pdfIframe').on('load', function () {
       
-                 updatePdfStatus();
+    //             //  updatePdfStatus();
 
-    });
+    // });
 
  
-function updatePdfStatus() {
+// function updatePdfStatus() {
     
-    $.ajax({
-        type: 'POST',
-        url: "{{ route('pdf.status', ['id1' => $details->course->id, 'id2' => $lesson->id]) }}",  // Add your route here
-        data: {
-            '_token': '{{ csrf_token() }}',
-            'pdf_status': 'completed'
-        },
-        success: function(data) {
-            console.log('status updated successfully!');
-        },
-        error: function(xhr, status, error) {
-            console.log('Error updating PDF status: ' + error);
-        }
-    });
-}
+//     $.ajax({
+//         type: 'POST',
+//         url: "{{ route('pdf.status', ['id1' => $details->course->id, 'id2' => $lesson->id]) }}",  // Add your route here
+//         data: {
+//             '_token': '{{ csrf_token() }}',
+//             'pdf_status': 'completed'
+//         },
+//         success: function(data) {
+//             console.log('status updated successfully!');
+//         },
+//         error: function(xhr, status, error) {
+//             console.log('Error updating PDF status: ' + error);
+//         }
+//     });
+// }
 
 </script>
 

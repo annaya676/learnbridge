@@ -193,9 +193,9 @@ class FrontController extends Controller
 
     // }
 
-    public function about(){
+    // public function about(){
 
-    // public function beforeDoJ7daySendSme($user_id){ //beforeDoJ7daySendSme  //cron email
+    public function beforeDoJ7daySendSme($user_id){ //beforeDoJ7daySendSme  //cron email
         //  Event: 7-Days before Users’ DoJ send to sme  .. get By LOB
    $sevenDaysAgo = \Carbon\Carbon::now()->addDays(1)->toDateString();
         $users = User::whereDate('doj', '=', $sevenDaysAgo)->get();
@@ -236,11 +236,12 @@ class FrontController extends Controller
 
     }
 
+    public function about(){
 
-    public function changeLoBMail(){ 
+    // public function changeLoBMail(){ 
         //  Event: Change in LoB
     
-            $user_id=22;
+            $user_id=37;
             $user = User::find($user_id);
             $doj = \Carbon\Carbon::create($user->doj)->subDays(1)->format('d-m-Y') ;
 
@@ -255,8 +256,8 @@ class FrontController extends Controller
             $message  .='<p>Please keep in mind that your access to LearnBridge will be deactivated on '.$doj.'.</p>';
     
     
-            Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
-    
+          $send=  Mail::to($email_send_to)->cc($CC_email)->send(new Websitemail($subject,$message));
+    // print_r($send);
             return true;
     
         }

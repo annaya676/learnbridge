@@ -82,7 +82,7 @@
                             </div>
                             <div class="col-12 col-sm-7">
                                 <label for="phone" class="form-label mb-8 h6">Phone Number</label>
-                                <input type="number" class="form-control py-11 @error('phone') is-invalid @enderror" name="phone" value="{{ $data->phone }}" id="phone" placeholder="Enter Phone Number">
+                                <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)" class="form-control py-11 @error('phone') is-invalid @enderror" name="phone" value="{{ $data->phone }}" id="phone" placeholder="Enter Phone Number">
                                 @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror  
  
                             </div>

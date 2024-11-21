@@ -299,10 +299,11 @@ class ReportsController extends Controller
         } else{
             $datas = User::orderBy('id', 'desc')->with('lob')->get();
         }
-        $csvContent = "User Id,Name,Gender,Designation,Level,LoB,Sub-Lob,College Name,Location,Specialization,College Location,Contact Number,Email Id,Offer Release Spoc,User Status,DOJ,TRF,Joiner Status\n"; // CSV header
+        $csvContent = "User Id,Name,Gender,Designation,Level,LoB,Sub-Lob,College Name,Location,Specialization,College Location,Contact Number,Email Id,Offer Release Spoc,User Status,DOJ,TRF,Joiner Status,Creation date,Created By\n"; // CSV header
         foreach ($datas as $data) {
             $lobname=  ($data->lob)?$data->lob->name:'';
-            
+            $creation_date=Carbon::create($data->created_at)->format('d M Y');	
+            $created_By=$data->createdby->email;
             if($data->status == 1){
             $status= 'Active';
             }else{
@@ -311,7 +312,7 @@ class ReportsController extends Controller
             
             $DateofJoining = Carbon::create($data->doj)->format('d M Y');	            
 
-            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->level},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->offer_release_spoc},{$status},{$DateofJoining},{$data->trf},{$data->joiner_status}\n"; // Custom CSV row
+            $csvContent .= "{$data->id},{$data->name},{$data->gender},{$data->designation},{$data->level},{$lobname},{$data->sub_lob},{$data->college_name},{$data->location},{$data->specialization},{$data->college_location},{$data->phone},{$data->email},{$data->offer_release_spoc},{$status},{$DateofJoining},{$data->trf},{$data->joiner_status},{$creation_date},{$created_By}\n"; // Custom CSV row
         }
 
 

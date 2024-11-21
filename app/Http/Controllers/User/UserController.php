@@ -252,13 +252,26 @@ class UserController extends Controller
     public function course($course_id, $module_type='',$module_id=''){
 
         $user_id=  Auth::guard('web')->user()->id;
-        $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
     
         if($module_id!=''){
         $lesson = Module::where('course_id', $course_id)->where('id', $module_id)->first();
         }else{
         $lesson = Module::where('course_id', $course_id)->first();
         }
+
+        if($module_type ==''){
+            if($lesson->video!=''){
+                $module_type='video'; 
+            }elseif ($lesson->document!=''){
+                $module_type='document'; 
+            }
+        }
+        if ($module_type=='document'){
+           $this->pdfReadStatusUpdate($course_id,$module_id);
+        }
+
+        $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
+
         if($details && $lesson){
             $is_read_docs = explode(",",$details->is_read_docs);
             $is_read_video = explode(",",$details->is_read_video);
@@ -540,6 +553,21 @@ class UserController extends Controller
         } 
        
     }
+
+    public function pdfReadStatusUpdate($course_id,$module_id){
+        $user_id=  Auth::guard('web')->user()->id;
+        $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
+
+        if ($details) {
+            $is_read_docs = ($details->is_read_docs!='')?explode(",",$details->is_read_docs):array();
+            $is_read_docs[]=$module_id;
+
+            $details->is_read_docs = implode(',',array_unique($is_read_docs));
+            $details->save();
+        }
+        return true;
+    }
+    
 
     public function updatePdfReadStatus(Request $request,$course_id,$module_id){
         $user_id=  Auth::guard('web')->user()->id;

@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
                                     <label for="duration" class="form-label mb-8 h6">Duration <span class="text-13 text-gray-400 fw-medium">(Required)</span> </label>
-                                    <input type="number" name="duration" value="{{ old('duration', '') }}"  class="form-control py-11 @error('duration') is-invalid @enderror" id="duration" placeholder="Enter Duration">
+                                    <input type="number" name="duration" value="{{ old('duration', '') }}"    oninput="this.value = this.value.replace(/[^0-9.]/g, '')" class="form-control py-11 @error('duration') is-invalid @enderror" id="duration" placeholder="Enter Duration">
                                     @error('duration') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                                 </div>
                                 <div class="col-sm-12 col-xs-12">

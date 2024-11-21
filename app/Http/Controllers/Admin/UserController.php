@@ -148,12 +148,10 @@ class UserController extends Controller
         $input['password']=Hash::make($pass);
         $input['token']=$token;
         $input['offer_revoke']='';
-        
+        $input['uploader'] = Auth::guard("admin")->user()->id;
         $input['status'] = 1;
         $user->fill($input)->save();
-
         // $this->userActivatedEmail($user->id,$pass);
-
         return redirect()->route('user')->with('success','user create successfully'); 
 
      
@@ -211,6 +209,7 @@ class UserController extends Controller
 
         $user = User::find($id);
         $input = $request->all();
+      
         $user->update($input);
 
         return redirect()->back()->with('success','update successfully');
@@ -338,6 +337,7 @@ class UserController extends Controller
                             'college_tier'=>$data[17],
                             'password'=>Hash::make($pass),
                             'token'=>$token,
+                            'uploader' => Auth::guard("admin")->user()->id,
                             'status' => 1
                     ];
                     User::insert($batch);

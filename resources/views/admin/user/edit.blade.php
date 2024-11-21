@@ -49,7 +49,7 @@
 
                             <div class="col-sm-6 col-xs-6">
                                 <label for="phone" class="form-label mb-8 h6">Phone</label>
-                                <input type="number" value="{{ $user->phone }}" class="form-control py-11 @error('phone') is-invalid @enderror"   minlength="10"  maxlength="12"  name="phone" id="phone" placeholder="Enter Phone">
+                                <input type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)"  value="{{ $user->phone }}" class="form-control py-11 @error('phone') is-invalid @enderror"   minlength="10"  maxlength="12"  name="phone" id="phone" placeholder="Enter Phone">
                                 @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror  
                             </div>
          

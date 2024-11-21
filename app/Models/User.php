@@ -44,6 +44,7 @@ class User extends Authenticatable
         'college_tier',
         'status',
         'isterm',
+        'uploader',
         'created_at',
         'updated_at'
     ];
@@ -75,5 +76,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Lob::class, 'lob_id', 'id'); 
     }
+
+
+    public function createdby(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'uploader', 'id'); 
+    }
+
+
    
 }
