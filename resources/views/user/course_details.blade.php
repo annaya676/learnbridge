@@ -27,12 +27,35 @@
               
                         @if($module_type=='video')
                         
-                        <video id="player"  playsinline class="w-100">
+                        <div class="video-container">
+                           <video id="player" class="w-100">
+                              <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
+                              Your browser does not support the video tag.
+                            </video>
+                            
+                            <div class="controls">
+                              <button id="playPauseBtn"> <i class="ph-fill ph-play"></i> Play</button>
+                              <span id="time">00:00 / 00:00</span>
+                            </div>
+                          </div>
+
+
+                        {{-- <video id="player">
+                            <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                          </video>
+                          
+                          <div class="controls">
+                            <button id="playPauseBtn">Play</button>
+                            <span id="time">00:00 / 00:00</span>
+                          </div> --}}
+
+                        {{-- <video id="player"  playsinline class="w-100">
                         <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/mp4">
                         <source src="{{ route('file.preview.video', ['filename' => $lesson->video]) }}" type="video/webm">
                             Your browser does not support the video tag.
                         </video> 
-                        <button id="playButton" class="btn btn-main position-absolute start-50 translate-middle-x mt-2">Play</button>
+                        <button id="playButton" class="btn btn-main position-absolute start-50 translate-middle-x mt-2">Play</button> --}}
 
 
                         @elseif ($module_type=='document')
@@ -200,22 +223,99 @@
 
 </div>
 
+<style>
+    .video-container {
+      /* width: 600px; */
+      position: relative;
+    }
+/* 
+    video {
+      width: 100%;
+      height: auto;
+    } */
+
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: calc(100% - 20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5px;
+      color: white;
+    }
+
+    #playPauseBtn {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    #time {
+      font-size: 14px;
+    }
+  </style>
+
+  
 @section('scripts')
 
 @if($module_type=='video')
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
 
-    var video = document.getElementById('player');
+  var video = document.getElementById('player');
+  var playPauseBtn = document.getElementById('playPauseBtn');
+  var timeDisplay = document.getElementById('time');
+  
+  // Update the time display every time the video time updates
+  video.addEventListener('timeupdate', function() {
+    var currentTime = formatTime(video.currentTime);
+    var duration = formatTime(video.duration);
+    timeDisplay.textContent = `${currentTime} / ${duration}`;
+  });
+
+  // Format time in mm:ss
+  function formatTime(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    var remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes < 10 ? '0' + minutes : minutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+  }
+
+  // Play/Pause functionality
+  playPauseBtn.addEventListener('click', function() {
+    if (video.paused) {
+      video.play();
+      playPauseBtn.innerHTML = '<i class="ph-fill ph-pause"></i> Pause';
+    } else {
+      video.pause();
+      playPauseBtn.innerHTML = '<i class="ph-fill ph-play"></i> Play';
+    }
+  });
 
 
-    const playButton = document.getElementById('playButton');
 
-    playButton.addEventListener('click', () => {
-        video.muted = false;   // Ensure the video is unmuted
-        video.play();          // Start playing the video
-        playButton.style.display = 'none';  // Hide the play button
-    });
+
+
+
+
+
+
+
+///////////////////////////////
+    // var video = document.getElementById('player');
+
+
+    // const playButton = document.getElementById('playButton');
+
+    // playButton.addEventListener('click', () => {
+    //     video.muted = false;   // Ensure the video is unmuted
+    //     video.play();          // Start playing the video
+    //     playButton.style.display = 'none';  // Hide the play button
+    // });
 
     video.addEventListener('ended', function() {
         // Video has finished playing

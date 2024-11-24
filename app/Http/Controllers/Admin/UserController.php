@@ -19,6 +19,8 @@ use App\Mail\Websitemail;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -151,10 +153,23 @@ class UserController extends Controller
         $input['uploader'] = Auth::guard("admin")->user()->id;
         $input['status'] = 1;
         $user->fill($input)->save();
-        // $this->userActivatedEmail($user->id,$pass);
-        return redirect()->route('user')->with('success','user create successfully'); 
+        // $sendEmail= $this->userActivatedEmail($user->id,$pass);
+        // return redirect()->route('user')->with('success','user create successfully'); 
 
-     
+        try {
+            $user->fill($input)->save();
+            $sendEmail = $this->userActivatedEmail($user->id, $pass);
+    
+            if ($sendEmail) {
+                return redirect()->route('user')->with('success', 'User created successfully');
+            } else {
+                $user->delete();
+                return redirect()->route('user')->with('error', 'User creation failed due to email sending issue');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('user')->with('error', 'User creation failed: ' . $e->getMessage());
+        }
+   
     }
 
 
@@ -286,71 +301,85 @@ class UserController extends Controller
    
     }
 
-    public function importUserCsv(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|file|mimes:csv,txt|mimetypes:text/plain,text/csv,application/csv,application/excel,application/vnd.ms-excel',
-        ]);
+public function importUserCsv(Request $request)
+{
+    $request->validate([
+        'file' => 'required|file|mimes:csv,txt|mimetypes:text/plain,text/csv,application/csv,application/excel,application/vnd.ms-excel',
+    ]);
 
-        $file = $request->file('file');
+    $file = $request->file('file');
+    $batchSize = 1000;
+    $count = 0;
 
-        $batchSize = 1000;
-        $batch = [];
+    $handle = fopen($file->getRealPath(), 'r');
+    $header = true; // Flag to skip the header row
 
-        $handle = fopen($file->getRealPath(), 'r');
+    DB::beginTransaction(); // Start transaction
 
-        $i = 0;
-
-        $batch = [];
-        $count=0;
+    try {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        
-            if ($i < $batchSize && $i > 0) {
+            if ($header) {
+                $header = false; // Skip the first row
+                continue;
+            }
 
-                $checkemail = User::where('email', $data[2])->first();
-                $checkphone = User::where('phone', $data[3])->first();
-                $lob = Lob::where('name', $data[3])->first();
-  
-                if (!$checkemail && !$checkphone && $lob) {
-                    $pass=1234;
-                    $token=hash('sha256',time());
-                    $DateofJoining = Carbon::create( $data[6])->format('Y-m-d');	            
+            // Assuming the email is in column 1 and phone is in column 2
+            $checkemail = User::where('email', $data[1])->first();
+            $checkphone = User::where('phone', $data[2])->first();
+            $lob = Lob::where('name', $data[3])->first();
 
-                    $batch[] = [
-                            'name' => $data[0], 
-                            'email'=> $data[1], 
-                            'phone' => $data[2], 
-                            'lob_id' => $lob->id, 
-                            'designation' => $data[4], 
-                            'level' => $data[5], 
-                            'doj' => $DateofJoining, 
-                            'gender' => $data[7], 
-                            'sub_lob' => $data[8], 
-                            'college_name' => $data[9], 
-                            'location' => $data[10], 
-                            'specialization' => $data[11], 
-                            'college_location' => $data[12], 
-                            'offer_release_spoc'=> $data[13], 
-                            'trf' => $data[14], 
-                            'joiner_status'=>$data[15],
-                            'qualification'=>$data[16],
-                            'college_tier'=>$data[17],
-                            'password'=>Hash::make($pass),
-                            'token'=>$token,
-                            'uploader' => Auth::guard("admin")->user()->id,
-                            'status' => 1
-                    ];
-                    User::insert($batch);
-                    $batch = [];
+            if (!$checkemail && !$checkphone && $lob) {
+                $pass = Str::random(8); // Generate a more secure password
+                $token = hash('sha256', time());
+                $DateofJoining = Carbon::createFromFormat('Y-m-d', $data[6])->format('Y-m-d');
+
+                $user = User::create([
+                    'name' => $data[0],
+                    'email' => $data[1],
+                    'phone' => $data[2],
+                    'lob_id' => $lob->id,
+                    'designation' => $data[4],
+                    'level' => $data[5],
+                    'doj' => $DateofJoining,
+                    'gender' => $data[7],
+                    'sub_lob' => $data[8],
+                    'college_name' => $data[9],
+                    'location' => $data[10],
+                    'specialization' => $data[11],
+                    'college_location' => $data[12],
+                    'offer_release_spoc' => $data[13],
+                    'trf' => $data[14],
+                    'joiner_status' => $data[15],
+                    'qualification' => $data[16],
+                    'college_tier' => $data[17],
+                    'password' => Hash::make($pass),
+                    'token' => $token,
+                    'uploader' => Auth::guard("admin")->user()->id,
+                    'status' => 1
+                ]);
+
+                $sendEmail = $this->userActivatedEmail($user->id, $pass);
+
+                if (!$sendEmail) {
+                    // If email sending fails, delete the user
+                    $user->delete();
+                } else {
                     $count++;
                 }
             }
-            $i++;
         }
 
-    
-     return redirect()->back()->with('success',$count.'Users upload successfully');
+        DB::commit(); // Commit transaction after processing all users
+    } catch (\Exception $e) {
+        DB::rollBack(); // Rollback transaction on error
+        return redirect()->back()->with('error', 'User  import failed: ' . $e->getMessage());
+    } finally {
+        fclose($handle); // Close the file handle
     }
+
+    return redirect()->back()->with('success', $count . ' users uploaded successfully');
+}
+  
 
     public function userActivatedEmail($user_id,$password){
         // Event: User Activated on LearnBridge , user create send this mail
