@@ -178,6 +178,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
         try {
             $lobs = Lob::all();
             $user = User::findOrFail($id);
@@ -196,12 +197,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
+
         $request->validate([
                 'name' => 'required',
-                'email' => 'required|string|email|regex:/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/|max:255|unique:users,email,' . $id,
-                'phone' => 'required|string|min:10|max:12|unique:users,phone,' . $id,
+                'email' => 'required|string|email|regex:/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/|max:255|unique:users,email,' . $user_id,
+                'phone' => 'required|string|min:10|max:12|unique:users,phone,' .$user_id,
                 'lob_id' => 'required',
                 'designation'=> 'required',
                 'level'=> 'required',
@@ -222,10 +224,41 @@ class UserController extends Controller
             ]
         );
 
-        $user = User::find($id);
-        $input = $request->all();
-      
-        $user->update($input);
+        
+        $user = User::find($user_id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        $oldLobId = $user->lob_id;
+
+        // Update user with only allowed fields
+        $user->update($request->only([
+            'name', 'email', 'phone', 'lob_id', 'designation', 'level', 
+            'doj', 'gender', 'sub_lob', 'college_name', 'location', 
+            'specialization', 'college_location', 'offer_release_spoc', 
+            'trf', 'qualification', 'college_tier','joiner_status'
+        ]));
+
+        $newLobId = $user->lob_id;
+
+        if ($newLobId != $oldLobId) {
+            $activeCourseIds = Course::whereRaw("FIND_IN_SET(?, lob_id) > 0", [$newLobId])
+            ->where('status', 1)
+            ->pluck('id')
+            ->toArray();
+
+            $mappedCourseIds = Coursemap::where('user_id', $user_id)
+            ->pluck('course_id')
+            ->toArray();
+
+            $courseIdsToRemove = array_diff($mappedCourseIds, $activeCourseIds);
+            if($courseIdsToRemove){
+            Coursemap::where('user_id', $user_id)
+                 ->whereIn('course_id', $courseIdsToRemove)
+                 ->update(['status' => 0]);
+            }
+        }
 
         return redirect()->back()->with('success','update successfully');
     }

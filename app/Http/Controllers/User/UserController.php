@@ -131,7 +131,8 @@ class UserController extends Controller
             }
         }
 
-        $myCourses = Coursemap::where('user_id', $user_id)->with('course')->get(); 
+        $myCourses = Coursemap::where('user_id', $user_id)->where('status', 1)->with('course')->get(); 
+        // dd($myCourses);
         $cat_ids=array();
         $course_completed_status=array();
         if($myCourses){
@@ -170,7 +171,7 @@ class UserController extends Controller
 
         // Get categories with the count of enrolled courses for the user
         $categories = Category::with(['courses.courseMaps' => function ($query) use ($user) {
-            $query->where('user_id', $user->id); // Filter enrollments by user ID
+            $query->where('user_id', $user->id)->where('status', 1); // Filter enrollments by user ID
         }])->get();
 
         // Prepare data for view
@@ -198,7 +199,7 @@ class UserController extends Controller
         $user_id=  Auth::guard('web')->user()->id;
 
 
-        $myCourses = Coursemap::where('user_id', $user_id)
+        $myCourses = Coursemap::where('user_id', $user_id)->where('status', 1)
             ->whereHas('course', function ($query) use ($category_id) {
                 $query->where('category_id', $category_id);
             })->with('course') ->get();
@@ -270,7 +271,7 @@ class UserController extends Controller
            $this->pdfReadStatusUpdate($course_id,$module_id);
         }
 
-        $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->with('course')->first();
+        $details = Coursemap::where('user_id', $user_id)->where('course_id', $course_id)->where('status', 1)->with('course')->first();
 
         if($details && $lesson){
             $is_read_docs = explode(",",$details->is_read_docs);
@@ -279,6 +280,7 @@ class UserController extends Controller
             foreach ($modules as $key => $module) {
                 $module->video_unlocked =false;
                 $module->document_unlocked =false;
+              
                 if ($key == 0) {
                     // Always unlock the first lesson
                     $module->video_unlocked = true;
@@ -291,7 +293,29 @@ class UserController extends Controller
                     // }
                 } else {
                     
-                    if(in_array($modules[$key - 1]->id, $is_read_video)){
+                    $read_video = false;
+                    $read_docs = false;  
+                    if($modules[$key - 1]->video !='' && $modules[$key - 1]->document !=''){
+                        if(in_array($modules[$key - 1]->id, $is_read_video)){
+                            $read_video = true;  
+                        }
+                        if(in_array($modules[$key - 1]->id, $is_read_docs)){
+                            $read_docs = true;  
+                        }
+                    }elseif($modules[$key - 1]->video !=''){
+                        if(in_array($modules[$key - 1]->id, $is_read_video)){
+                            $read_video = true; 
+                            $read_docs = true;   
+                        }
+                    }elseif($modules[$key - 1]->document !=''){
+                        if(in_array($modules[$key - 1]->id, $is_read_docs)){
+                            $read_docs = true; 
+                            $read_video = true;  
+                        }
+                    }
+                   
+
+                    if($read_video && $read_docs){
                         if($module->video !=''){
                             $module->video_unlocked = true;
                             if(in_array($module->id, $is_read_video)){
@@ -301,7 +325,7 @@ class UserController extends Controller
                             $module->document_unlocked =true;
                         }
                     }
-                    if(in_array($modules[$key - 1]->id, $is_read_docs)){
+                    if($read_docs && $read_video){
                         if($module->video !=''){
                             $module->video_unlocked = true;
                             if(in_array($module->id, $is_read_video)){
@@ -311,6 +335,7 @@ class UserController extends Controller
                             $module->document_unlocked =true;
                         }
                     }
+
                 }
                 if($module_id!=''){
                     if($module_id == $module->id){
@@ -318,6 +343,8 @@ class UserController extends Controller
                             return redirect()->back()->with('error', 'not found');   
                         }   
                     }
+                }else{
+                    $module_id = $module->id;
                 }
             }
 
